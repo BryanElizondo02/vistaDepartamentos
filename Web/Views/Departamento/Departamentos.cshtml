@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Infraestructure.Models.DEPARTAMENTO>
+
+@{
+    ViewBag.Title = "Departamentos";
+    
+}
+
+<h2>Departamentos</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+    
+
+</p>
+<table class="table table-bordered" align="center">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdUbicacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tarifa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Imagen)
+        </th>
+
+        <th>
+            Acciones
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdUbicacion)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.Tarifa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+
+                <img src="@Html.DisplayFor(modelItem => item.Imagen)" width="150px" class="m-0" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id })<br />
+                @Html.ActionLink("Details", "Details", new { id = item.Id })<br />
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+
+        <br />
+        <br />
+        <div class="container m-0">
+            <!-- Products Section -->
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="page-header">Latest Products</h2>
+                </div>
+                <!-- Featured Products -->
+
+                <div class="col-md-3 col-6">
+
+                    <img src="@Html.DisplayFor(modelItem => item.Imagen)" width="350px" class="m-0" />
+
+                    <div class="caption">
+                        <h3><a href="">@Html.DisplayFor(modelItem => item.Nombre)</a></h3>
+                        <div class="price-mob">
+                            @Html.DisplayFor(modelItem => item.Tarifa)
+                        </div>
+                        <div class="clearfix"></div>
+                        <p class="d-none d-md-block">
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </p>
+                    </div>
+
+                </div>
+
+            </div><!-- /.row -->
+
+
+        </div>
+    }
+
+</table>

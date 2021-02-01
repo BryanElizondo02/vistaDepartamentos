@@ -47,6 +47,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,16 +58,85 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\DEPARTAMENTO.cs">
+      <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DEPARTAMENTODETALLE.cs">
+      <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EXTRA.cs">
+      <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MyContext.cs" />
+    <Compile Include="Models\MyvistaDepartamentosDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyvistaDepartamentosDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MyvistaDepartamentosDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MyvistaDepartamentosDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyvistaDepartamentosDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RESERVA.cs">
+      <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RESERVADETALLE.cs">
+      <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ROL.cs">
+      <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SERVICIODETALLE.cs">
+      <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SERVICIOS.cs">
+      <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TIPOPAGO.cs">
+      <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UBICACION.cs">
+      <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\USUARIO.cs">
+      <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IRepositoryDepartamento.cs" />
+    <Compile Include="Repository\RepositoryDepartamento.cs" />
     <Compile Include="Utils\Log.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Repository\" />
+    <Content Include="Models\MyvistaDepartamentosDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyvistaDepartamentosDB.edmx</DependentUpon>
+      <LastGenOutput>MyvistaDepartamentosDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MyvistaDepartamentosDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyvistaDepartamentosDB.edmx</DependentUpon>
+      <LastGenOutput>MyvistaDepartamentosDB.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="Models\MyvistaDepartamentosDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MyvistaDepartamentosDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\MyvistaDepartamentosDB.edmx.diagram">
+      <DependentUpon>MyvistaDepartamentosDB.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

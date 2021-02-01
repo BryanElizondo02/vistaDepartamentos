@@ -1,12 +1,16 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
+    <meta name="author" content="Bryan Elizondo Mora" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <title>@ViewBag.Title - RS-Departments</title>
+    @Styles.Render("~/Content/main.css");
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -17,13 +21,53 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Nombre de la aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("RS - DEPARTMENTS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+                    <li>
+                        <a href="@Url.Action("Index", "Home", null)">
+                            Inicio
+                            <i class="fas fa-home awsomeNav"></i>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="@Url.Action("Departamentos", "Departamento", null)">
+                            Departamentos
+                            <i class="far fa-building awsomeNav"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("About", "Home", null)">
+                            Servicios
+                            <i class="fas fa-hand-holding-water awsomeNav"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Contact", "Home", null)">
+                            Reservas
+                            <i class="fas fa-hands-helping awsomeNav"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Contact", "Home", null)">
+                            Pagos
+                            <i class="far fa-credit-card awsomeNav"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Contact", "Home", null)">
+                            Informes
+                            <i class="far fa-clipboard awsomeNav"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Contact", "Home", null)">
+                            Usuarios
+                            <i class="fas fa-users awsomeNav"></i>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
         </div>
@@ -31,13 +75,15 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+        <footer class="fixed-bottom bg-dark p-1 text-center">
+            <p class="m-0">&copy; @DateTime.Now.Year - SR-Departments</p><br />
+            <p class="m-0">Diseño por Bryan Elizondo</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
 </body>
 </html>

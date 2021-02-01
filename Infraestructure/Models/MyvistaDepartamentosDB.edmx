@@ -1,0 +1,747 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="vistaDepartamentosDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DEPARTAMENTO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdUbicacion" Type="int" />
+          <Property Name="Tarifa" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Estado" Type="bit" />
+          <Property Name="Imagen" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="DEPARTAMENTODETALLE">
+          <Key>
+            <PropertyRef Name="IdDepartamento" />
+            <PropertyRef Name="IdExtra" />
+          </Key>
+          <Property Name="IdDepartamento" Type="int" Nullable="false" />
+          <Property Name="IdExtra" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="EXTRA">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RESERVA">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" />
+          <Property Name="IdDepartamento" Type="int" />
+          <Property Name="FechaReserva" Type="datetime" />
+          <Property Name="FechaFinReserva" Type="datetime" />
+          <Property Name="CantPersonas" Type="int" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="RESERVADETALLE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdReserva" Type="int" />
+          <Property Name="IdTipoPago" Type="int" />
+          <Property Name="NumeroTarjeta" Type="nvarchar" MaxLength="20" />
+          <Property Name="SubTotal" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="SubTotalServicio" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Impuesto" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Total" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SERVICIODETALLE">
+          <Key>
+            <PropertyRef Name="IdDepartamento" />
+            <PropertyRef Name="IdServicio" />
+          </Key>
+          <Property Name="IdDepartamento" Type="int" Nullable="false" />
+          <Property Name="IdServicio" Type="int" Nullable="false" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="SERVICIOS">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+          <Property Name="Precio" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="TIPOPAGO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="UBICACION">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="Apellido1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Apellido2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Correo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefono" Type="nvarchar" MaxLength="20" />
+          <Property Name="Sexo" Type="char" MaxLength="1" />
+          <Property Name="FechaNacimiento" Type="datetime" />
+          <Property Name="Clave" Type="nvarchar" MaxLength="20" />
+          <Property Name="IdRol" Type="int" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <Association Name="FK_DEPARTAMENTO_UBICACION">
+          <End Role="UBICACION" Type="Self.UBICACION" Multiplicity="0..1" />
+          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UBICACION">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DEPARTAMENTO">
+              <PropertyRef Name="IdUbicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DEPARTAMENTODETALLE_DEPARTAMENTO">
+          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
+          <End Role="DEPARTAMENTODETALLE" Type="Self.DEPARTAMENTODETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPARTAMENTO">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DEPARTAMENTODETALLE">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DEPARTAMENTODETALLE_EXTRA">
+          <End Role="EXTRA" Type="Self.EXTRA" Multiplicity="1" />
+          <End Role="DEPARTAMENTODETALLE" Type="Self.DEPARTAMENTODETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EXTRA">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DEPARTAMENTODETALLE">
+              <PropertyRef Name="IdExtra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESERVA_DEPARTAMENTO">
+          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="0..1" />
+          <End Role="RESERVA" Type="Self.RESERVA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPARTAMENTO">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RESERVA">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESERVA_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="RESERVA" Type="Self.RESERVA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RESERVA">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESERVADETALLE_RESERVA">
+          <End Role="RESERVA" Type="Self.RESERVA" Multiplicity="0..1" />
+          <End Role="RESERVADETALLE" Type="Self.RESERVADETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESERVA">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RESERVADETALLE">
+              <PropertyRef Name="IdReserva" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESERVADETALLE_TIPOPAGO">
+          <End Role="TIPOPAGO" Type="Self.TIPOPAGO" Multiplicity="0..1" />
+          <End Role="RESERVADETALLE" Type="Self.RESERVADETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPOPAGO">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RESERVADETALLE">
+              <PropertyRef Name="IdTipoPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SERVICIODETALLE_DEPARTAMENTO">
+          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
+          <End Role="SERVICIODETALLE" Type="Self.SERVICIODETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPARTAMENTO">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SERVICIODETALLE">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SERVICIODETALLE_SERVICIOS">
+          <End Role="SERVICIOS" Type="Self.SERVICIOS" Multiplicity="1" />
+          <End Role="SERVICIODETALLE" Type="Self.SERVICIODETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SERVICIOS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SERVICIODETALLE">
+              <PropertyRef Name="IdServicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="USUARIO">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="vistaDepartamentosDBModelStoreContainer">
+          <EntitySet Name="DEPARTAMENTO" EntityType="Self.DEPARTAMENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DEPARTAMENTODETALLE" EntityType="Self.DEPARTAMENTODETALLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EXTRA" EntityType="Self.EXTRA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RESERVA" EntityType="Self.RESERVA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RESERVADETALLE" EntityType="Self.RESERVADETALLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SERVICIODETALLE" EntityType="Self.SERVICIODETALLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SERVICIOS" EntityType="Self.SERVICIOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPOPAGO" EntityType="Self.TIPOPAGO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UBICACION" EntityType="Self.UBICACION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DEPARTAMENTO_UBICACION" Association="Self.FK_DEPARTAMENTO_UBICACION">
+            <End Role="UBICACION" EntitySet="UBICACION" />
+            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DEPARTAMENTODETALLE_DEPARTAMENTO" Association="Self.FK_DEPARTAMENTODETALLE_DEPARTAMENTO">
+            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
+            <End Role="DEPARTAMENTODETALLE" EntitySet="DEPARTAMENTODETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DEPARTAMENTODETALLE_EXTRA" Association="Self.FK_DEPARTAMENTODETALLE_EXTRA">
+            <End Role="EXTRA" EntitySet="EXTRA" />
+            <End Role="DEPARTAMENTODETALLE" EntitySet="DEPARTAMENTODETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESERVA_DEPARTAMENTO" Association="Self.FK_RESERVA_DEPARTAMENTO">
+            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
+            <End Role="RESERVA" EntitySet="RESERVA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESERVA_USUARIO" Association="Self.FK_RESERVA_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="RESERVA" EntitySet="RESERVA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESERVADETALLE_RESERVA" Association="Self.FK_RESERVADETALLE_RESERVA">
+            <End Role="RESERVA" EntitySet="RESERVA" />
+            <End Role="RESERVADETALLE" EntitySet="RESERVADETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESERVADETALLE_TIPOPAGO" Association="Self.FK_RESERVADETALLE_TIPOPAGO">
+            <End Role="TIPOPAGO" EntitySet="TIPOPAGO" />
+            <End Role="RESERVADETALLE" EntitySet="RESERVADETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SERVICIODETALLE_DEPARTAMENTO" Association="Self.FK_SERVICIODETALLE_DEPARTAMENTO">
+            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
+            <End Role="SERVICIODETALLE" EntitySet="SERVICIODETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SERVICIODETALLE_SERVICIOS" Association="Self.FK_SERVICIODETALLE_SERVICIOS">
+            <End Role="SERVICIOS" EntitySet="SERVICIOS" />
+            <End Role="SERVICIODETALLE" EntitySet="SERVICIODETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO_ROL" Association="Self.FK_USUARIO_ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="vistaDepartamentosDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DEPARTAMENTO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdUbicacion" Type="Int32" />
+          <Property Name="Tarifa" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Estado" Type="Boolean" />
+          <Property Name="Imagen" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UBICACION" Relationship="Self.FK_DEPARTAMENTO_UBICACION" FromRole="DEPARTAMENTO" ToRole="UBICACION" />
+          <NavigationProperty Name="DEPARTAMENTODETALLE" Relationship="Self.FK_DEPARTAMENTODETALLE_DEPARTAMENTO" FromRole="DEPARTAMENTO" ToRole="DEPARTAMENTODETALLE" />
+          <NavigationProperty Name="RESERVA" Relationship="Self.FK_RESERVA_DEPARTAMENTO" FromRole="DEPARTAMENTO" ToRole="RESERVA" />
+          <NavigationProperty Name="SERVICIODETALLE" Relationship="Self.FK_SERVICIODETALLE_DEPARTAMENTO" FromRole="DEPARTAMENTO" ToRole="SERVICIODETALLE" />
+        </EntityType>
+        <EntityType Name="DEPARTAMENTODETALLE">
+          <Key>
+            <PropertyRef Name="IdDepartamento" />
+            <PropertyRef Name="IdExtra" />
+          </Key>
+          <Property Name="IdDepartamento" Type="Int32" Nullable="false" />
+          <Property Name="IdExtra" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="DEPARTAMENTO" Relationship="Self.FK_DEPARTAMENTODETALLE_DEPARTAMENTO" FromRole="DEPARTAMENTODETALLE" ToRole="DEPARTAMENTO" />
+          <NavigationProperty Name="EXTRA" Relationship="Self.FK_DEPARTAMENTODETALLE_EXTRA" FromRole="DEPARTAMENTODETALLE" ToRole="EXTRA" />
+        </EntityType>
+        <EntityType Name="EXTRA">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DEPARTAMENTODETALLE" Relationship="Self.FK_DEPARTAMENTODETALLE_EXTRA" FromRole="EXTRA" ToRole="DEPARTAMENTODETALLE" />
+        </EntityType>
+        <EntityType Name="RESERVA">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="IdDepartamento" Type="Int32" />
+          <Property Name="FechaReserva" Type="DateTime" Precision="3" />
+          <Property Name="FechaFinReserva" Type="DateTime" Precision="3" />
+          <Property Name="CantPersonas" Type="Int32" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="DEPARTAMENTO" Relationship="Self.FK_RESERVA_DEPARTAMENTO" FromRole="RESERVA" ToRole="DEPARTAMENTO" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_RESERVA_USUARIO" FromRole="RESERVA" ToRole="USUARIO" />
+          <NavigationProperty Name="RESERVADETALLE" Relationship="Self.FK_RESERVADETALLE_RESERVA" FromRole="RESERVA" ToRole="RESERVADETALLE" />
+        </EntityType>
+        <EntityType Name="RESERVADETALLE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdReserva" Type="Int32" />
+          <Property Name="IdTipoPago" Type="Int32" />
+          <Property Name="NumeroTarjeta" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SubTotal" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SubTotalServicio" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Impuesto" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="RESERVA" Relationship="Self.FK_RESERVADETALLE_RESERVA" FromRole="RESERVADETALLE" ToRole="RESERVA" />
+          <NavigationProperty Name="TIPOPAGO" Relationship="Self.FK_RESERVADETALLE_TIPOPAGO" FromRole="RESERVADETALLE" ToRole="TIPOPAGO" />
+        </EntityType>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_ROL" FromRole="ROL" ToRole="USUARIO" />
+        </EntityType>
+        <EntityType Name="SERVICIODETALLE">
+          <Key>
+            <PropertyRef Name="IdDepartamento" />
+            <PropertyRef Name="IdServicio" />
+          </Key>
+          <Property Name="IdDepartamento" Type="Int32" Nullable="false" />
+          <Property Name="IdServicio" Type="Int32" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="DEPARTAMENTO" Relationship="Self.FK_SERVICIODETALLE_DEPARTAMENTO" FromRole="SERVICIODETALLE" ToRole="DEPARTAMENTO" />
+          <NavigationProperty Name="SERVICIOS" Relationship="Self.FK_SERVICIODETALLE_SERVICIOS" FromRole="SERVICIODETALLE" ToRole="SERVICIOS" />
+        </EntityType>
+        <EntityType Name="SERVICIOS">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Precio" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="SERVICIODETALLE" Relationship="Self.FK_SERVICIODETALLE_SERVICIOS" FromRole="SERVICIOS" ToRole="SERVICIODETALLE" />
+        </EntityType>
+        <EntityType Name="TIPOPAGO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="RESERVADETALLE" Relationship="Self.FK_RESERVADETALLE_TIPOPAGO" FromRole="TIPOPAGO" ToRole="RESERVADETALLE" />
+        </EntityType>
+        <EntityType Name="UBICACION">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="DEPARTAMENTO" Relationship="Self.FK_DEPARTAMENTO_UBICACION" FromRole="UBICACION" ToRole="DEPARTAMENTO" />
+        </EntityType>
+        <EntityType Name="USUARIO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Apellido2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Sexo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Precision="3" />
+          <Property Name="Clave" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IdRol" Type="Int32" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="RESERVA" Relationship="Self.FK_RESERVA_USUARIO" FromRole="USUARIO" ToRole="RESERVA" />
+          <NavigationProperty Name="ROL" Relationship="Self.FK_USUARIO_ROL" FromRole="USUARIO" ToRole="ROL" />
+        </EntityType>
+        <Association Name="FK_DEPARTAMENTO_UBICACION">
+          <End Role="UBICACION" Type="Self.UBICACION" Multiplicity="0..1" />
+          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UBICACION">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DEPARTAMENTO">
+              <PropertyRef Name="IdUbicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DEPARTAMENTODETALLE_DEPARTAMENTO">
+          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
+          <End Role="DEPARTAMENTODETALLE" Type="Self.DEPARTAMENTODETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPARTAMENTO">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DEPARTAMENTODETALLE">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESERVA_DEPARTAMENTO">
+          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="0..1" />
+          <End Role="RESERVA" Type="Self.RESERVA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPARTAMENTO">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RESERVA">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SERVICIODETALLE_DEPARTAMENTO">
+          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
+          <End Role="SERVICIODETALLE" Type="Self.SERVICIODETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPARTAMENTO">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SERVICIODETALLE">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DEPARTAMENTODETALLE_EXTRA">
+          <End Role="EXTRA" Type="Self.EXTRA" Multiplicity="1" />
+          <End Role="DEPARTAMENTODETALLE" Type="Self.DEPARTAMENTODETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EXTRA">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DEPARTAMENTODETALLE">
+              <PropertyRef Name="IdExtra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESERVA_USUARIO">
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+          <End Role="RESERVA" Type="Self.RESERVA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RESERVA">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESERVADETALLE_RESERVA">
+          <End Role="RESERVA" Type="Self.RESERVA" Multiplicity="0..1" />
+          <End Role="RESERVADETALLE" Type="Self.RESERVADETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RESERVA">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RESERVADETALLE">
+              <PropertyRef Name="IdReserva" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESERVADETALLE_TIPOPAGO">
+          <End Role="TIPOPAGO" Type="Self.TIPOPAGO" Multiplicity="0..1" />
+          <End Role="RESERVADETALLE" Type="Self.RESERVADETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPOPAGO">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RESERVADETALLE">
+              <PropertyRef Name="IdTipoPago" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+          <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="USUARIO">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SERVICIODETALLE_SERVICIOS">
+          <End Role="SERVICIOS" Type="Self.SERVICIOS" Multiplicity="1" />
+          <End Role="SERVICIODETALLE" Type="Self.SERVICIODETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SERVICIOS">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SERVICIODETALLE">
+              <PropertyRef Name="IdServicio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="vistaDepartamentosDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DEPARTAMENTO" EntityType="Self.DEPARTAMENTO" />
+          <EntitySet Name="DEPARTAMENTODETALLE" EntityType="Self.DEPARTAMENTODETALLE" />
+          <EntitySet Name="EXTRA" EntityType="Self.EXTRA" />
+          <EntitySet Name="RESERVA" EntityType="Self.RESERVA" />
+          <EntitySet Name="RESERVADETALLE" EntityType="Self.RESERVADETALLE" />
+          <EntitySet Name="ROL" EntityType="Self.ROL" />
+          <EntitySet Name="SERVICIODETALLE" EntityType="Self.SERVICIODETALLE" />
+          <EntitySet Name="SERVICIOS" EntityType="Self.SERVICIOS" />
+          <EntitySet Name="TIPOPAGO" EntityType="Self.TIPOPAGO" />
+          <EntitySet Name="UBICACION" EntityType="Self.UBICACION" />
+          <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+          <AssociationSet Name="FK_DEPARTAMENTO_UBICACION" Association="Self.FK_DEPARTAMENTO_UBICACION">
+            <End Role="UBICACION" EntitySet="UBICACION" />
+            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DEPARTAMENTODETALLE_DEPARTAMENTO" Association="Self.FK_DEPARTAMENTODETALLE_DEPARTAMENTO">
+            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
+            <End Role="DEPARTAMENTODETALLE" EntitySet="DEPARTAMENTODETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESERVA_DEPARTAMENTO" Association="Self.FK_RESERVA_DEPARTAMENTO">
+            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
+            <End Role="RESERVA" EntitySet="RESERVA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SERVICIODETALLE_DEPARTAMENTO" Association="Self.FK_SERVICIODETALLE_DEPARTAMENTO">
+            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
+            <End Role="SERVICIODETALLE" EntitySet="SERVICIODETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DEPARTAMENTODETALLE_EXTRA" Association="Self.FK_DEPARTAMENTODETALLE_EXTRA">
+            <End Role="EXTRA" EntitySet="EXTRA" />
+            <End Role="DEPARTAMENTODETALLE" EntitySet="DEPARTAMENTODETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESERVA_USUARIO" Association="Self.FK_RESERVA_USUARIO">
+            <End Role="USUARIO" EntitySet="USUARIO" />
+            <End Role="RESERVA" EntitySet="RESERVA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESERVADETALLE_RESERVA" Association="Self.FK_RESERVADETALLE_RESERVA">
+            <End Role="RESERVA" EntitySet="RESERVA" />
+            <End Role="RESERVADETALLE" EntitySet="RESERVADETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESERVADETALLE_TIPOPAGO" Association="Self.FK_RESERVADETALLE_TIPOPAGO">
+            <End Role="TIPOPAGO" EntitySet="TIPOPAGO" />
+            <End Role="RESERVADETALLE" EntitySet="RESERVADETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO_ROL" Association="Self.FK_USUARIO_ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="USUARIO" EntitySet="USUARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SERVICIODETALLE_SERVICIOS" Association="Self.FK_SERVICIODETALLE_SERVICIOS">
+            <End Role="SERVICIOS" EntitySet="SERVICIOS" />
+            <End Role="SERVICIODETALLE" EntitySet="SERVICIODETALLE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="vistaDepartamentosDBModelStoreContainer" CdmEntityContainer="vistaDepartamentosDBEntities">
+          <EntitySetMapping Name="DEPARTAMENTO">
+            <EntityTypeMapping TypeName="vistaDepartamentosDBModel.DEPARTAMENTO">
+              <MappingFragment StoreEntitySet="DEPARTAMENTO">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdUbicacion" ColumnName="IdUbicacion" />
+                <ScalarProperty Name="Tarifa" ColumnName="Tarifa" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DEPARTAMENTODETALLE">
+            <EntityTypeMapping TypeName="vistaDepartamentosDBModel.DEPARTAMENTODETALLE">
+              <MappingFragment StoreEntitySet="DEPARTAMENTODETALLE">
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="IdExtra" ColumnName="IdExtra" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EXTRA">
+            <EntityTypeMapping TypeName="vistaDepartamentosDBModel.EXTRA">
+              <MappingFragment StoreEntitySet="EXTRA">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RESERVA">
+            <EntityTypeMapping TypeName="vistaDepartamentosDBModel.RESERVA">
+              <MappingFragment StoreEntitySet="RESERVA">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="FechaReserva" ColumnName="FechaReserva" />
+                <ScalarProperty Name="FechaFinReserva" ColumnName="FechaFinReserva" />
+                <ScalarProperty Name="CantPersonas" ColumnName="CantPersonas" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RESERVADETALLE">
+            <EntityTypeMapping TypeName="vistaDepartamentosDBModel.RESERVADETALLE">
+              <MappingFragment StoreEntitySet="RESERVADETALLE">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdReserva" ColumnName="IdReserva" />
+                <ScalarProperty Name="IdTipoPago" ColumnName="IdTipoPago" />
+                <ScalarProperty Name="NumeroTarjeta" ColumnName="NumeroTarjeta" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="SubTotalServicio" ColumnName="SubTotalServicio" />
+                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROL">
+            <EntityTypeMapping TypeName="vistaDepartamentosDBModel.ROL">
+              <MappingFragment StoreEntitySet="ROL">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SERVICIODETALLE">
+            <EntityTypeMapping TypeName="vistaDepartamentosDBModel.SERVICIODETALLE">
+              <MappingFragment StoreEntitySet="SERVICIODETALLE">
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SERVICIOS">
+            <EntityTypeMapping TypeName="vistaDepartamentosDBModel.SERVICIOS">
+              <MappingFragment StoreEntitySet="SERVICIOS">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPOPAGO">
+            <EntityTypeMapping TypeName="vistaDepartamentosDBModel.TIPOPAGO">
+              <MappingFragment StoreEntitySet="TIPOPAGO">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UBICACION">
+            <EntityTypeMapping TypeName="vistaDepartamentosDBModel.UBICACION">
+              <MappingFragment StoreEntitySet="UBICACION">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIO">
+            <EntityTypeMapping TypeName="vistaDepartamentosDBModel.USUARIO">
+              <MappingFragment StoreEntitySet="USUARIO">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido1" ColumnName="Apellido1" />
+                <ScalarProperty Name="Apellido2" ColumnName="Apellido2" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
