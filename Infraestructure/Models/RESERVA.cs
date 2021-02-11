@@ -25,7 +25,6 @@ namespace Infraestructure.Models
         public Nullable<int> IdDepartamento { get; set; }
         public Nullable<System.DateTime> FechaReserva { get; set; }
         public Nullable<System.DateTime> FechaFinReserva { get; set; }
-        public Nullable<int> CantPersonas { get; set; }
         public Nullable<bool> Estado { get; set; }
     
         public virtual DEPARTAMENTO DEPARTAMENTO { get; set; }

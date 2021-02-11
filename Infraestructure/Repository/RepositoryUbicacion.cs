@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Infraestructure.Models;
 
 namespace Infraestructure.Repository
 {
-    public class RepositoryDepartamento : IRepositoryDepartamento
+    public class RepositoryUbicacion : IRepositoryUbicacion
     {
-        public void DeleteDEPARTAMENTO(bool estado)
+        public void DeleteUbicacion(bool estado)
         {
             int returno;
             try
@@ -20,12 +22,12 @@ namespace Infraestructure.Repository
                     /* La carga diferida retrasa la carga de datos relacionados,
                      * hasta que lo solicite específicamente.*/
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    DEPARTAMENTO oDepartamento = new DEPARTAMENTO()
+                    UBICACION oUbicacion = new UBICACION()
                     {
                         Estado = estado
 
                     };
-                    ctx.Entry(oDepartamento).State = EntityState.Modified;
+                    ctx.Entry(oUbicacion).State = EntityState.Modified;
                     returno = ctx.SaveChanges();
                 }
             }
@@ -43,19 +45,19 @@ namespace Infraestructure.Repository
             }
         }
 
-        public DEPARTAMENTO GetDepartamentoByID(int id)
+        public UBICACION GetUbicacionByID(int id)
         {
-            DEPARTAMENTO oDepartamento = null;
+            UBICACION oUbicacion = null;
             try
             {
 
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    oDepartamento = ctx.DEPARTAMENTO.Find(id);
+                    oUbicacion = ctx.UBICACION.Find(id);
                 }
 
-                return oDepartamento;
+                return oUbicacion;
             }
             catch (DbUpdateException dbEx)
             {
@@ -71,15 +73,15 @@ namespace Infraestructure.Repository
             }
         }
 
-        public IEnumerable<DEPARTAMENTO> GetDepartamentos()
+        public IEnumerable<UBICACION> GetUbicaciones()
         {
             try
             {
-                IEnumerable<DEPARTAMENTO> lista = null;
+                IEnumerable<UBICACION> lista = null;
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    lista = ctx.DEPARTAMENTO.ToList<DEPARTAMENTO>();
+                    lista = ctx.UBICACION.ToList<UBICACION>();
                 }
                 return lista;
             }
@@ -97,10 +99,10 @@ namespace Infraestructure.Repository
             }
         }
 
-        public DEPARTAMENTO Save(DEPARTAMENTO depart)
+        public UBICACION Save(UBICACION ubic)
         {
             int retorno = 0;
-            DEPARTAMENTO oDepartamento = null;
+            UBICACION oUbicacion = null;
             try
             {
 
@@ -108,22 +110,22 @@ namespace Infraestructure.Repository
                 {
 
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    oDepartamento = GetDepartamentoByID(depart.Id);
-                    if (oDepartamento == null)
+                    oUbicacion = GetUbicacionByID(ubic.Id);
+                    if (oUbicacion == null)
                     {
-                        ctx.DEPARTAMENTO.Add(depart);
+                        ctx.UBICACION.Add(ubic);
                     }
                     else
                     {
-                        ctx.Entry(depart).State = EntityState.Modified;
+                        ctx.Entry(ubic).State = EntityState.Modified;
                     }
                     retorno = ctx.SaveChanges();
                 }
 
                 if (retorno >= 0)
-                    oDepartamento = GetDepartamentoByID(depart.Id);
+                    oUbicacion = GetUbicacionByID(ubic.Id);
 
-                return oDepartamento;
+                return oUbicacion;
             }
             catch (DbUpdateException dbEx)
             {

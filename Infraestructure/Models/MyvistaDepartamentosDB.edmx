@@ -11,7 +11,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
-          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="500" />
           <Property Name="IdUbicacion" Type="int" />
           <Property Name="Tarifa" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Estado" Type="bit" />
@@ -42,7 +42,6 @@
           <Property Name="IdDepartamento" Type="int" />
           <Property Name="FechaReserva" Type="datetime" />
           <Property Name="FechaFinReserva" Type="datetime" />
-          <Property Name="CantPersonas" Type="int" />
           <Property Name="Estado" Type="bit" />
         </EntityType>
         <EntityType Name="RESERVADETALLE">
@@ -51,8 +50,10 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdReserva" Type="int" />
+          <Property Name="IdServicioDetalle" Type="int" />
           <Property Name="IdTipoPago" Type="int" />
           <Property Name="NumeroTarjeta" Type="nvarchar" MaxLength="20" />
+          <Property Name="CantPersonas" Type="int" />
           <Property Name="SubTotal" Type="numeric" Precision="18" Scale="0" />
           <Property Name="SubTotalServicio" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Impuesto" Type="numeric" Precision="18" Scale="0" />
@@ -67,12 +68,10 @@
         </EntityType>
         <EntityType Name="SERVICIODETALLE">
           <Key>
-            <PropertyRef Name="IdDepartamento" />
-            <PropertyRef Name="IdServicio" />
+            <PropertyRef Name="Secuencia" />
           </Key>
-          <Property Name="IdDepartamento" Type="int" Nullable="false" />
-          <Property Name="IdServicio" Type="int" Nullable="false" />
-          <Property Name="Estado" Type="bit" />
+          <Property Name="IdServicio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Secuencia" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SERVICIOS">
           <Key>
@@ -82,6 +81,7 @@
           <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="50" />
           <Property Name="Precio" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Estado" Type="bit" />
         </EntityType>
         <EntityType Name="TIPOPAGO">
           <Key>
@@ -187,6 +187,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RESERVADETALLE_SERVICIODETALLE">
+          <End Role="SERVICIODETALLE" Type="Self.SERVICIODETALLE" Multiplicity="0..1" />
+          <End Role="RESERVADETALLE" Type="Self.RESERVADETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SERVICIODETALLE">
+              <PropertyRef Name="Secuencia" />
+            </Principal>
+            <Dependent Role="RESERVADETALLE">
+              <PropertyRef Name="IdServicioDetalle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RESERVADETALLE_TIPOPAGO">
           <End Role="TIPOPAGO" Type="Self.TIPOPAGO" Multiplicity="0..1" />
           <End Role="RESERVADETALLE" Type="Self.RESERVADETALLE" Multiplicity="*" />
@@ -196,18 +208,6 @@
             </Principal>
             <Dependent Role="RESERVADETALLE">
               <PropertyRef Name="IdTipoPago" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SERVICIODETALLE_DEPARTAMENTO">
-          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
-          <End Role="SERVICIODETALLE" Type="Self.SERVICIODETALLE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DEPARTAMENTO">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SERVICIODETALLE">
-              <PropertyRef Name="IdDepartamento" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -271,13 +271,13 @@
             <End Role="RESERVA" EntitySet="RESERVA" />
             <End Role="RESERVADETALLE" EntitySet="RESERVADETALLE" />
           </AssociationSet>
+          <AssociationSet Name="FK_RESERVADETALLE_SERVICIODETALLE" Association="Self.FK_RESERVADETALLE_SERVICIODETALLE">
+            <End Role="SERVICIODETALLE" EntitySet="SERVICIODETALLE" />
+            <End Role="RESERVADETALLE" EntitySet="RESERVADETALLE" />
+          </AssociationSet>
           <AssociationSet Name="FK_RESERVADETALLE_TIPOPAGO" Association="Self.FK_RESERVADETALLE_TIPOPAGO">
             <End Role="TIPOPAGO" EntitySet="TIPOPAGO" />
             <End Role="RESERVADETALLE" EntitySet="RESERVADETALLE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SERVICIODETALLE_DEPARTAMENTO" Association="Self.FK_SERVICIODETALLE_DEPARTAMENTO">
-            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
-            <End Role="SERVICIODETALLE" EntitySet="SERVICIODETALLE" />
           </AssociationSet>
           <AssociationSet Name="FK_SERVICIODETALLE_SERVICIOS" Association="Self.FK_SERVICIODETALLE_SERVICIOS">
             <End Role="SERVICIOS" EntitySet="SERVICIOS" />
@@ -299,7 +299,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="IdUbicacion" Type="Int32" />
           <Property Name="Tarifa" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Estado" Type="Boolean" />
@@ -307,7 +307,6 @@
           <NavigationProperty Name="UBICACION" Relationship="Self.FK_DEPARTAMENTO_UBICACION" FromRole="DEPARTAMENTO" ToRole="UBICACION" />
           <NavigationProperty Name="DEPARTAMENTODETALLE" Relationship="Self.FK_DEPARTAMENTODETALLE_DEPARTAMENTO" FromRole="DEPARTAMENTO" ToRole="DEPARTAMENTODETALLE" />
           <NavigationProperty Name="RESERVA" Relationship="Self.FK_RESERVA_DEPARTAMENTO" FromRole="DEPARTAMENTO" ToRole="RESERVA" />
-          <NavigationProperty Name="SERVICIODETALLE" Relationship="Self.FK_SERVICIODETALLE_DEPARTAMENTO" FromRole="DEPARTAMENTO" ToRole="SERVICIODETALLE" />
         </EntityType>
         <EntityType Name="DEPARTAMENTODETALLE">
           <Key>
@@ -337,7 +336,6 @@
           <Property Name="IdDepartamento" Type="Int32" />
           <Property Name="FechaReserva" Type="DateTime" Precision="3" />
           <Property Name="FechaFinReserva" Type="DateTime" Precision="3" />
-          <Property Name="CantPersonas" Type="Int32" />
           <Property Name="Estado" Type="Boolean" />
           <NavigationProperty Name="DEPARTAMENTO" Relationship="Self.FK_RESERVA_DEPARTAMENTO" FromRole="RESERVA" ToRole="DEPARTAMENTO" />
           <NavigationProperty Name="USUARIO" Relationship="Self.FK_RESERVA_USUARIO" FromRole="RESERVA" ToRole="USUARIO" />
@@ -349,13 +347,16 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdReserva" Type="Int32" />
+          <Property Name="IdServicioDetalle" Type="Int32" />
           <Property Name="IdTipoPago" Type="Int32" />
           <Property Name="NumeroTarjeta" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CantPersonas" Type="Int32" />
           <Property Name="SubTotal" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="SubTotalServicio" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Impuesto" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Total" Type="Decimal" Precision="18" Scale="0" />
           <NavigationProperty Name="RESERVA" Relationship="Self.FK_RESERVADETALLE_RESERVA" FromRole="RESERVADETALLE" ToRole="RESERVA" />
+          <NavigationProperty Name="SERVICIODETALLE" Relationship="Self.FK_RESERVADETALLE_SERVICIODETALLE" FromRole="RESERVADETALLE" ToRole="SERVICIODETALLE" />
           <NavigationProperty Name="TIPOPAGO" Relationship="Self.FK_RESERVADETALLE_TIPOPAGO" FromRole="RESERVADETALLE" ToRole="TIPOPAGO" />
         </EntityType>
         <EntityType Name="ROL">
@@ -368,13 +369,11 @@
         </EntityType>
         <EntityType Name="SERVICIODETALLE">
           <Key>
-            <PropertyRef Name="IdDepartamento" />
-            <PropertyRef Name="IdServicio" />
+            <PropertyRef Name="Secuencia" />
           </Key>
-          <Property Name="IdDepartamento" Type="Int32" Nullable="false" />
-          <Property Name="IdServicio" Type="Int32" Nullable="false" />
-          <Property Name="Estado" Type="Boolean" />
-          <NavigationProperty Name="DEPARTAMENTO" Relationship="Self.FK_SERVICIODETALLE_DEPARTAMENTO" FromRole="SERVICIODETALLE" ToRole="DEPARTAMENTO" />
+          <Property Name="IdServicio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Secuencia" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RESERVADETALLE" Relationship="Self.FK_RESERVADETALLE_SERVICIODETALLE" FromRole="SERVICIODETALLE" ToRole="RESERVADETALLE" />
           <NavigationProperty Name="SERVICIOS" Relationship="Self.FK_SERVICIODETALLE_SERVICIOS" FromRole="SERVICIODETALLE" ToRole="SERVICIOS" />
         </EntityType>
         <EntityType Name="SERVICIOS">
@@ -385,6 +384,7 @@
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Precio" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Estado" Type="Boolean" />
           <NavigationProperty Name="SERVICIODETALLE" Relationship="Self.FK_SERVICIODETALLE_SERVICIOS" FromRole="SERVICIOS" ToRole="SERVICIODETALLE" />
         </EntityType>
         <EntityType Name="TIPOPAGO">
@@ -459,18 +459,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SERVICIODETALLE_DEPARTAMENTO">
-          <End Role="DEPARTAMENTO" Type="Self.DEPARTAMENTO" Multiplicity="1" />
-          <End Role="SERVICIODETALLE" Type="Self.SERVICIODETALLE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DEPARTAMENTO">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SERVICIODETALLE">
-              <PropertyRef Name="IdDepartamento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DEPARTAMENTODETALLE_EXTRA">
           <End Role="EXTRA" Type="Self.EXTRA" Multiplicity="1" />
           <End Role="DEPARTAMENTODETALLE" Type="Self.DEPARTAMENTODETALLE" Multiplicity="*" />
@@ -504,6 +492,18 @@
             </Principal>
             <Dependent Role="RESERVADETALLE">
               <PropertyRef Name="IdReserva" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESERVADETALLE_SERVICIODETALLE">
+          <End Role="SERVICIODETALLE" Type="Self.SERVICIODETALLE" Multiplicity="0..1" />
+          <End Role="RESERVADETALLE" Type="Self.RESERVADETALLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SERVICIODETALLE">
+              <PropertyRef Name="Secuencia" />
+            </Principal>
+            <Dependent Role="RESERVADETALLE">
+              <PropertyRef Name="IdServicioDetalle" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -567,10 +567,6 @@
             <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
             <End Role="RESERVA" EntitySet="RESERVA" />
           </AssociationSet>
-          <AssociationSet Name="FK_SERVICIODETALLE_DEPARTAMENTO" Association="Self.FK_SERVICIODETALLE_DEPARTAMENTO">
-            <End Role="DEPARTAMENTO" EntitySet="DEPARTAMENTO" />
-            <End Role="SERVICIODETALLE" EntitySet="SERVICIODETALLE" />
-          </AssociationSet>
           <AssociationSet Name="FK_DEPARTAMENTODETALLE_EXTRA" Association="Self.FK_DEPARTAMENTODETALLE_EXTRA">
             <End Role="EXTRA" EntitySet="EXTRA" />
             <End Role="DEPARTAMENTODETALLE" EntitySet="DEPARTAMENTODETALLE" />
@@ -581,6 +577,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_RESERVADETALLE_RESERVA" Association="Self.FK_RESERVADETALLE_RESERVA">
             <End Role="RESERVA" EntitySet="RESERVA" />
+            <End Role="RESERVADETALLE" EntitySet="RESERVADETALLE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESERVADETALLE_SERVICIODETALLE" Association="Self.FK_RESERVADETALLE_SERVICIODETALLE">
+            <End Role="SERVICIODETALLE" EntitySet="SERVICIODETALLE" />
             <End Role="RESERVADETALLE" EntitySet="RESERVADETALLE" />
           </AssociationSet>
           <AssociationSet Name="FK_RESERVADETALLE_TIPOPAGO" Association="Self.FK_RESERVADETALLE_TIPOPAGO">
@@ -640,7 +640,6 @@
                 <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
                 <ScalarProperty Name="FechaReserva" ColumnName="FechaReserva" />
                 <ScalarProperty Name="FechaFinReserva" ColumnName="FechaFinReserva" />
-                <ScalarProperty Name="CantPersonas" ColumnName="CantPersonas" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -650,8 +649,10 @@
               <MappingFragment StoreEntitySet="RESERVADETALLE">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdReserva" ColumnName="IdReserva" />
+                <ScalarProperty Name="IdServicioDetalle" ColumnName="IdServicioDetalle" />
                 <ScalarProperty Name="IdTipoPago" ColumnName="IdTipoPago" />
                 <ScalarProperty Name="NumeroTarjeta" ColumnName="NumeroTarjeta" />
+                <ScalarProperty Name="CantPersonas" ColumnName="CantPersonas" />
                 <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
                 <ScalarProperty Name="SubTotalServicio" ColumnName="SubTotalServicio" />
                 <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
@@ -670,9 +671,8 @@
           <EntitySetMapping Name="SERVICIODETALLE">
             <EntityTypeMapping TypeName="vistaDepartamentosDBModel.SERVICIODETALLE">
               <MappingFragment StoreEntitySet="SERVICIODETALLE">
-                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
                 <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Secuencia" ColumnName="Secuencia" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -683,6 +683,7 @@
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,0 +1,100 @@
+﻿@model Infraestructure.Models.DEPARTAMENTO
+
+@{
+    ViewBag.@if = "Detalle";
+    
+}
+
+<div align="center">
+    <div class="container boxcontainer">
+        <h1>@Html.DisplayFor(model => model.Nombre)</h1>
+        <img class="img-responsive" src="@Html.DisplayFor(model => model.Imagen)" width="500px" height="400px" class="m-0" />
+        <br /><br />
+        <table class="table table-bordered text-center" align="center">
+            <tr>
+                <th colspan="5" class="text-center tabletitle">
+                    @Html.DisplayFor(model => model.Nombre)
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Estado)
+                </th>
+                <th>
+                    Ubicación
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tarifa)
+                </th>
+
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Descripcion)
+                </td>
+                <td>
+                    @if (Model.Estado == true)
+                    {
+                        <strong class="text-success">Disponible</strong>
+                    }
+                    else
+                    {
+                        <strong class="text-danger">No disponible</strong>
+                    }
+                </td>
+                <td>
+
+                    @switch (Model.IdUbicacion)
+                    {
+                        case 1:
+                            <p>Alajuela Centro, Alajuela</p>
+
+                            break;
+                        case 2:
+                            <p>San Ramon, Alajuela</p>
+
+                            break;
+                        case 3:
+                            <p>Desamparados Centro, San Jose</p>
+
+                            break;
+                        case 4:
+                            <p>Heredia Centro, Heredia</p>
+
+                            break;
+                        case 5:
+                            <p>Dulce Nombre de Naranjo, Alajuela</p>
+
+                            break;
+                        default:
+                            <p class="text-danger">No disponible</p>
+                            break;
+                    }
+                </td>
+                <td class="text-danger" id="tarifa">
+                    $@Html.DisplayFor(model => model.Tarifa)
+                </td>
+            </tr>
+
+        </table>
+        <p>
+            <a href="@Url.Action("Editar", "Edit", new { id = Model.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                <i class="fas fa-edit"></i>  Editar
+            </a>
+            |
+            <a href="Index" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Volver">
+                <i class="fas fa-arrow-left"></i> Volver al Inicio
+            </a>
+
+        </p>
+    </div>
+</div>

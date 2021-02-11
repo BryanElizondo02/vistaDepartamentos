@@ -1,0 +1,19 @@
+﻿.boxcontainer {
+    border-radius: 7px;
+    padding: 5px
+}
+
+.img-responsive {
+    border-radius: 5px;
+    
+}
+
+.tabletitle {
+    background-color: #c2d7d8;
+}
+
+#tarifa {
+    font-style: normal;
+    font-weight: bold;
+}
+

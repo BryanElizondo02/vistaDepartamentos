@@ -1,0 +1,61 @@
+﻿@model Infraestructure.Models.UBICACION
+
+@{
+    ViewBag.Title = "Details";
+}
+<br />
+<br />
+
+<div>
+    <h4>Detalle de Ubicación</h4>
+    <hr />
+    <dl class="dl-horizontal" align="justify">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            Estado
+        </dt>
+
+        <dd>
+            @if (Model.Estado == true)
+            {
+                <strong class="text-success">Disponible</strong>
+            }
+            else
+            {
+                <strong class="text-danger">No disponible</strong>
+            }
+        </dd>
+        <dd>
+            <br />
+            <br />
+            <p>
+                <a href="@Url.Action("Editar", "Edit", new { id = Model.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                    <i class="fas fa-edit"></i>  Editar
+                </a>
+                |
+                <a href="Ubicaciones" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Volver">
+                    <i class="fas fa-arrow-left"></i> Volver al Inicio
+                </a>
+
+            </p>
+        </dd>
+
+    </dl>
+</div>
+
+

@@ -16,14 +16,17 @@ namespace Infraestructure.Models
     {
         public int Id { get; set; }
         public Nullable<int> IdReserva { get; set; }
+        public Nullable<int> IdServicioDetalle { get; set; }
         public Nullable<int> IdTipoPago { get; set; }
         public string NumeroTarjeta { get; set; }
+        public Nullable<int> CantPersonas { get; set; }
         public Nullable<decimal> SubTotal { get; set; }
         public Nullable<decimal> SubTotalServicio { get; set; }
         public Nullable<decimal> Impuesto { get; set; }
         public Nullable<decimal> Total { get; set; }
     
         public virtual RESERVA RESERVA { get; set; }
+        public virtual SERVICIODETALLE SERVICIODETALLE { get; set; }
         public virtual TIPOPAGO TIPOPAGO { get; set; }
     }
 }

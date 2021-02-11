@@ -7,9 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
     <title>@ViewBag.Title - RS-Departments</title>
-    @Styles.Render("~/Content/main.css");
+    <link rel="icon" href="~/img/logo.png" />
+    @Styles.Render("~/Content/main.css")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/departamentoCatalogo.css")
+    @Styles.Render("~/Content/details.css")
 
 </head>
 <body>
@@ -25,58 +28,145 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    
                     <li>
-                        <a href="@Url.Action("Index", "Home", null)">
-                            Inicio
+                        <a href="@Url.Action("Index", "Home", null)" data-toggle="tooltip" data-placement="bottom" title="Pagina principal">
                             <i class="fas fa-home awsomeNav"></i>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="@Url.Action("Departamentos", "Departamento", null)">
-                            Departamentos
-                            <i class="far fa-building awsomeNav"></i>
+                            Inicio
                         </a>
                     </li>
                     <li>
-                        <a href="@Url.Action("About", "Home", null)">
-                            Servicios
-                            <i class="fas fa-hand-holding-water awsomeNav"></i>
+
+                        <a href="@Url.Action("Index", "Home", null)" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fas fa-tools awsomeNav text-right"></i>
+                            Mantenimiento
+                            <span class="caret"></span>
                         </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Editar Catalogo">
+                                    <i class="far fa-building awsomeNav"></i>
+                                    Administrar Departamentos
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Ubicaciones", "Ubicacion", null)" data-toggle="tooltip" data-placement="bottom" title="Editar Direcciones">
+                                    <i class="fas fa-map-marker-alt awsomeNav"></i>
+                                    Administrar Ubicaciones
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Editar Comlementos de alquiler">
+                                    <i class="fas fa-shower awsomeNav"></i>
+                                    Administrar Extras
+                                </a>
+                            </li>
+                            <li class="nav-divider"></li>
+                            <li>
+                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Editar Servicios">
+                                    <i class="fas fa-hand-holding-water awsomeNav"></i>
+                                    Administrar Servicios
+                                </a>
+                            </li>
+
+                        </ul>
                     </li>
                     <li>
-                        <a href="@Url.Action("Contact", "Home", null)">
-                            Reservas
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fas fa-hands-helping awsomeNav"></i>
+                            Procesos
+                            <span class="caret"></span>
                         </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Crear Reservación">
+                                    <i class="fas fa-plus-circle awsomeNav"></i>
+                                    Nueva Reserva
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Ver Reservaciones">
+                                    <i class="fas fa-calendar-week awsomeNav"></i>
+                                    Mis Reservas
+                                </a>
+                            </li>
+                            <li class="nav-divider"></li>
+                            <li>
+                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Editar forma de pagos">
+                                    <i class="far fa-credit-card awsomeNav"></i>
+                                    Pagos
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="@Url.Action("Contact", "Home", null)">
-                            Pagos
-                            <i class="far fa-credit-card awsomeNav"></i>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fas fa-sticky-note awsomeNav"></i>
+                            Reportes
+                            <span class="caret"></span>
                         </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Informe de Reservaciones">
+                                    <i class="fas fa-clock awsomeNav"></i>
+                                    Entradas y Salidas
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Ver cantidad de Reservaciones">
+                                    <i class="fas fa-sort-amount-up awsomeNav"></i>
+                                    Cantidad de Reservas
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Mayor cantidad de Reservas">
+                                    <i class="far fa-heart awsomeNav"></i>
+                                    Mayor Demanda
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="@Url.Action("Contact", "Home", null)">
-                            Informes
-                            <i class="far fa-clipboard awsomeNav"></i>
+                        <a href="#" class="dropdown-toggle"
+                           data-toggle="dropdown">
+                            <i class="fas fa-lock awsomeNav"></i>
+                            Seguridad
+                            <span class="caret"></span>
                         </a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Contact", "Home", null)">
-                            Usuarios
-                            <i class="fas fa-users awsomeNav"></i>
-                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Nuevo Cliente/Administrador">
+                                    <i class="fas fa-user-plus awsomeNav"></i>
+                                    Agregar Usuarios
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Editar perfiles">
+                                    <i class="fas fa-users awsomeNav"></i>
+                                    Administrar Usuarios Registrados
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Habilitar Usuarios">
+                                    <i class="fas fa-users-slash awsomeNav"></i>
+                                    Administrar Usuarios Deshabilitados
+                                </a>
+                            </li>
+                        </ul>
+
                     </li>
 
                 </ul>
+                
             </div>
         </div>
     </div>
-    <div class="container body-content">
+
+    <div class="container body-content">       
         @RenderBody()
         <hr />
         <footer class="fixed-bottom bg-dark p-1 text-center">
-            <p class="m-0">&copy; @DateTime.Now.Year - SR-Departments</p><br />
+            <p class="m-0">&copy; @DateTime.Now.Year - RS-Departments</p><br />
             <p class="m-0">Diseño por Bryan Elizondo</p>
         </footer>
     </div>
@@ -85,5 +175,6 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
+    <script src="~/Scripts/main.js"></script>
 </body>
 </html>

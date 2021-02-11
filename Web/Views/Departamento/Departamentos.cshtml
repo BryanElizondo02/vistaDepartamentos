@@ -2,17 +2,21 @@
 
 @{
     ViewBag.Title = "Departamentos";
-    
-}
 
-<h2>Departamentos</h2>
+}
+<br />
+<br />
+<br />
+<h2>Administrar Departamentos</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
-    
-
+    <a href="@Url.Action("Create", "Create")" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Crear Registro">
+        <i class="fas fa-plus-circle awsomeNav"></i>  
+        <strong>Nuevo Registro</strong>
+    </a>
 </p>
-<table class="table table-bordered" align="center">
+
+<table class="table table-bordered tablelist table-responsive" align="center">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nombre)
@@ -21,7 +25,7 @@
             @Html.DisplayNameFor(model => model.Descripcion)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IdUbicacion)
+            Ubicación
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Tarifa)
@@ -30,7 +34,7 @@
             @Html.DisplayNameFor(model => model.Estado)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Imagen)
+            Ver departamento
         </th>
 
         <th>
@@ -48,56 +52,70 @@
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdUbicacion)
+                @switch (item.IdUbicacion)
+                {
+                    case 1:
+                        <p>Alajuela Centro, Alajuela</p>
+
+                        break;
+                    case 2:
+                        <p>San Ramon, Alajuela</p>
+
+                        break;
+                    case 3:
+                        <p>Desamparados Centro, San Jose</p>
+
+                        break;
+                    case 4:
+                        <p>Heredia Centro, Heredia</p>
+
+                        break;
+                    case 5:
+                        <p>Dulce Nombre de Naranjo, Alajuela</p>
+
+                        break;
+                    default:
+                        <p class="text-danger">No disponible</p>
+                        break;
+                }
             </td>
+
             <td>
                 $@Html.DisplayFor(modelItem => item.Tarifa)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Estado)
+                @if (item.Estado.Value == true)
+                {
+                    <p class="text-success"><strong>Disponible</strong></p>
+                }
+                else
+                {
+                    <p class="text-danger"><strong>No Disponible</strong></p>
+                }
+                @*@Html.DisplayFor(modelItem => item.Estado)*@
             </td>
             <td>
 
                 <img src="@Html.DisplayFor(modelItem => item.Imagen)" width="150px" class="m-0" />
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id })<br />
-                @Html.ActionLink("Details", "Details", new { id = item.Id })<br />
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            <td align="center">
+                @*@Html.ActionLink("Editar", "Edit", new { id = item.Id })*@
+                <a href="@Url.Action("Editar", "Edit", new { id = item.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                    <i class="fas fa-edit"></i>  Editar
+                </a><br /><br />
+
+                <a href="@Url.Action("Details", "Departamento", new { id = item.Id })" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Ver Detalles">
+                    <i class="fas fa-info-circle"></i>  Detalles
+                </a><br /><br />
+
+                <a href="@Url.Action("Eliminar", "Delete", new { id = item.Id })" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Descartar Registro">
+                    <i class="fas fa-trash-alt"></i>  Descartar
+                </a><br /><br />
             </td>
         </tr>
-
-        <br />
-        <br />
-        <div class="container m-0">
-            <!-- Products Section -->
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="page-header">Latest Products</h2>
-                </div>
-                <!-- Featured Products -->
-
-                <div class="col-md-3 col-6">
-
-                    <img src="@Html.DisplayFor(modelItem => item.Imagen)" width="350px" class="m-0" />
-
-                    <div class="caption">
-                        <h3><a href="">@Html.DisplayFor(modelItem => item.Nombre)</a></h3>
-                        <div class="price-mob">
-                            @Html.DisplayFor(modelItem => item.Tarifa)
-                        </div>
-                        <div class="clearfix"></div>
-                        <p class="d-none d-md-block">
-                            @Html.DisplayFor(modelItem => item.Descripcion)
-                        </p>
-                    </div>
-
-                </div>
-
-            </div><!-- /.row -->
-
-
-        </div>
     }
-
 </table>
+
+
+
+

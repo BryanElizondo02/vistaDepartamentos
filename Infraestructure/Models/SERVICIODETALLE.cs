@@ -14,11 +14,17 @@ namespace Infraestructure.Models
     
     public partial class SERVICIODETALLE
     {
-        public int IdDepartamento { get; set; }
-        public int IdServicio { get; set; }
-        public Nullable<bool> Estado { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SERVICIODETALLE()
+        {
+            this.RESERVADETALLE = new HashSet<RESERVADETALLE>();
+        }
     
-        public virtual DEPARTAMENTO DEPARTAMENTO { get; set; }
+        public int IdServicio { get; set; }
+        public int Secuencia { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RESERVADETALLE> RESERVADETALLE { get; set; }
         public virtual SERVICIOS SERVICIOS { get; set; }
     }
 }

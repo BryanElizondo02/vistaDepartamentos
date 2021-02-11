@@ -11,6 +11,8 @@ namespace Infraestructure.Repository
     {
         IEnumerable<DEPARTAMENTO> GetDepartamentos();
         DEPARTAMENTO GetDepartamentoByID(int id);
+        void DeleteDEPARTAMENTO(bool estado);
+        DEPARTAMENTO Save(DEPARTAMENTO depart);
 
     }
 }

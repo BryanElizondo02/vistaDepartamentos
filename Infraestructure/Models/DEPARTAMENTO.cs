@@ -19,7 +19,6 @@ namespace Infraestructure.Models
         {
             this.DEPARTAMENTODETALLE = new HashSet<DEPARTAMENTODETALLE>();
             this.RESERVA = new HashSet<RESERVA>();
-            this.SERVICIODETALLE = new HashSet<SERVICIODETALLE>();
         }
     
         public int Id { get; set; }
@@ -35,7 +34,5 @@ namespace Infraestructure.Models
         public virtual ICollection<DEPARTAMENTODETALLE> DEPARTAMENTODETALLE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RESERVA> RESERVA { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SERVICIODETALLE> SERVICIODETALLE { get; set; }
     }
 }

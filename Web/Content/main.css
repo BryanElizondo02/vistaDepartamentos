@@ -3,6 +3,9 @@
     font-size: xx-large;
 }
 
+table .tablelist td th{
+    text-align: center;
+}
 
 
 

@@ -109,20 +109,10 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepositoryDepartamento.cs" />
+    <Compile Include="Repository\IRepositoryUbicacion.cs" />
     <Compile Include="Repository\RepositoryDepartamento.cs" />
+    <Compile Include="Repository\RepositoryUbicacion.cs" />
     <Compile Include="Utils\Log.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Models\MyvistaDepartamentosDB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MyvistaDepartamentosDB.edmx</DependentUpon>
-      <LastGenOutput>MyvistaDepartamentosDB.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\MyvistaDepartamentosDB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MyvistaDepartamentosDB.edmx</DependentUpon>
-      <LastGenOutput>MyvistaDepartamentosDB.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -137,6 +127,18 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\MyvistaDepartamentosDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyvistaDepartamentosDB.edmx</DependentUpon>
+      <LastGenOutput>MyvistaDepartamentosDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MyvistaDepartamentosDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyvistaDepartamentosDB.edmx</DependentUpon>
+      <LastGenOutput>MyvistaDepartamentosDB.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
