@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="padding: 40px; text-align: center">
+                <h1>
+                    Ocurrio algo inesperado!
+                </h1><br />
+                <h2 style="color: red">
+                    @ViewBag.Title
+                </h2>
+                <div>
+                    @ViewBag.Description
+                </div>
+                <div style="margin-top: 15px; margin-bottom: 15px;">
+                        @Html.ActionLink("Ir al Inicio", (string)ViewBag.redirectAction, (string)ViewBag.redirect, null, new { @class= "btn btn-primary"})
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

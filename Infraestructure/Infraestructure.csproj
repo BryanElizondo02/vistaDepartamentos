@@ -86,9 +86,6 @@
     <Compile Include="Models\RESERVA.cs">
       <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\RESERVADETALLE.cs">
-      <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ROL.cs">
       <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
     </Compile>

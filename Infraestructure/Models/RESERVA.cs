@@ -17,19 +17,26 @@ namespace Infraestructure.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RESERVA()
         {
-            this.RESERVADETALLE = new HashSet<RESERVADETALLE>();
+            this.SERVICIODETALLE = new HashSet<SERVICIODETALLE>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> IdUsuario { get; set; }
-        public Nullable<int> IdDepartamento { get; set; }
-        public Nullable<System.DateTime> FechaReserva { get; set; }
-        public Nullable<System.DateTime> FechaFinReserva { get; set; }
-        public Nullable<bool> Estado { get; set; }
+        public int IdUsuario { get; set; }
+        public int IdDepartamento { get; set; }
+        public System.DateTime FechaReserva { get; set; }
+        public System.DateTime FechaFinReserva { get; set; }
+        public int IdTipoPago { get; set; }
+        public string NumeroTarjeta { get; set; }
+        public int CantPersonas { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal Impuesto { get; set; }
+        public decimal Total { get; set; }
+        public bool Estado { get; set; }
     
         public virtual DEPARTAMENTO DEPARTAMENTO { get; set; }
+        public virtual TIPOPAGO TIPOPAGO { get; set; }
         public virtual USUARIO USUARIO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RESERVADETALLE> RESERVADETALLE { get; set; }
+        public virtual ICollection<SERVICIODETALLE> SERVICIODETALLE { get; set; }
     }
 }

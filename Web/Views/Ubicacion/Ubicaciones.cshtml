@@ -35,7 +35,7 @@
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                @if (item.Estado.Value == true)
+                @if (item.Estado)
                 {
                     <p class="text-success"><strong>Disponible</strong></p>
                 }

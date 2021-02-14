@@ -143,6 +143,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DepartamentoController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UbicacionController.cs" />
     <Compile Include="Global.asax.cs">
@@ -195,6 +196,8 @@
     <Content Include="Views\Departamento\Details.cshtml" />
     <Content Include="Views\Ubicacion\Ubicaciones.cshtml" />
     <Content Include="Views\Ubicacion\Details.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

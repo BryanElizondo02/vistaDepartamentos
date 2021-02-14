@@ -24,9 +24,9 @@ namespace Infraestructure.Models
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
-        public Nullable<int> IdUbicacion { get; set; }
-        public Nullable<decimal> Tarifa { get; set; }
-        public Nullable<bool> Estado { get; set; }
+        public int IdUbicacion { get; set; }
+        public decimal Tarifa { get; set; }
+        public bool Estado { get; set; }
         public string Imagen { get; set; }
     
         public virtual UBICACION UBICACION { get; set; }

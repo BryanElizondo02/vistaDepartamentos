@@ -25,6 +25,8 @@ namespace Web.Controllers
             catch (Exception ex)
             {
                 Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                TempData.Keep();
             }
             return View(lista);
         }
@@ -44,14 +46,23 @@ namespace Web.Controllers
                 oDepartamento = _serviceDepartamento.GetDepartamentoByID(id.Value);
                 if (oDepartamento == null)
                 {
-                    return RedirectToAction("Departamentos");
+                    //return RedirectToAction("Departamentos");
+                    TempData["Message"] = "No existe el Departamento solicitado";
+                    TempData["Redirect"] = "Home";
+                    TempData["Redirect-Action"] = "Index";
+
+                    return RedirectToAction("Default", "Error");
                 }
                 return View(oDepartamento);
             }
             catch (Exception ex)
             {
                 Log.Error(ex, MethodBase.GetCurrentMethod());
-                return RedirectToAction("Index");
+                TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                TempData["Redirect"] = "Departamento";
+                TempData["Redirect-Action"] = "Departamentos";
+
+                return RedirectToAction("Default", "Error");
             }
         }
 
@@ -76,9 +87,10 @@ namespace Web.Controllers
 
                 return RedirectToAction("Departamentos");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                return RedirectToAction("Default", "Error");
             }
         }
 
@@ -97,9 +109,10 @@ namespace Web.Controllers
 
                 return RedirectToAction("Departamentos");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                return RedirectToAction("Default", "Error");
             }
         }
     }

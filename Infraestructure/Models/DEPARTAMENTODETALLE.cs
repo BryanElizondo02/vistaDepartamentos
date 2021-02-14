@@ -16,7 +16,7 @@ namespace Infraestructure.Models
     {
         public int IdDepartamento { get; set; }
         public int IdExtra { get; set; }
-        public Nullable<bool> Estado { get; set; }
+        public bool Estado { get; set; }
     
         public virtual DEPARTAMENTO DEPARTAMENTO { get; set; }
         public virtual EXTRA EXTRA { get; set; }

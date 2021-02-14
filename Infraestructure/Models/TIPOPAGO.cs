@@ -17,14 +17,14 @@ namespace Infraestructure.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TIPOPAGO()
         {
-            this.RESERVADETALLE = new HashSet<RESERVADETALLE>();
+            this.RESERVA = new HashSet<RESERVA>();
         }
     
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public Nullable<bool> Estado { get; set; }
+        public bool Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RESERVADETALLE> RESERVADETALLE { get; set; }
+        public virtual ICollection<RESERVA> RESERVA { get; set; }
     }
 }
