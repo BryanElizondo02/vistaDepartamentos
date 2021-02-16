@@ -16,6 +16,12 @@ namespace ApplicationCore.Services
             repository.DeleteDEPARTAMENTO(estado);
         }
 
+        public DEPARTAMENTO GetDepartamentoActivoByID(int id)
+        {
+            IRepositoryDepartamento repository = new RepositoryDepartamento();
+            return repository.GetDepartamentoActivoByID(id);
+        }
+
         public DEPARTAMENTO GetDepartamentoByID(int id)
         {
             IRepositoryDepartamento repository = new RepositoryDepartamento();
@@ -26,6 +32,12 @@ namespace ApplicationCore.Services
         {
             IRepositoryDepartamento repository = new RepositoryDepartamento();
             return repository.GetDepartamentos();
+        }
+
+        public IEnumerable<DEPARTAMENTO> GetDepartamentosActivos()
+        {
+            IRepositoryDepartamento repository = new RepositoryDepartamento();
+            return repository.GetDepartamentosActivos();
         }
 
         public DEPARTAMENTO Save(DEPARTAMENTO depart)

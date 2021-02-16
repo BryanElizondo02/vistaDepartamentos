@@ -18,14 +18,50 @@ namespace Web.Controllers
             try
             {
                 ServiceDepartamento _serviceDepartamento = new ServiceDepartamento();
-                lista = _serviceDepartamento.GetDepartamentos();
+                lista = _serviceDepartamento.GetDepartamentosActivos();
 
             }
             catch (Exception ex)
             {
                 Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                TempData.Keep();
             }
             return View(lista);
+        }
+
+        public ActionResult Details(int? id)
+        {
+            ServiceDepartamento _serviceDepartamento = new ServiceDepartamento();
+            DEPARTAMENTO oDepartamento = null;
+            try
+            {
+                // Si va null
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                oDepartamento = _serviceDepartamento.GetDepartamentoActivoByID(id.Value);
+                if (oDepartamento == null)
+                {
+                    TempData["Message"] = "No existe el Departamento solicitado";
+                    TempData["Redirect"] = "Home";
+                    TempData["Redirect-Action"] = "Index";
+
+                    return RedirectToAction("Default", "Error");
+                }
+                return View(oDepartamento);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                TempData["Redirect"] = "Departamento";
+                TempData["Redirect-Action"] = "Departamentos";
+
+                return RedirectToAction("Default", "Error");
+            }
         }
 
         public ActionResult About()

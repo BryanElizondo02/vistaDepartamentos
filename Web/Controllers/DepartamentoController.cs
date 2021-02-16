@@ -11,8 +11,9 @@ namespace Web.Controllers
 {
     public class DepartamentoController : Controller
     {
-        
+
         // GET: Departamento
+        
         public ActionResult Departamentos()
         {
             IEnumerable<DEPARTAMENTO> lista = null;

@@ -67,6 +67,7 @@
     <Compile Include="Models\EXTRA.cs">
       <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\MyContext.cs" />
     <Compile Include="Models\MyvistaDepartamentosDB.Context.cs">
       <AutoGen>True</AutoGen>

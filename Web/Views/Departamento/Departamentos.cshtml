@@ -25,7 +25,7 @@
             @Html.DisplayNameFor(model => model.Descripcion)
         </th>
         <th>
-            Ubicación
+            @Html.DisplayNameFor(model => model.UBICACION)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Tarifa)
@@ -34,7 +34,7 @@
             @Html.DisplayNameFor(model => model.Estado)
         </th>
         <th>
-            Ver departamento
+            Galería
         </th>
 
         <th>
@@ -52,32 +52,8 @@
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
             <td>
-                @switch (item.IdUbicacion)
-                {
-                    case 1:
-                        <p>Desamparados, San Jose</p>
+                @Html.DisplayFor(modelItem => item.UBICACION.Nombre)
 
-                        break;
-                    case 2:
-                        <p>Naranjo, Alajuela</p>
-
-                        break;
-                    case 3:
-                        <p>Alajuela centro, Alajuela</p>
-
-                        break;
-                    case 4:
-                        <p>San Jose centro, San Jose</p>
-
-                        break;
-                    case 5:
-                        <p>San Ramon, Alajuela</p>
-
-                        break;
-                    default:
-                        <p class="text-danger">No disponible</p>
-                        break;
-                }
             </td>
 
             <td>
@@ -92,14 +68,12 @@
                 {
                     <p class="text-danger"><strong>No Disponible</strong></p>
                 }
-                @*@Html.DisplayFor(modelItem => item.Estado)*@
             </td>
             <td>
 
                 <img src="@Html.DisplayFor(modelItem => item.Imagen)" width="150px" class="m-0" />
             </td>
             <td align="center">
-                @*@Html.ActionLink("Editar", "Edit", new { id = item.Id })*@
                 <a href="@Url.Action("Editar", "Edit", new { id = item.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
                     <i class="fas fa-edit"></i>  Editar
                 </a><br /><br />

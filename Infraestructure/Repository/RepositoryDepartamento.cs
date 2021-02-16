@@ -43,6 +43,37 @@ namespace Infraestructure.Repository
             }
         }
 
+        public DEPARTAMENTO GetDepartamentoActivoByID(int id)
+        {
+            DEPARTAMENTO oDepartamento = null;
+            try
+            {
+
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    oDepartamento = ctx.DEPARTAMENTO.Where(d => d.Id == id && d.Estado == true)
+                        .Include(u => u.UBICACION)
+                        .Include(x => x.DEPARTAMENTODETALLE)
+                        .FirstOrDefault();
+                }
+
+                return oDepartamento;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
         public DEPARTAMENTO GetDepartamentoByID(int id)
         {
             DEPARTAMENTO oDepartamento = null;
@@ -52,7 +83,11 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    oDepartamento = ctx.DEPARTAMENTO.Find(id);
+                    //oDepartamento = ctx.DEPARTAMENTO.Find(id);
+                    oDepartamento = ctx.DEPARTAMENTO.Where(d => d.Id == id)
+                        .Include(u => u.UBICACION)
+                        .Include(x => x.DEPARTAMENTODETALLE)
+                        .FirstOrDefault();
                 }
 
                 return oDepartamento;
@@ -79,7 +114,43 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    lista = ctx.DEPARTAMENTO.ToList<DEPARTAMENTO>();
+                    //lista = ctx.DEPARTAMENTO.Include("UBICACION").ToList<DEPARTAMENTO>();
+                    lista = ctx.DEPARTAMENTO
+                        .Include(x => x.UBICACION)
+                        .Include(d => d.DEPARTAMENTODETALLE)
+                        .ToList();
+                
+                }
+                return lista;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception EX)
+            {
+                string mensaje = "";
+                Log.Error(EX, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
+        public IEnumerable<DEPARTAMENTO> GetDepartamentosActivos()
+        {
+            try
+            {
+                IEnumerable<DEPARTAMENTO> lista = null;
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    //lista = ctx.DEPARTAMENTO.Include("UBICACION").ToList<DEPARTAMENTO>();
+                    lista = ctx.DEPARTAMENTO.Where(x => x.Estado == true)
+                        .Include(u => u.UBICACION)
+                        .Include(x => x.DEPARTAMENTODETALLE)
+                        .ToList();
+
                 }
                 return lista;
             }
