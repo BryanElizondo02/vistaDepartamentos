@@ -145,7 +145,6 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    //lista = ctx.DEPARTAMENTO.Include("UBICACION").ToList<DEPARTAMENTO>();
                     lista = ctx.DEPARTAMENTO.Where(x => x.Estado == true)
                         .Include(u => u.UBICACION)
                         .Include(x => x.DEPARTAMENTODETALLE)
