@@ -178,16 +178,22 @@ namespace Infraestructure.Repository
                 {
 
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    oDepartamento = GetDepartamentoByID(depart.Id);
+                    oDepartamento = GetDepartamentoByID((int)depart.Id);
+                    
+                    
                     if (oDepartamento == null)
                     {
                         ctx.DEPARTAMENTO.Add(depart);
+
+                        retorno = ctx.SaveChanges();
                     }
                     else
                     {
+                        ctx.DEPARTAMENTO.Add(depart);
                         ctx.Entry(depart).State = EntityState.Modified;
+                        retorno = ctx.SaveChanges();
                     }
-                    retorno = ctx.SaveChanges();
+                    
                 }
 
                 if (retorno >= 0)

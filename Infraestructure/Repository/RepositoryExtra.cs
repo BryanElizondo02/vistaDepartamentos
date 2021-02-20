@@ -9,27 +9,20 @@ using Infraestructure.Models;
 
 namespace Infraestructure.Repository
 {
-    public class RepositoryUbicacion : IRepositoryUbicacion
+    public class RepositoryExtra : IRepositoryExtra
     {
-        public void DeleteUbicacion(int id)
+        public EXTRA GetExtraByID(int id)
         {
-            int returno;
+            EXTRA oExtra = null;
             try
             {
-
                 using (MyContext ctx = new MyContext())
                 {
-                    /* La carga diferida retrasa la carga de datos relacionados,
-                     * hasta que lo solicite específicamente.*/
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    UBICACION oUbicacion = new UBICACION()
-                    {
-                        Estado = false
-
-                    };
-                    ctx.Entry(oUbicacion).State = EntityState.Modified;
-                    returno = ctx.SaveChanges();
+                    oExtra = ctx.EXTRA.Find(id);
                 }
+
+                return oExtra;
             }
             catch (DbUpdateException dbEx)
             {
@@ -45,43 +38,16 @@ namespace Infraestructure.Repository
             }
         }
 
-        public UBICACION GetUbicacionByID(int id)
-        {
-            UBICACION oUbicacion = null;
-            try
-            {
-
-                using (MyContext ctx = new MyContext())
-                {
-                    ctx.Configuration.LazyLoadingEnabled = false;
-                    oUbicacion = ctx.UBICACION.Find(id);
-                }
-
-                return oUbicacion;
-            }
-            catch (DbUpdateException dbEx)
-            {
-                string mensaje = "";
-                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
-                throw new Exception(mensaje);
-            }
-            catch (Exception ex)
-            {
-                string mensaje = "";
-                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
-                throw;
-            }
-        }
-
-        public IEnumerable<UBICACION> GetUbicaciones()
+        public IEnumerable<EXTRA> GetExtras()
         {
             try
             {
-                IEnumerable<UBICACION> lista = null;
+                IEnumerable<EXTRA> lista = null;
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    lista = ctx.UBICACION.ToList<UBICACION>();
+                    lista = ctx.EXTRA.ToList<EXTRA>();
+
                 }
                 return lista;
             }
@@ -99,10 +65,10 @@ namespace Infraestructure.Repository
             }
         }
 
-        public UBICACION Save(UBICACION ubic)
+        public EXTRA Save(EXTRA extra)
         {
             int retorno = 0;
-            UBICACION oUbicacion = null;
+            EXTRA oExtra = null;
             try
             {
 
@@ -110,26 +76,28 @@ namespace Infraestructure.Repository
                 {
 
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    oUbicacion = GetUbicacionByID(ubic.Id);
+                    oExtra = GetExtraByID((int)extra.Id);
 
-                    if (oUbicacion == null)
+
+                    if (oExtra == null)
                     {
-                        ctx.UBICACION.Add(ubic);
+                        ctx.EXTRA.Add(extra);
+
                         retorno = ctx.SaveChanges();
                     }
                     else
                     {
-                        ctx.UBICACION.Add(ubic);
-                        ctx.Entry(ubic).State = EntityState.Modified;
+                        ctx.EXTRA.Add(extra);
+                        ctx.Entry(extra).State = EntityState.Modified;
                         retorno = ctx.SaveChanges();
                     }
-                    
+
                 }
 
                 if (retorno >= 0)
-                    oUbicacion = GetUbicacionByID(ubic.Id);
+                    oExtra = GetExtraByID(extra.Id);
 
-                return oUbicacion;
+                return oExtra;
             }
             catch (DbUpdateException dbEx)
             {

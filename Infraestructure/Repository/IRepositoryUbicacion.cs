@@ -11,7 +11,7 @@ namespace Infraestructure.Repository
     {
         IEnumerable<UBICACION> GetUbicaciones();
         UBICACION GetUbicacionByID(int id);
-        void DeleteUbicacion(bool estado);
+        void DeleteUbicacion(int id);
         UBICACION Save(UBICACION ubic);
     }
 }

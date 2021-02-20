@@ -67,30 +67,117 @@ namespace Web.Controllers
             }
         }
 
+        private SelectList listUbicacion(int idUbicacion = 0)
+        {
+            ServiceUbicacion _serviceUbicacion = new ServiceUbicacion();
+            IEnumerable<UBICACION> listaUbicacion = _serviceUbicacion.GetUbicaciones();
+            return new SelectList(listaUbicacion, "Id", "Nombre", idUbicacion);//List to Dropdown List
+        }
+
+        private MultiSelectList listaExtras(ICollection<EXTRA> extras)
+        {
+            ServiceExtra _serviceExtra = new ServiceExtra();
+            IEnumerable<EXTRA> listaExtra = _serviceExtra.GetExtras();
+            int[] listaExtraSelect = null;
+
+            if (extras != null)
+            {
+                listaExtraSelect = extras.Select(e => e.Id).ToArray();
+            }
+
+            return new MultiSelectList(listaExtra, "Id", "Descripcion", listaExtraSelect);
+        }
+
+        //GET: Departamentos/Create
         public ActionResult Create()
         {
+            ViewBag.IdUbicacion = listUbicacion();
+            ViewBag.IdExtra = listaExtras(null);
             return View();
         }
 
-        
-
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
+        //POST: Departamentos/Create
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Create(FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
+                // TODO: Add delete logic here
+
+                return RedirectToAction("Departamentos");
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        public ActionResult Edit(int id)
+        {
+            ServiceDepartamento _serviceDepartamento = new ServiceDepartamento();
+            DEPARTAMENTO oDepartamento = null;
+            try
+            {
+                // Si va null
+                if (id == null)
+                {
+                    return RedirectToAction("Departamentos");
+                }
+
+                oDepartamento = _serviceDepartamento.GetDepartamentoByID(id);
+                if (oDepartamento == null)
+                {
+                    //return RedirectToAction("Departamentos");
+                    TempData["Message"] = "No existe el Departamento solicitado";
+                    TempData["Redirect"] = "Home";
+                    TempData["Redirect-Action"] = "Index";
+
+                    return RedirectToAction("Default", "Error");
+                }
+                ViewBag.IdUbicacion = listUbicacion(oDepartamento.IdUbicacion);
+                //ViewBag.IdCategoria = listaExtras(oDepartamento.);
+                return View(oDepartamento);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                TempData["Redirect"] = "Departamento";
+                TempData["Redirect-Action"] = "Departamentos";
+
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Save(DEPARTAMENTO departamento)
+        {
+            ServiceDepartamento _serviceDepartamento = new ServiceDepartamento();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    DEPARTAMENTO oDepartamento = _serviceDepartamento.Save(departamento);
+
+
+                }
+                else
+                {
+                    Util.Util.ValidateErrors(this);
+                    ViewBag.IdUbicacion = listUbicacion();
+                    return View("Create", departamento);
+                }
 
                 return RedirectToAction("Departamentos");
             }
             catch(Exception ex)
             {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                TempData["Redirect"] = "Departamento";
+                TempData["Redirect-Action"] = "Departamentos";
+
                 return RedirectToAction("Default", "Error");
             }
         }

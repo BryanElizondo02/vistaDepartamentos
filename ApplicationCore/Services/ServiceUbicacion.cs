@@ -10,10 +10,10 @@ namespace ApplicationCore.Services
 {
     public class ServiceUbicacion : IServiceUbicacion
     {
-        public void DeleteUbicacion(bool estado)
+        public void DeleteUbicacion(int id)
         {
             IRepositoryUbicacion repository = new RepositoryUbicacion();
-            repository.DeleteUbicacion(estado);
+            repository.DeleteUbicacion(id);
         }
 
         public UBICACION GetUbicacionByID(int id)
