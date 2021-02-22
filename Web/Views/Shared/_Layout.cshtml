@@ -13,6 +13,7 @@
     @Styles.Render("~/Content/main.css")
     @Styles.Render("~/Content/departamentoCatalogo.css")
     @Styles.Render("~/Content/details.css")
+    @Styles.Render("~/Content/contacto.css")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
 </head>
@@ -158,7 +159,7 @@
 
                     </li>
                     <li>
-                        <a href="" data-toggle="tooltip" data-placement="bottom" title="Acerca de">
+                        <a href="@Url.Action("Contact", "Home", null)" data-toggle="tooltip" data-placement="bottom" title="Acerca de">
                             <i class="fas fa-question-circle awsomeNav"></i>
                             Acerca de
                         </a>

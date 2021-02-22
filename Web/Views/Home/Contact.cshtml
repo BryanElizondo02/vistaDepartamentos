@@ -1,17 +1,103 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@{ ViewBag.Title = "Contacto"; }
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<br />
+<br />
+<br />
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<div class="container">
+    <div id="contact" class="container mb-1 p-1">
+        <h2 class="text-center">@ViewBag.Message</h2>
+        <br />
+        <!--card #1-->
+        <div class="col-sm-12 col-md-4">
+            <div class="card text-center text-white" id="telefono" style="background-color: #5db1ef; color: #e7f2ef; border-radius: 12px">
+                <div class="card-body">
+                    <br />
+                    <h4 class="card-title display-4 mt-2">
+                        <i class="fas fa-phone awsomeNav"></i>
+                    </h4>
+                    <h2 class="card-subtitle mb-2 display-5">
+                        <strong>
+                            Telefono
+                            <br>
+                            2 454 7895
+
+                        </strong>
+                    </h2>
+                    <p class="card-text">
+                        Atención de 8am a 6pm
+                        <br />
+                        <br />
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!--card #2-->
+        <div class="col-sm-12 col-md-4">
+            <div class="card text-center text-white" id="whatsapp" style="background-color: #2db42c; color: #e7f2ef; border-radius: 12px">
+                <div class="card-body">
+                    <br />
+                    <h4 class="card-title display-4  mt-2">
+                        <i class="fab fa-whatsapp awsomeNav"></i>
+                    </h4>
+                    <h2 class="card-subtitle mb-2 display-5">
+                        <strong>
+                            WhatsApp <br>
+                            &nbsp;<!--keep the card size-->
+                        </strong>
+                    </h2>
+                    <div class="row">
+                        <div class="col-sm-a col md-4">
+                            <h2>
+                                <strong>
+                                    87018524
+                                </strong>
+                            </h2>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--card #3-->
+        <div class="col-sm-12 col-md-4">
+            <div class="card text-center text-white" id="correo" style="background-color: #ca2429; color: #e7f2ef; border-radius: 12px">
+                <div class="card-body">
+                    <br />
+                    <h4 class="card-title display-4  mt-2">
+                        <i class="fas fa-at awsomeNav"></i>
+                    </h4>
+                    <h2 class="card-subtitle mb-2 display-5">
+                        <strong>
+                            Correo
+                            <br>
+                        </strong>
+                    </h2>
+                    <p class="card-text">
+                        <h4>
+                            <strong>
+                                proyecttest@gmail.com
+                            </strong>
+                        </h4>
+                        <br />
+                        <br />
+
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="container text-center">
+    <p>
+        <strong>Equipo de Desarrollo:</strong> <a href="@Url.Action("About", "Home", null)">Bryan Elizondo Mora</a>
+    </p>
+</div>

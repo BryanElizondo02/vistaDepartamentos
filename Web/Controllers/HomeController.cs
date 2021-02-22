@@ -66,14 +66,14 @@ namespace Web.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Equipo de desarrollo:";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Información de Contacto";
 
             return View();
         }
