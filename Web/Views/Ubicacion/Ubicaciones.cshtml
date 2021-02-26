@@ -10,7 +10,7 @@
 <h2>Ubicaciones</h2>
 
 <p>
-    <a href="@Url.Action("Create", "Create")" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Crear Registro">
+    <a href="@Url.Action("Create", "Ubicacion")" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Crear Registro">
         <i class="fas fa-plus-circle awsomeNav"></i>
         <strong>Nuevo Registro</strong>
     </a>
@@ -45,7 +45,7 @@
                 }
             </td>
             <td align="center">
-                <a href="@Url.Action("Editar", "Edit", new { id = item.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                <a href="@Url.Action("Edit", "Ubicacion", new { id = item.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
                     <i class="fas fa-edit"></i>  Editar
                 </a>
 

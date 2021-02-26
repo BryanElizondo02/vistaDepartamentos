@@ -312,6 +312,8 @@
     <Content Include="Views\Departamento\Edit.cshtml" />
     <Content Include="Views\Departamento\_PartialViewCatalogo.cshtml" />
     <Content Include="Views\Home\_PartialViewIndexCatalogo.cshtml" />
+    <Content Include="Views\Ubicacion\Create.cshtml" />
+    <Content Include="Views\Ubicacion\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

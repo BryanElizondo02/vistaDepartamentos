@@ -9,7 +9,7 @@ namespace Infraestructure.Repository
 {
     public class RepositoryDepartamento : IRepositoryDepartamento
     {
-        public void DeleteDEPARTAMENTO(bool estado)
+        public void DeleteDEPARTAMENTO(int id)
         {
             int returno;
             try
@@ -20,13 +20,19 @@ namespace Infraestructure.Repository
                     /* La carga diferida retrasa la carga de datos relacionados,
                      * hasta que lo solicite específicamente.*/
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    DEPARTAMENTO oDepartamento = new DEPARTAMENTO()
-                    {
-                        Estado = estado
 
-                    };
-                    ctx.Entry(oDepartamento).State = EntityState.Modified;
-                    returno = ctx.SaveChanges();
+                    DEPARTAMENTO oDepartamento = new DEPARTAMENTO();
+                    oDepartamento = GetDepartamentoByID(id);
+
+                    if (oDepartamento != null)
+                    {
+                        oDepartamento.Estado = false;
+
+                        ctx.DEPARTAMENTO.Add(oDepartamento);
+                        ctx.Entry(oDepartamento).State = EntityState.Modified;
+                        returno = ctx.SaveChanges();
+                    }
+                    
                 }
             }
             catch (DbUpdateException dbEx)

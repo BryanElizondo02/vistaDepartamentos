@@ -28,6 +28,12 @@ namespace ApplicationCore.Services
             return repository.GetUbicaciones();
         }
 
+        public IEnumerable<UBICACION> GetUbicacionesActivas()
+        {
+            IRepositoryUbicacion repository = new RepositoryUbicacion();
+            return repository.GetUbicacionesActivas();
+        }
+
         public UBICACION Save(UBICACION ubic)
         {
             IRepositoryUbicacion repository = new RepositoryUbicacion();

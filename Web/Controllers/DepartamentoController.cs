@@ -83,7 +83,7 @@ namespace Web.Controllers
         private SelectList listUbicacion(int idUbicacion = 0)
         {
             ServiceUbicacion _serviceUbicacion = new ServiceUbicacion();
-            IEnumerable<UBICACION> listaUbicacion = _serviceUbicacion.GetUbicaciones();
+            IEnumerable<UBICACION> listaUbicacion = _serviceUbicacion.GetUbicacionesActivas();
             return new SelectList(listaUbicacion, "Id", "Nombre", idUbicacion);//List to Dropdown List
         }
 
@@ -204,7 +204,7 @@ namespace Web.Controllers
 
         
         [HttpPost]
-        public ActionResult Delete(bool estado, FormCollection collection)
+        public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {

@@ -99,6 +99,32 @@ namespace Infraestructure.Repository
             }
         }
 
+        public IEnumerable<UBICACION> GetUbicacionesActivas()
+        {
+            try
+            {
+                IEnumerable<UBICACION> lista = null;
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    lista = ctx.UBICACION.Where(x => x.Estado == true).ToList();
+                }
+                return lista;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception EX)
+            {
+                string mensaje = "";
+                Log.Error(EX, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
         public UBICACION Save(UBICACION ubic)
         {
             int retorno = 0;

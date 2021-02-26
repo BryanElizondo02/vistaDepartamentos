@@ -53,5 +53,93 @@ namespace Web.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+
+                return RedirectToAction("Ubicaciones");
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        public ActionResult Edit(int id)
+        {
+            ServiceUbicacion _serviceUbic = new ServiceUbicacion();
+            UBICACION oUbicacion = null;
+            try
+            {
+                // Si va null
+                if (id == null)
+                {
+                    return RedirectToAction("Ubicaciones");
+                }
+
+                oUbicacion = _serviceUbic.GetUbicacionByID(id);
+                if (oUbicacion == null)
+                {
+                    TempData["Message"] = "No existe la ubicación solicitada";
+                    TempData["Redirect"] = "Home";
+                    TempData["Redirect-Action"] = "Index";
+
+                    return RedirectToAction("Default", "Error");
+                }
+                
+                return View(oUbicacion);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                TempData["Redirect"] = "Ubicacion";
+                TempData["Redirect-Action"] = "Ubicaciones";
+
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Save(UBICACION ubic)
+        {
+            ServiceUbicacion _serviceUbicacion = new ServiceUbicacion();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    UBICACION oUbicacion = _serviceUbicacion.Save(ubic);
+
+                }
+                else
+                {
+                    Util.Util.ValidateErrors(this);
+
+                    return View("Create", ubic);
+                }
+
+                return RedirectToAction("Ubicaciones");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                TempData["Redirect"] = "Ubicacion";
+                TempData["Redirect-Action"] = "Ubicaciones";
+
+                return RedirectToAction("Default", "Error");
+            }
+        }
+
     }
 }

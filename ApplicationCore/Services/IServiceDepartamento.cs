@@ -15,7 +15,7 @@ namespace ApplicationCore.Services
         IEnumerable<DEPARTAMENTO> GetDepartamentoActivoByUbicacion(String ubicacion);
         DEPARTAMENTO GetDepartamentoByID(int id);
         DEPARTAMENTO GetDepartamentoActivoByID(int id);
-        void DeleteDEPARTAMENTO(bool estado);
+        void DeleteDEPARTAMENTO(int id);
         DEPARTAMENTO Save(DEPARTAMENTO depart, string[] selectedExtra);
 
     }

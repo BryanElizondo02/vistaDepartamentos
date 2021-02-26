@@ -10,6 +10,7 @@ namespace ApplicationCore.Services
     interface IServiceUbicacion
     {
         IEnumerable<UBICACION> GetUbicaciones();
+        IEnumerable<UBICACION> GetUbicacionesActivas();
         UBICACION GetUbicacionByID(int id);
         void DeleteUbicacion(int id);
         UBICACION Save(UBICACION ubic);
