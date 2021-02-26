@@ -4,26 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="48ff87bb65f74acb88247b80d5d5e2a7" Name="Diagram1">
-        <EntityTypeShape EntityType="vistaDepartamentosDBModel.DEPARTAMENTO" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="vistaDepartamentosDBModel.DEPARTAMENTODETALLE" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="vistaDepartamentosDBModel.EXTRA" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="vistaDepartamentosDBModel.RESERVA" Width="1.5" PointX="8.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="vistaDepartamentosDBModel.ROL" Width="1.5" PointX="3.75" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="vistaDepartamentosDBModel.SERVICIODETALLE" Width="1.5" PointX="10.5" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="vistaDepartamentosDBModel.SERVICIOS" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="vistaDepartamentosDBModel.TIPOPAGO" Width="1.5" PointX="6" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="vistaDepartamentosDBModel.UBICACION" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="vistaDepartamentosDBModel.USUARIO" Width="1.5" PointX="6" PointY="8.375" IsExpanded="true" />
+      <Diagram DiagramId="1ce594c55aa144bcbec40e0e479eaa4e" Name="Diagram1">
+        <EntityTypeShape EntityType="vistaDepartamentosDBModel.DEPARTAMENTO" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="vistaDepartamentosDBModel.EXTRA" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="vistaDepartamentosDBModel.RESERVA" Width="1.5" PointX="8.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="vistaDepartamentosDBModel.ROL" Width="1.5" PointX="3.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="vistaDepartamentosDBModel.SERVICIOS" Width="1.5" PointX="10.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="vistaDepartamentosDBModel.TIPOPAGO" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="vistaDepartamentosDBModel.UBICACION" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="vistaDepartamentosDBModel.USUARIO" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
         <AssociationConnector Association="vistaDepartamentosDBModel.FK_DEPARTAMENTO_UBICACION" ManuallyRouted="false" />
-        <AssociationConnector Association="vistaDepartamentosDBModel.FK_DEPARTAMENTODETALLE_DEPARTAMENTO" ManuallyRouted="false" />
         <AssociationConnector Association="vistaDepartamentosDBModel.FK_RESERVA_DEPARTAMENTO" ManuallyRouted="false" />
-        <AssociationConnector Association="vistaDepartamentosDBModel.FK_DEPARTAMENTODETALLE_EXTRA" ManuallyRouted="false" />
         <AssociationConnector Association="vistaDepartamentosDBModel.FK_RESERVA_TIPOPAGO" ManuallyRouted="false" />
         <AssociationConnector Association="vistaDepartamentosDBModel.FK_RESERVA_USUARIO" ManuallyRouted="false" />
-        <AssociationConnector Association="vistaDepartamentosDBModel.FK_SERVICIODETALLE_RESERVA" ManuallyRouted="false" />
         <AssociationConnector Association="vistaDepartamentosDBModel.FK_USUARIO_ROL" ManuallyRouted="false" />
-        <AssociationConnector Association="vistaDepartamentosDBModel.FK_SERVICIODETALLE_SERVICIOS" ManuallyRouted="false" />
+        <AssociationConnector Association="vistaDepartamentosDBModel.DEPARTAMENTODETALLE" ManuallyRouted="false" />
+        <AssociationConnector Association="vistaDepartamentosDBModel.SERVICIODETALLE" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

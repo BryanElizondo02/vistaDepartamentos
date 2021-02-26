@@ -64,6 +64,19 @@ namespace Web.Controllers
             }
         }
 
+        public ActionResult buscarUbicacionActivo(String filtro)
+        {
+            IEnumerable<DEPARTAMENTO> listaDepartamento = null;
+            ServiceDepartamento _serviceDepartamento = new ServiceDepartamento();
+
+            if (string.IsNullOrEmpty(filtro))
+                listaDepartamento = _serviceDepartamento.GetDepartamentos();
+            else
+                listaDepartamento = _serviceDepartamento.GetDepartamentoActivoByUbicacion(filtro);
+
+            return PartialView("_PartialViewIndexCatalogo", listaDepartamento);
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Equipo de desarrollo:";

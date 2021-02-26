@@ -3,17 +3,22 @@
 @{
     ViewBag.Title = "Editar Registros";
 }
-
-<h2>Editar Departamentos</h2>
+<br />
+<br />
+<br />
+<h2 class="text-center">Editar Departamentos</h2>
 
 
 @using (Html.BeginForm("Save", "Departamento", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>DEPARTAMENTO</h4>
-        <hr />
+<div class="form-horizontal" aling="center">
+    <hr />
+    <div class="container boxcontainer">
+        <img class="img-responsive" src="@Html.DisplayFor(model => model.Imagen)" width="500px" height="400px" class="m-0" />
+        <br />
+    </div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
@@ -28,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Descripcion, new { htmlAttributes = new { @class = "textbox", cols= "20", rows="5", placeholder= "Agregar descripción"} })
+                @Html.TextAreaFor(model => model.Descripcion, new { htmlAttributes = new { @class = "textbox", cols = "20", rows = "5", placeholder = "Agregar descripción" } })
                 @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -36,7 +41,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.UBICACION, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.IdUbicacion, (SelectList)ViewBag.IdUbicacion, htmlAttributes: new { @class = "form-control" })
+                @*@Html.DropDownListFor(model => model.IdUbicacion, (SelectList)ViewBag.IdUbicacion, htmlAttributes: new { @class = "form-control" })*@
+                @Html.DropDownList("IdUbicacion", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.IdUbicacion, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -44,7 +50,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Tarifa, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Tarifa, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Tarifa, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Tarifa, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -69,19 +75,27 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.EXTRA, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("selectedExtra", (MultiSelectList)ViewBag.IdExtra, new { htmlAttributes = new { @class = "form-control" }, multiple = "multiple" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar cambios" class="btn btn-default" />
+                <input type="submit" value="Guardar cambios" class="btn btn-success" />
             </div>
         </div>
     </div>
-}
+    }
 
-<div>
-    <a href="@Url.Action("Departamentos", "Departamento")" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Volver">
-        <i class="fas fa-arrow-left"></i> Volver al listado
-    </a>
-</div>
+    <div class="text-center">
+        <a href="@Url.Action("Departamentos", "Departamento")" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Volver">
+            <i class="fas fa-arrow-left"></i> Volver al listado
+        </a>
+    </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Infraestructure.Models.DEPARTAMENTO>
+
+<div class="row">
+
+    <table class="table table-bordered tablelist table-responsive" align="center">
+        
+        <tbody id="resultado">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UBICACION.Nombre)
+
+                    </td>
+
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.Tarifa)
+                    </td>
+                    <td>
+                        @if (item.Estado)
+                        {
+                            <p class="text-success"><strong>Disponible</strong></p> }
+                        else
+                        {
+                            <p class="text-danger"><strong>No Disponible</strong></p>}
+                    </td>
+                    <td>
+
+                        <img src="@Html.DisplayFor(modelItem => item.Imagen)" width="150px" class="m-0" />
+                    </td>
+                    <td align="center">
+                        <a href="@Url.Action("Edit", "Departamento", new { id = item.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                            <i class="fas fa-edit"></i>  Editar
+                        </a><br /><br />
+
+                        <a href="@Url.Action("Details", "Departamento", new { id = item.Id })" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Ver Detalles">
+                            <i class="fas fa-info-circle"></i>  Detalles
+                        </a><br /><br />
+
+                        <a href="@Url.Action("Delete", "Departamento", new { id = item.Id })" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Descartar Registro">
+                            <i class="fas fa-trash-alt"></i>  Descartar
+                        </a><br /><br />
+                    </td>
+                </tr>
+                        }
+        </tbody>
+    </table>
+</div>

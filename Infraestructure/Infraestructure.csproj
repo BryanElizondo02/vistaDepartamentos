@@ -61,9 +61,6 @@
     <Compile Include="Models\DEPARTAMENTO.cs">
       <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DEPARTAMENTODETALLE.cs">
-      <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\EXTRA.cs">
       <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
     </Compile>
@@ -88,9 +85,6 @@
       <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ROL.cs">
-      <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SERVICIODETALLE.cs">
       <DependentUpon>MyvistaDepartamentosDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SERVICIOS.cs">

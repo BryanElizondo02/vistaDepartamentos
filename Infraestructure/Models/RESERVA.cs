@@ -17,7 +17,7 @@ namespace Infraestructure.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RESERVA()
         {
-            this.SERVICIODETALLE = new HashSet<SERVICIODETALLE>();
+            this.SERVICIOS = new HashSet<SERVICIOS>();
         }
     
         public int Id { get; set; }
@@ -37,6 +37,6 @@ namespace Infraestructure.Models
         public virtual TIPOPAGO TIPOPAGO { get; set; }
         public virtual USUARIO USUARIO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SERVICIODETALLE> SERVICIODETALLE { get; set; }
+        public virtual ICollection<SERVICIOS> SERVICIOS { get; set; }
     }
 }

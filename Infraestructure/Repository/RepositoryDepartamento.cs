@@ -54,11 +54,42 @@ namespace Infraestructure.Repository
                     ctx.Configuration.LazyLoadingEnabled = false;
                     oDepartamento = ctx.DEPARTAMENTO.Where(d => d.Id == id && d.Estado == true)
                         .Include(u => u.UBICACION)
-                        .Include(x => x.DEPARTAMENTODETALLE)
+                        .Include(x => x.EXTRA)
                         .FirstOrDefault();
                 }
 
                 return oDepartamento;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
+        public IEnumerable<DEPARTAMENTO> GetDepartamentoByUbicacion(String ubicacion)
+        {
+            IEnumerable<DEPARTAMENTO> lista = null;
+            try
+            {
+
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    lista = ctx.DEPARTAMENTO
+                        .Include(u => u.UBICACION)
+                        .Include(x => x.EXTRA)
+                        .ToList().FindAll(l => l.UBICACION.Nombre.ToLower().Contains(ubicacion.ToLower()));
+                }
+
+                return lista;
             }
             catch (DbUpdateException dbEx)
             {
@@ -86,7 +117,7 @@ namespace Infraestructure.Repository
                     //oDepartamento = ctx.DEPARTAMENTO.Find(id);
                     oDepartamento = ctx.DEPARTAMENTO.Where(d => d.Id == id)
                         .Include(u => u.UBICACION)
-                        .Include(x => x.DEPARTAMENTODETALLE)
+                        .Include(x => x.EXTRA)
                         .FirstOrDefault();
                 }
 
@@ -117,7 +148,7 @@ namespace Infraestructure.Repository
                     //lista = ctx.DEPARTAMENTO.Include("UBICACION").ToList<DEPARTAMENTO>();
                     lista = ctx.DEPARTAMENTO
                         .Include(x => x.UBICACION)
-                        .Include(d => d.DEPARTAMENTODETALLE)
+                        .Include(d => d.EXTRA)
                         .ToList();
                 
                 }
@@ -147,7 +178,7 @@ namespace Infraestructure.Repository
                     ctx.Configuration.LazyLoadingEnabled = false;
                     lista = ctx.DEPARTAMENTO.Where(x => x.Estado == true)
                         .Include(u => u.UBICACION)
-                        .Include(x => x.DEPARTAMENTODETALLE)
+                        .Include(x => x.EXTRA)
                         .ToList();
 
                 }
@@ -167,7 +198,7 @@ namespace Infraestructure.Repository
             }
         }
 
-        public DEPARTAMENTO Save(DEPARTAMENTO depart)
+        public DEPARTAMENTO Save(DEPARTAMENTO depart, string[] selectedExtra)
         {
             int retorno = 0;
             DEPARTAMENTO oDepartamento = null;
@@ -179,10 +210,24 @@ namespace Infraestructure.Repository
 
                     ctx.Configuration.LazyLoadingEnabled = false;
                     oDepartamento = GetDepartamentoByID((int)depart.Id);
-                    
+                    RepositoryExtra _repositoryExtra = new RepositoryExtra();
                     
                     if (oDepartamento == null)
                     {
+                        //Insertar
+                        if (selectedExtra != null)
+                        {
+                            depart.EXTRA = new List<EXTRA>();
+
+                            foreach (var extra in selectedExtra)
+                            {
+                                var extraAdd = _repositoryExtra.GetExtraByID(int.Parse(extra));
+                                ctx.EXTRA.Attach(extraAdd);
+                                depart.EXTRA.Add(extraAdd);
+
+                            }
+                        }
+
                         ctx.DEPARTAMENTO.Add(depart);
 
                         retorno = ctx.SaveChanges();
@@ -192,6 +237,21 @@ namespace Infraestructure.Repository
                         ctx.DEPARTAMENTO.Add(depart);
                         ctx.Entry(depart).State = EntityState.Modified;
                         retorno = ctx.SaveChanges();
+
+                        var selectedExtraId = new HashSet<string>(selectedExtra);
+                        if (selectedExtra != null)
+                        {
+                            ctx.Entry(depart).Collection(p => p.EXTRA).Load();
+                            var newExtraDepart = ctx.EXTRA
+                                .Where(x => selectedExtraId.Contains(x.Id.ToString())).ToList();
+
+                            depart.EXTRA = newExtraDepart;
+
+                            ctx.Entry(depart).State = EntityState.Modified;
+                            retorno = ctx.SaveChanges();
+                        }
+
+
                     }
                     
                 }
@@ -200,6 +260,37 @@ namespace Infraestructure.Repository
                     oDepartamento = GetDepartamentoByID(depart.Id);
 
                 return oDepartamento;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
+        public IEnumerable<DEPARTAMENTO> GetDepartamentoActivoByUbicacion(string ubicacion)
+        {
+            IEnumerable<DEPARTAMENTO> lista = null;
+            try
+            {
+
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    lista = ctx.DEPARTAMENTO
+                        .Include(u => u.UBICACION)
+                        .Include(x => x.EXTRA)
+                        .ToList().FindAll(l => l.UBICACION.Nombre.ToLower().Contains(ubicacion.ToLower()) && l.Estado == true);
+                }
+
+                return lista;
             }
             catch (DbUpdateException dbEx)
             {

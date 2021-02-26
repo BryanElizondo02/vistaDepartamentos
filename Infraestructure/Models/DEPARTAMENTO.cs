@@ -11,28 +11,40 @@ namespace Infraestructure.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class DEPARTAMENTO
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DEPARTAMENTO()
         {
-            this.DEPARTAMENTODETALLE = new HashSet<DEPARTAMENTODETALLE>();
             this.RESERVA = new HashSet<RESERVA>();
+            this.EXTRA = new HashSet<EXTRA>();
         }
     
         public int Id { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage ="Nombre es un campo obligatorio")]
+        [StringLength(10), MinLength(6)]
         public string Nombre { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Descripción es un campo obligatorio")]
+        [StringLength(30), MinLength(15)]
         public string Descripcion { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "La ubicación es un campo obligatorio")]
         public int IdUbicacion { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "La Tarifa a cobrar es un campo obligatorio")]
         public decimal Tarifa { get; set; }
+        [Display(Name = "Disponibilidad")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "La disponibilidad es una opción requerida")]
         public bool Estado { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "La URL de la imagen es un campo obligatorio")]
         public string Imagen { get; set; }
     
+        [Display(Name="Ubición")]
         public virtual UBICACION UBICACION { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DEPARTAMENTODETALLE> DEPARTAMENTODETALLE { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RESERVA> RESERVA { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [Display(Name = "Incluye")]
+        public virtual ICollection<EXTRA> EXTRA { get; set; }
     }
 }

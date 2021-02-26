@@ -12,27 +12,32 @@ namespace Infraestructure.Models
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
+        [Display(Name = "Ubicación")]
+        public int IdUbicacion { get; set; }
         [Display(Name = "Tarifa Mensual")]
         public decimal Tarifa { get; set; }
         [Display(Name = "Disponibilidad")]
         public bool Estado { get; set; }
-
         public string Imagen { get; set; }
 
         [Display(Name = "Ubicacion")]
         public virtual UBICACION UBICACION { get; set; }
-        [Display(Name = "Detalle")]
-        public virtual ICollection<DEPARTAMENTODETALLE> DEPARTAMENTODETALLE { get; set; }
-        [Display(Name = "Reservacion")]
+        [Display(Name = "Reserva")]
         public virtual ICollection<RESERVA> RESERVA { get; set; }
+        [Display(Name = "Extras")]
+        public virtual ICollection<EXTRA> EXTRA { get; set; }
+
     }
 
     internal partial class ExtraMetadata
     {
+
         public int Id { get; set; }
         public string Descripcion { get; set; }
+        public bool Estado { get; set; }
+
         [Display(Name = "Detalle")]
-        public virtual ICollection<DEPARTAMENTODETALLE> DEPARTAMENTODETALLE { get; set; }
+        public virtual ICollection<DEPARTAMENTO> DEPARTAMENTO { get; set; }
 
     }
 }

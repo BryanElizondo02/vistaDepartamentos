@@ -26,11 +26,9 @@ namespace Infraestructure.Models
         }
     
         public virtual DbSet<DEPARTAMENTO> DEPARTAMENTO { get; set; }
-        public virtual DbSet<DEPARTAMENTODETALLE> DEPARTAMENTODETALLE { get; set; }
         public virtual DbSet<EXTRA> EXTRA { get; set; }
         public virtual DbSet<RESERVA> RESERVA { get; set; }
         public virtual DbSet<ROL> ROL { get; set; }
-        public virtual DbSet<SERVICIODETALLE> SERVICIODETALLE { get; set; }
         public virtual DbSet<SERVICIOS> SERVICIOS { get; set; }
         public virtual DbSet<TIPOPAGO> TIPOPAGO { get; set; }
         public virtual DbSet<UBICACION> UBICACION { get; set; }

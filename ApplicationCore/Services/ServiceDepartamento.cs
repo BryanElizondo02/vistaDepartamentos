@@ -22,10 +22,22 @@ namespace ApplicationCore.Services
             return repository.GetDepartamentoActivoByID(id);
         }
 
+        public IEnumerable<DEPARTAMENTO> GetDepartamentoActivoByUbicacion(string ubicacion)
+        {
+            IRepositoryDepartamento repository = new RepositoryDepartamento();
+            return repository.GetDepartamentoActivoByUbicacion(ubicacion);
+        }
+
         public DEPARTAMENTO GetDepartamentoByID(int id)
         {
             IRepositoryDepartamento repository = new RepositoryDepartamento();
             return repository.GetDepartamentoByID(id);
+        }
+
+        public IEnumerable<DEPARTAMENTO> GetDepartamentoByUbicacion(string ubicacion)
+        {
+            IRepositoryDepartamento repository = new RepositoryDepartamento();
+            return repository.GetDepartamentoByUbicacion(ubicacion);
         }
 
         public IEnumerable<DEPARTAMENTO> GetDepartamentos()
@@ -40,10 +52,10 @@ namespace ApplicationCore.Services
             return repository.GetDepartamentosActivos();
         }
 
-        public DEPARTAMENTO Save(DEPARTAMENTO depart)
+        public DEPARTAMENTO Save(DEPARTAMENTO depart, string[] selectedExtra)
         {
             IRepositoryDepartamento repository = new RepositoryDepartamento();
-            return repository.Save(depart);
+            return repository.Save(depart, selectedExtra);
         }
     }
 }

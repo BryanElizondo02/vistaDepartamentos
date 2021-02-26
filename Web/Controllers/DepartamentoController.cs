@@ -67,6 +67,19 @@ namespace Web.Controllers
             }
         }
 
+        public ActionResult buscarUbicacion(String filtro)
+        {
+            IEnumerable<DEPARTAMENTO> listaDepartamento = null;
+            ServiceDepartamento _serviceDepartamento = new ServiceDepartamento();
+
+            if (string.IsNullOrEmpty(filtro))
+                listaDepartamento = _serviceDepartamento.GetDepartamentos();
+            else
+                listaDepartamento = _serviceDepartamento.GetDepartamentoByUbicacion(filtro);
+
+            return PartialView("_PartialViewCatalogo", listaDepartamento);
+        }
+
         private SelectList listUbicacion(int idUbicacion = 0)
         {
             ServiceUbicacion _serviceUbicacion = new ServiceUbicacion();
@@ -136,7 +149,7 @@ namespace Web.Controllers
                     return RedirectToAction("Default", "Error");
                 }
                 ViewBag.IdUbicacion = listUbicacion(oDepartamento.IdUbicacion);
-                //ViewBag.IdCategoria = listaExtras(oDepartamento.);
+                ViewBag.IdExtra = listaExtras(oDepartamento.EXTRA);
                 return View(oDepartamento);
             }
             catch (Exception ex)
@@ -151,21 +164,23 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Save(DEPARTAMENTO departamento)
+        public ActionResult Save(DEPARTAMENTO departamento, string []selectedExtra)
         {
             ServiceDepartamento _serviceDepartamento = new ServiceDepartamento();
             try
             {
                 if (ModelState.IsValid)
                 {
-                    DEPARTAMENTO oDepartamento = _serviceDepartamento.Save(departamento);
-
+                    DEPARTAMENTO oDepartamento = _serviceDepartamento.Save(departamento, selectedExtra);
+                    
 
                 }
                 else
                 {
                     Util.Util.ValidateErrors(this);
                     ViewBag.IdUbicacion = listUbicacion();
+                    ViewBag.IdExtra = listaExtras(departamento.EXTRA);
+
                     return View("Create", departamento);
                 }
 

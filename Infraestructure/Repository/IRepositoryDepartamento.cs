@@ -11,10 +11,12 @@ namespace Infraestructure.Repository
     {
         IEnumerable<DEPARTAMENTO> GetDepartamentos();
         IEnumerable<DEPARTAMENTO> GetDepartamentosActivos();
+        IEnumerable<DEPARTAMENTO> GetDepartamentoByUbicacion(String ubicacion);
+        IEnumerable<DEPARTAMENTO> GetDepartamentoActivoByUbicacion(String ubicacion);
         DEPARTAMENTO GetDepartamentoByID(int id);
         DEPARTAMENTO GetDepartamentoActivoByID(int id);
         void DeleteDEPARTAMENTO(bool estado);
-        DEPARTAMENTO Save(DEPARTAMENTO depart);
+        DEPARTAMENTO Save(DEPARTAMENTO depart, string[] selectedExtra);
 
     }
 }

@@ -12,7 +12,7 @@
         <br /><br />
         <table class="table table-bordered text-center" align="center">
             <tr>
-                <th colspan="5" class="text-center tabletitle">
+                <th colspan="6" class="text-center tabletitle">
                     @Html.DisplayFor(model => model.Nombre)
                 </th>
             </tr>
@@ -30,9 +30,12 @@
                     @Html.DisplayNameFor(model => model.UBICACION)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.EXTRA)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Tarifa)
                 </th>
-                
+
 
             </tr>
             <tr>
@@ -54,6 +57,15 @@
                 </td>
                 <td>
                     @Html.DisplayFor(model => model.UBICACION.Nombre)
+                    
+                </td>
+                <td>
+                    <ul>
+                        @foreach (var ext in Model.EXTRA)
+                        {
+                        <li class="text-left">@ext.Descripcion</li>
+                        }
+                    </ul>
                     
                 </td>
                 <td class="text-danger" id="tarifa">
