@@ -11,29 +11,38 @@ namespace Infraestructure.Repository
     {
         public void DeleteDEPARTAMENTO(int id)
         {
-            int returno;
+            int retorno = 0;
+            /*DEPARTAMENTO oDepartamento = null;*/
             try
             {
 
                 using (MyContext ctx = new MyContext())
                 {
-                    /* La carga diferida retrasa la carga de datos relacionados,
-                     * hasta que lo solicite específicamente.*/
-                    ctx.Configuration.LazyLoadingEnabled = false;
 
-                    DEPARTAMENTO oDepartamento = new DEPARTAMENTO();
+                    /*ctx.Configuration.LazyLoadingEnabled = false;
                     oDepartamento = GetDepartamentoByID(id);
 
-                    if (oDepartamento != null)
+                    if (oDepartamento == null)
                     {
+                        //Insertar
                         oDepartamento.Estado = false;
 
-                        ctx.DEPARTAMENTO.Add(oDepartamento);
+                        //ctx.DEPARTAMENTO.Add(oDepartamento);
                         ctx.Entry(oDepartamento).State = EntityState.Modified;
-                        returno = ctx.SaveChanges();
+                        retorno = ctx.SaveChanges();
                     }
-                    
+                    */
+
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    DEPARTAMENTO depart = new DEPARTAMENTO()
+                    {
+                        Estado = false
+                    };
+                    ctx.Entry(depart).State = EntityState.Modified;
+                    retorno = ctx.SaveChanges();
+
                 }
+
             }
             catch (DbUpdateException dbEx)
             {

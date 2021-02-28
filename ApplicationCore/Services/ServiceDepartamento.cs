@@ -10,10 +10,10 @@ namespace ApplicationCore.Services
 {
     public class ServiceDepartamento : IServiceDepartamento
     {
-        public void DeleteDEPARTAMENTO(bool estado)
+        public void DeleteDEPARTAMENTO(int id)
         {
             IRepositoryDepartamento repository = new RepositoryDepartamento();
-            repository.DeleteDEPARTAMENTO(estado);
+            repository.DeleteDEPARTAMENTO(id);
         }
 
         public DEPARTAMENTO GetDepartamentoActivoByID(int id)

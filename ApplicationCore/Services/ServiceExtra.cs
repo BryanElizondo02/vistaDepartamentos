@@ -10,6 +10,11 @@ namespace ApplicationCore.Services
 {
     public class ServiceExtra : IServiceExtra
     {
+        public void DeleteExtra(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public EXTRA GetExtraByID(int id)
         {
             IRepositoryExtra repository = new RepositoryExtra();
@@ -20,6 +25,12 @@ namespace ApplicationCore.Services
         {
             IRepositoryExtra repository = new RepositoryExtra();
             return repository.GetExtras();
+        }
+
+        public IEnumerable<EXTRA> GetExtrasActivo()
+        {
+            IRepositoryExtra repository = new RepositoryExtra();
+            return repository.GetExtrasActivo();
         }
 
         public EXTRA Save(EXTRA extra)

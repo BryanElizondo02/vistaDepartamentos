@@ -9,25 +9,78 @@ using Infraestructure.Models;
 
 namespace Infraestructure.Repository
 {
-    public class RepositoryExtra : IRepositoryExtra
+    public class RepositoryServicio : IRepositoryServicio
     {
-        public void DeleteExtra(int id)
+        public void DeleteServicio(int id)
         {
             throw new NotImplementedException();
         }
 
-        public EXTRA GetExtraByID(int id)
+        public IEnumerable<SERVICIOS> GetServicio()
         {
-            EXTRA oExtra = null;
             try
             {
+                IEnumerable<SERVICIOS> lista = null;
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    oExtra = ctx.EXTRA.Find(id);
+                    lista = ctx.SERVICIOS.ToList<SERVICIOS>();
+                }
+                return lista;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception EX)
+            {
+                string mensaje = "";
+                Log.Error(EX, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
+        public IEnumerable<SERVICIOS> GetServicioActivo()
+        {
+            try
+            {
+                IEnumerable<SERVICIOS> lista = null;
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    lista = ctx.SERVICIOS.Where(x => x.Estado == true).ToList();
+                }
+                return lista;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception EX)
+            {
+                string mensaje = "";
+                Log.Error(EX, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
+        public SERVICIOS GetServicioByID(int id)
+        {
+            SERVICIOS oServicio = null;
+            try
+            {
+
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    oServicio = ctx.SERVICIOS.Find(id);
                 }
 
-                return oExtra;
+                return oServicio;
             }
             catch (DbUpdateException dbEx)
             {
@@ -43,64 +96,10 @@ namespace Infraestructure.Repository
             }
         }
 
-        public IEnumerable<EXTRA> GetExtras()
-        {
-            try
-            {
-                IEnumerable<EXTRA> lista = null;
-                using (MyContext ctx = new MyContext())
-                {
-                    ctx.Configuration.LazyLoadingEnabled = false;
-                    lista = ctx.EXTRA.ToList<EXTRA>();
-
-                }
-                return lista;
-            }
-            catch (DbUpdateException dbEx)
-            {
-                string mensaje = "";
-                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
-                throw new Exception(mensaje);
-            }
-            catch (Exception EX)
-            {
-                string mensaje = "";
-                Log.Error(EX, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
-                throw;
-            }
-        }
-
-        public IEnumerable<EXTRA> GetExtrasActivo()
-        {
-            try
-            {
-                IEnumerable<EXTRA> lista = null;
-                using (MyContext ctx = new MyContext())
-                {
-                    ctx.Configuration.LazyLoadingEnabled = false;
-                    lista = ctx.EXTRA.Where(x => x.Estado == true).ToList();
-
-                }
-                return lista;
-            }
-            catch (DbUpdateException dbEx)
-            {
-                string mensaje = "";
-                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
-                throw new Exception(mensaje);
-            }
-            catch (Exception EX)
-            {
-                string mensaje = "";
-                Log.Error(EX, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
-                throw;
-            }
-        }
-
-        public EXTRA Save(EXTRA extra)
+        public SERVICIOS Save(SERVICIOS servicio)
         {
             int retorno = 0;
-            EXTRA oExtra = null;
+            SERVICIOS oServicio = null;
             try
             {
 
@@ -108,28 +107,26 @@ namespace Infraestructure.Repository
                 {
 
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    oExtra = GetExtraByID((int)extra.Id);
+                    oServicio = GetServicioByID((int)servicio.Id);
 
-
-                    if (oExtra == null)
+                    if (oServicio == null)
                     {
-                        ctx.EXTRA.Add(extra);
-
+                        ctx.SERVICIOS.Add(servicio);
                         retorno = ctx.SaveChanges();
                     }
                     else
                     {
-                        ctx.EXTRA.Add(extra);
-                        ctx.Entry(extra).State = EntityState.Modified;
+                        ctx.SERVICIOS.Add(servicio);
+                        ctx.Entry(servicio).State = EntityState.Modified;
                         retorno = ctx.SaveChanges();
                     }
 
                 }
 
                 if (retorno >= 0)
-                    oExtra = GetExtraByID(extra.Id);
+                    oServicio = GetServicioByID(servicio.Id);
 
-                return oExtra;
+                return oServicio;
             }
             catch (DbUpdateException dbEx)
             {

@@ -1,13 +1,14 @@
-﻿@model Infraestructure.Models.UBICACION
+﻿@model Infraestructure.Models.SERVICIOS
 
 @{
     ViewBag.Title = "Detalles";
 }
+
 <br />
 <br />
 <br />
 <div>
-    <h2>Detalle de Ubicación</h2>
+    <h2>Detalle de Servicio</h2>
     <hr />
     <dl class="dl-horizontal" align="justify">
         <dt>
@@ -24,6 +25,22 @@
 
         <dd>
             @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+
+        <dd>
+            $@Html.DisplayFor(model => model.Precio)
         </dd>
 
         <dt>
@@ -44,11 +61,11 @@
             <br />
             <br />
             <p>
-                <a href="@Url.Action("Edit", "Ubicacion", new { id = Model.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                <a href="@Url.Action("Edit", "Servicio", new { id = Model.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
                     <i class="fas fa-edit"></i>  Editar
                 </a>
                 |
-                <a href="Ubicaciones" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Volver">
+                <a href="Servicios" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Volver">
                     <i class="fas fa-arrow-left"></i> Volver al listado
                 </a>
 
@@ -57,5 +74,3 @@
 
     </dl>
 </div>
-
-

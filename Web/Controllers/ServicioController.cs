@@ -9,16 +9,16 @@ using Infraestructure.Models;
 
 namespace Web.Controllers
 {
-    public class UbicacionController : Controller
+    public class ServicioController : Controller
     {
-        // GET: Ubicacion
-        public ActionResult Ubicaciones()
+        // GET: Servicio
+        public ActionResult Servicios()
         {
-            IEnumerable<UBICACION> lista = null;
+            IEnumerable<SERVICIOS> lista = null;
             try
             {
-                ServiceUbicacion _serviceUbicacion = new ServiceUbicacion();
-                lista = _serviceUbicacion.GetUbicaciones();
+                ServiceServicio _serviceServicio = new ServiceServicio();
+                lista = _serviceServicio.GetServicio();
 
             }
             catch (Exception ex)
@@ -30,47 +30,50 @@ namespace Web.Controllers
             return View(lista);
         }
 
+        // GET: Servicio/Details/5
         public ActionResult Details(int? id)
         {
-            ServiceUbicacion _serviceUbicacion = new ServiceUbicacion();
-            UBICACION oUbicacion= null;
+            ServiceServicio _serviceServicio = new ServiceServicio();
+            SERVICIOS oServicio = null;
             try
             {
                 // Si va null
                 if (id == null)
                 {
-                    return RedirectToAction("Ubicaciones");
+                    return RedirectToAction("Servicios");
                 }
 
-                oUbicacion = _serviceUbicacion.GetUbicacionByID(id.Value);
-                if (oUbicacion == null)
+                oServicio = _serviceServicio.GetServicioByID(id.Value);
+                if (oServicio == null)
                 {
 
                     //return RedirectToAction("Ubicaciones");
-                    TempData["Message"] = "No existe la Ubicación solicitada";
-                    TempData["Redirect"] = "Ubicacion";
-                    TempData["Redirect-Action"] = "Ubicaciones";
+                    TempData["Message"] = "No existen los registros solicitados";
+                    TempData["Redirect"] = "Servicio";
+                    TempData["Redirect-Action"] = "Servicios";
 
                     return RedirectToAction("Default", "Error");
                 }
-                return View(oUbicacion);
+                return View(oServicio);
             }
             catch (Exception ex)
             {
                 Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos" + ex.Message;
-                TempData["Redirect"] = "Ubicacion";
-                TempData["Redirect-Action"] = "Ubicaciones";
+                TempData["Message"] = "No existen los registros solicitados";
+                TempData["Redirect"] = "Servicio";
+                TempData["Redirect-Action"] = "Servicios";
 
                 return RedirectToAction("Default", "Error");
             }
         }
 
+        // GET: Servicio/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        // POST: Servicio/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -78,7 +81,7 @@ namespace Web.Controllers
             {
                 // TODO: Add delete logic here
 
-                return RedirectToAction("Ubicaciones");
+                return RedirectToAction("Servicios");
             }
             catch (Exception ex)
             {
@@ -87,71 +90,93 @@ namespace Web.Controllers
             }
         }
 
+        // GET: Servicio/Edit/5
         public ActionResult Edit(int id)
         {
-            ServiceUbicacion _serviceUbic = new ServiceUbicacion();
-            UBICACION oUbicacion = null;
+            ServiceServicio _serviceServicio = new ServiceServicio();
+            SERVICIOS oServicio = null;
             try
             {
                 // Si va null
                 if (id == null)
                 {
-                    return RedirectToAction("Ubicaciones");
+                    return RedirectToAction("Servicios");
                 }
 
-                oUbicacion = _serviceUbic.GetUbicacionByID(id);
-                if (oUbicacion == null)
+                oServicio = _serviceServicio.GetServicioByID(id);
+                if (oServicio == null)
                 {
-                    TempData["Message"] = "No existe la ubicación solicitada";
-                    TempData["Redirect"] = "Ubicacion";
-                    TempData["Redirect-Action"] = "Ubicaciones";
+                    TempData["Message"] = "No existe el servicio solicitado";
+                    TempData["Redirect"] = "Servicio";
+                    TempData["Redirect-Action"] = "Servicios";
 
                     return RedirectToAction("Default", "Error");
                 }
-                
-                return View(oUbicacion);
+
+                return View(oServicio);
             }
             catch (Exception ex)
             {
                 Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos" + ex.Message;
-                TempData["Redirect"] = "Ubicacion";
-                TempData["Redirect-Action"] = "Ubicaciones";
+                TempData["Redirect"] = "Servicio";
+                TempData["Redirect-Action"] = "Servicios";
 
                 return RedirectToAction("Default", "Error");
             }
         }
 
         [HttpPost]
-        public ActionResult Save(UBICACION ubic)
+        public ActionResult Save(SERVICIOS serv)
         {
-            ServiceUbicacion _serviceUbicacion = new ServiceUbicacion();
+            ServiceServicio _serviceServicio = new ServiceServicio();
             try
             {
                 if (ModelState.IsValid)
                 {
-                    UBICACION oUbicacion = _serviceUbicacion.Save(ubic);
+                    SERVICIOS oServicio = _serviceServicio.Save(serv);
 
                 }
                 else
                 {
                     Util.Util.ValidateErrors(this);
 
-                    return View("Create", ubic);
+                    return View("Create", serv);
                 }
 
-                return RedirectToAction("Ubicaciones");
+                return RedirectToAction("Servicios");
             }
             catch (Exception ex)
             {
                 Log.Error(ex, MethodBase.GetCurrentMethod());
                 TempData["Message"] = "Error al procesar los datos" + ex.Message;
-                TempData["Redirect"] = "Ubicacion";
-                TempData["Redirect-Action"] = "Ubicaciones";
+                TempData["Redirect"] = "Servicio";
+                TempData["Redirect-Action"] = "Servicios";
 
                 return RedirectToAction("Default", "Error");
             }
         }
 
+        // GET: Servicio/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: Servicio/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+
+                return RedirectToAction("Servicios");
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }

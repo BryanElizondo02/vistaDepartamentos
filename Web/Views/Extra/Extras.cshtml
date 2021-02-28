@@ -1,24 +1,26 @@
-﻿@model IEnumerable<Infraestructure.Models.UBICACION>
+﻿@model IEnumerable<Infraestructure.Models.EXTRA>
 
 @{
-    ViewBag.Title = "Ubicaciones";
+    ViewBag.Title = "Extras";
 }
 <br />
 <br />
 <br />
 
-<h2>Ubicaciones</h2>
+<h2>Extras</h2>
 <hr />
+
 <p>
-    <a href="@Url.Action("Create", "Ubicacion")" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Crear Registro">
+    <a href="@Url.Action("Create", "Extra")" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Crear Registro">
         <i class="fas fa-plus-circle awsomeNav"></i>
         <strong>Nuevo Registro</strong>
     </a>
 </p>
+
 <table class="table table-bordered tablelist table-responsive text-center" align="center">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nombre)
+            @Html.DisplayNameFor(model => model.Descripcion)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Estado)
@@ -32,7 +34,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
+                @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
             <td>
                 @if (item.Estado)
@@ -45,16 +47,18 @@
                 }
             </td>
             <td align="center">
-                <a href="@Url.Action("Edit", "Ubicacion", new { id = item.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                <a href="@Url.Action("Edit", "Extra", new { id = item.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
                     <i class="fas fa-edit"></i>  Editar
                 </a>
 
-                <a href="@Url.Action("Details", "Ubicacion", new { id = item.Id })" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Ver Detalles">
+                <a href="@Url.Action("Details", "Extra", new { id = item.Id })" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Ver Detalles">
                     <i class="fas fa-info-circle"></i>  Detalles
                 </a>
 
+                
             </td>
         </tr>
-    }
+      }
 
 </table>
+

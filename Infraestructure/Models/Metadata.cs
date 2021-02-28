@@ -40,4 +40,5 @@ namespace Infraestructure.Models
         public virtual ICollection<DEPARTAMENTO> DEPARTAMENTO { get; set; }
 
     }
+
 }

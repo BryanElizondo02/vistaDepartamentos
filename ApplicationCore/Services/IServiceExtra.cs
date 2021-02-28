@@ -10,7 +10,9 @@ namespace ApplicationCore.Services
     interface IServiceExtra
     {
         IEnumerable<EXTRA> GetExtras();
+        IEnumerable<EXTRA> GetExtrasActivo();
         EXTRA GetExtraByID(int id);
         EXTRA Save(EXTRA extra);
+        void DeleteExtra(int id);
     }
 }

@@ -90,7 +90,7 @@ namespace Web.Controllers
         private MultiSelectList listaExtras(ICollection<EXTRA> extras)
         {
             ServiceExtra _serviceExtra = new ServiceExtra();
-            IEnumerable<EXTRA> listaExtra = _serviceExtra.GetExtras();
+            IEnumerable<EXTRA> listaExtra = _serviceExtra.GetExtrasActivo();
             int[] listaExtraSelect = null;
 
             if (extras != null)
@@ -196,12 +196,6 @@ namespace Web.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
-
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
         
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)

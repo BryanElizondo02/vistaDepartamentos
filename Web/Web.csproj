@@ -146,7 +146,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DepartamentoController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\ExtraController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ServicioController.cs" />
     <Compile Include="Controllers\UbicacionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -314,6 +316,14 @@
     <Content Include="Views\Home\_PartialViewIndexCatalogo.cshtml" />
     <Content Include="Views\Ubicacion\Create.cshtml" />
     <Content Include="Views\Ubicacion\Edit.cshtml" />
+    <Content Include="Views\Extra\Extras.cshtml" />
+    <Content Include="Views\Extra\Details.cshtml" />
+    <Content Include="Views\Extra\Create.cshtml" />
+    <Content Include="Views\Extra\Edit.cshtml" />
+    <Content Include="Views\Servicio\Servicios.cshtml" />
+    <Content Include="Views\Servicio\Details.cshtml" />
+    <Content Include="Views\Servicio\Edit.cshtml" />
+    <Content Include="Views\Servicio\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

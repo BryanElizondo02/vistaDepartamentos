@@ -1,13 +1,14 @@
-﻿@model Infraestructure.Models.UBICACION
+﻿@model Infraestructure.Models.EXTRA
 
 @{
     ViewBag.Title = "Detalles";
 }
+
 <br />
 <br />
 <br />
 <div>
-    <h2>Detalle de Ubicación</h2>
+    <h2>Detalle de Extras</h2>
     <hr />
     <dl class="dl-horizontal" align="justify">
         <dt>
@@ -19,11 +20,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Nombre)
+            @Html.DisplayNameFor(model => model.Descripcion)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Nombre)
+            @Html.DisplayFor(model => model.Descripcion)
         </dd>
 
         <dt>
@@ -44,11 +45,11 @@
             <br />
             <br />
             <p>
-                <a href="@Url.Action("Edit", "Ubicacion", new { id = Model.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                <a href="@Url.Action("Edit", "Extra", new { id = Model.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
                     <i class="fas fa-edit"></i>  Editar
                 </a>
                 |
-                <a href="Ubicaciones" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Volver">
+                <a href="Extras" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Volver">
                     <i class="fas fa-arrow-left"></i> Volver al listado
                 </a>
 
@@ -57,5 +58,3 @@
 
     </dl>
 </div>
-
-

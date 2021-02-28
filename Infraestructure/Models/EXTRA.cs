@@ -23,7 +23,7 @@ namespace Infraestructure.Models
     
         public int Id { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Descripción es un campo obligatorio")]
-        [StringLength(10), MinLength(3)]
+        [StringLength(20), MinLength(3)]
         public string Descripcion { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Estado es un campo obligatorio")]
         public bool Estado { get; set; }
