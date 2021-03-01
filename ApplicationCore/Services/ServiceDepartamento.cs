@@ -52,6 +52,12 @@ namespace ApplicationCore.Services
             return repository.GetDepartamentosActivos();
         }
 
+        public IEnumerable<string> GetDepartamentosUbicaciones()
+        {
+            IRepositoryDepartamento repository = new RepositoryDepartamento();
+            return repository.GetDepartamentosUbicaciones();
+        }
+
         public DEPARTAMENTO Save(DEPARTAMENTO depart, string[] selectedExtra)
         {
             IRepositoryDepartamento repository = new RepositoryDepartamento();

@@ -31,7 +31,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    
+
                     <li>
                         <a href="@Url.Action("Index", "Home", null)" data-toggle="tooltip" data-placement="bottom" title="Pagina principal">
                             <i class="fas fa-home awsomeNav"></i>
@@ -166,12 +166,12 @@
                     </li>
 
                 </ul>
-                
+
             </div>
         </div>
     </div>
 
-    <div class="container body-content">       
+    <div class="container body-content">
         @RenderBody()
         <hr />
         <footer class="fixed-bottom bg-dark p-1 text-center">
@@ -181,9 +181,17 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/sweetalert")
     @RenderSection("scripts", required: false)
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js"></script>
     <script src="~/Scripts/main.js"></script>
+    @if (ViewBag.NotificationMessage != null)
+    {
+        <script>
+         @Html.Raw(@ViewBag.NotificationMessage);
+        </script>
+    }
 </body>
 </html>

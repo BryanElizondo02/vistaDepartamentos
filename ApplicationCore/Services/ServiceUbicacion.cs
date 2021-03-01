@@ -16,6 +16,7 @@ namespace ApplicationCore.Services
             repository.DeleteUbicacion(id);
         }
 
+
         public UBICACION GetUbicacionByID(int id)
         {
             IRepositoryUbicacion repository = new RepositoryUbicacion();

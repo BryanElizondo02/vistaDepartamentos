@@ -213,6 +213,32 @@ namespace Infraestructure.Repository
             }
         }
 
+        public IEnumerable<string> GetDepartamentosUbicaciones()
+        {
+            try
+            {
+                IEnumerable<string> lista = null;
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    lista = this.GetDepartamentosActivos().Select(x => x.UBICACION.Nombre);
+                }
+                return lista;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception EX)
+            {
+                string mensaje = "";
+                Log.Error(EX, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
         public DEPARTAMENTO Save(DEPARTAMENTO depart, string[] selectedExtra)
         {
             int retorno = 0;

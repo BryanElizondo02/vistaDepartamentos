@@ -20,6 +20,8 @@ namespace Web.Controllers
             try
             {
                 ServiceDepartamento _serviceDepartamento = new ServiceDepartamento();
+                //lista de opciones de busqueda
+                ViewBag.busquedaUbicacion = _serviceDepartamento.GetDepartamentosUbicaciones();
                 lista = _serviceDepartamento.GetDepartamentos();
             
             }
@@ -84,6 +86,7 @@ namespace Web.Controllers
         {
             ServiceUbicacion _serviceUbicacion = new ServiceUbicacion();
             IEnumerable<UBICACION> listaUbicacion = _serviceUbicacion.GetUbicacionesActivas();
+            
             return new SelectList(listaUbicacion, "Id", "Nombre", idUbicacion);//List to Dropdown List
         }
 
