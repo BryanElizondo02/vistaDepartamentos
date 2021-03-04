@@ -14,5 +14,7 @@ namespace ApplicationCore.Services
         UBICACION GetUbicacionByID(int id);
         void DeleteUbicacion(int id);
         UBICACION Save(UBICACION ubic);
+
+
     }
 }

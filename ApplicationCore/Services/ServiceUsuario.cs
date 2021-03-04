@@ -20,6 +20,12 @@ namespace ApplicationCore.Services
 
         }
 
+        public IEnumerable<USUARIO> GetUsuarioActivo()
+        {
+            IRepositoryUsuario repository = new RepositoryUsuario();
+            return repository.GetUsuarioActivo();
+        }
+
         public USUARIO GetUsuarioByID(int id)
         {
             IRepositoryUsuario repository = new RepositoryUsuario();
@@ -27,6 +33,12 @@ namespace ApplicationCore.Services
             oUsuario.Clave = Cryptography.DecrypthAES(oUsuario.Clave);
             return oUsuario;
 
+        }
+
+        public IEnumerable<USUARIO> GetUsuarioInactivo()
+        {
+            IRepositoryUsuario repository = new RepositoryUsuario();
+            return repository.GetUsuarioInactivo();
         }
 
         public USUARIO Save(USUARIO usuario)

@@ -11,9 +11,9 @@
 
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/main.css")
-    @Styles.Render("~/Content/departamentoCatalogo.css")
-    @Styles.Render("~/Content/details.css")
-    @Styles.Render("~/Content/contacto.css")
+        @Styles.Render("~/Content/departamentoCatalogo.css")
+        @Styles.Render("~/Content/details.css")
+        @Styles.Render("~/Content/contacto.css")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
 </head>
@@ -138,19 +138,19 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Nuevo Cliente/Administrador">
+                                <a href="@Url.Action("Create", "Usuario", null)" data-toggle="tooltip" data-placement="bottom" title="Nuevo Cliente/Administrador">
                                     <i class="fas fa-user-plus awsomeNav"></i>
                                     Agregar Usuarios
                                 </a>
                             </li>
                             <li>
-                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Editar perfiles">
+                                <a href="@Url.Action("UsuariosHabilitados", "Usuario", null)" data-toggle="tooltip" data-placement="bottom" title="Editar perfiles">
                                     <i class="fas fa-users awsomeNav"></i>
                                     Administrar Usuarios Registrados
                                 </a>
                             </li>
                             <li>
-                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Habilitar Usuarios">
+                                <a href="@Url.Action("UsuariosDeshabilitados", "Usuario", null)" data-toggle="tooltip" data-placement="bottom" title="Habilitar Usuarios">
                                     <i class="fas fa-users-slash awsomeNav"></i>
                                     Administrar Usuarios Deshabilitados
                                 </a>

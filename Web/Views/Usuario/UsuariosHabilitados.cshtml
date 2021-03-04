@@ -1,0 +1,109 @@
+﻿@model IEnumerable<Infraestructure.Models.USUARIO>
+
+@{
+    ViewBag.Title = "UsuariosHabilitados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<br />
+<br />
+<h2 class="text-center">Administrar Usuarios Activos</h2>
+<div class="container">
+    <div class="row text-center">
+        <table class="table table-bordered tablelist table-responsive" align="center">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Apellido1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Apellido2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Correo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Telefono)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sexo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaNacimiento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdRol)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Estado)
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Correo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sexo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaNacimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ROL.Descripcion)
+            </td>
+            <td>
+                @if (item.Estado)
+                {
+                    <p class="text-success"><strong>Activo</strong></p>
+                }
+                else
+                {
+                    <p class="text-danger"><strong>Inactivo</strong></p>
+                }
+            </td>
+            <td>
+                <a href="@Url.Action("EditHabilitados", "Usuario", new { id = item.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                    <i class="fas fa-edit"></i>  Editar
+                </a><br /><br />
+
+                <a href="@Url.Action("DetailsHabilitados", "Usuario", new { id = item.Id })" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Ver Detalles">
+                    <i class="fas fa-info-circle"></i>  Detalles
+                </a><br /><br />
+            </td>
+        </tr>
+            }
+
+        </table>
+    </div>
+ </div>
+
+    

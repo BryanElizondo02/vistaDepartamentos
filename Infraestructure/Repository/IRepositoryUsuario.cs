@@ -13,6 +13,8 @@ namespace Infraestructure.Repository
         USUARIO Save(USUARIO usuario);
         USUARIO GetUsuario(string email, string password);
 
+        IEnumerable<USUARIO> GetUsuarioActivo();
+        IEnumerable<USUARIO> GetUsuarioInactivo();
 
     }
 }

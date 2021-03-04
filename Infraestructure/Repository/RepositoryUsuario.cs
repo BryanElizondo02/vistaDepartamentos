@@ -42,7 +42,36 @@ namespace Infraestructure.Repository
 
          }
 
-    public USUARIO GetUsuarioByID(int id)
+        public IEnumerable<USUARIO> GetUsuarioActivo()
+        {
+            try
+            {
+                IEnumerable<USUARIO> lista = null;
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    lista = ctx.USUARIO.Where(x => x.Estado == true)
+                        .Include(u => u.ROL)
+                        .ToList();
+
+                }
+                return lista;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception EX)
+            {
+                string mensaje = "";
+                Log.Error(EX, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
+        public USUARIO GetUsuarioByID(int id)
         {
             USUARIO usuario = null;
             try
@@ -70,6 +99,35 @@ namespace Infraestructure.Repository
                 throw;
             }
 
+        }
+
+        public IEnumerable<USUARIO> GetUsuarioInactivo()
+        {
+            try
+            {
+                IEnumerable<USUARIO> lista = null;
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    lista = ctx.USUARIO.Where(x => x.Estado == false)
+                        .Include(u => u.ROL)
+                        .ToList();
+
+                }
+                return lista;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception EX)
+            {
+                string mensaje = "";
+                Log.Error(EX, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
         }
 
         public USUARIO Save(USUARIO usuario)
