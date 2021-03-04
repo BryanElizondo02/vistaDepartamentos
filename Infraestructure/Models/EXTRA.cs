@@ -13,6 +13,7 @@ namespace Infraestructure.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    [MetadataType(typeof(ExtraMetadata))]
     public partial class EXTRA
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,10 +23,9 @@ namespace Infraestructure.Models
         }
     
         public int Id { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Descripción es un campo obligatorio")]
-        [StringLength(20), MinLength(3)]
+        
         public string Descripcion { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Estado es un campo obligatorio")]
+        
         public bool Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

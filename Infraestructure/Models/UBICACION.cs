@@ -13,6 +13,7 @@ namespace Infraestructure.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    [MetadataType(typeof(UbicacionMetadata))]
     public partial class UBICACION
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,10 +23,7 @@ namespace Infraestructure.Models
         }
     
         public int Id { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Nombre es un campo obligatorio")]
-        [StringLength(30), MinLength(5)]
         public string Nombre { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Estado es un campo obligatorio")]
         public bool Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

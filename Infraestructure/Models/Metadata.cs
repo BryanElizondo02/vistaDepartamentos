@@ -10,17 +10,25 @@ namespace Infraestructure.Models
     internal partial class DepartamentoMetadata
     {
         public int Id { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Nombre es un campo obligatorio")]
+        [StringLength(10), MinLength(6)]
         public string Nombre { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Descripción es un campo obligatorio")]
+        [StringLength(30), MinLength(15)]
         public string Descripcion { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "La ubicación es un campo obligatorio")]
         [Display(Name = "Ubicación")]
         public int IdUbicacion { get; set; }
         [Display(Name = "Tarifa Mensual")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "La Tarifa a cobrar es un campo obligatorio")]
         public decimal Tarifa { get; set; }
         [Display(Name = "Disponibilidad")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "La disponibilidad es una opción requerida")]
         public bool Estado { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "La URL de la imagen es requerida")]
         public string Imagen { get; set; }
 
-        [Display(Name = "Ubicacion")]
+        [Display(Name = "Ubición")]
         public virtual UBICACION UBICACION { get; set; }
         [Display(Name = "Reserva")]
         public virtual ICollection<RESERVA> RESERVA { get; set; }
@@ -33,12 +41,54 @@ namespace Infraestructure.Models
     {
 
         public int Id { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Descripción es un campo obligatorio")]
+        [StringLength(20), MinLength(3)]
         public string Descripcion { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Estado es un campo obligatorio")]
         public bool Estado { get; set; }
 
         [Display(Name = "Detalle")]
         public virtual ICollection<DEPARTAMENTO> DEPARTAMENTO { get; set; }
 
+    }
+
+    internal partial class RolMetadata
+    {
+        public int Id { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Descripción es un campo obligatorio")]
+        public string Descripcion { get; set; }
+
+        public virtual ICollection<USUARIO> USUARIO { get; set; }
+    }
+
+    internal partial class UbicacionMetadata
+    {
+        public int Id { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Nombre es un campo obligatorio")]
+        [StringLength(30), MinLength(5)]
+        public string Nombre { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Estado es un campo obligatorio")]
+        public bool Estado { get; set; }
+
+        public virtual ICollection<DEPARTAMENTO> DEPARTAMENTO { get; set; }
+    }
+
+    internal partial class ServiciosMetadata
+    {
+        public int Id { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Nombre es un campo obligatorio")]
+        [MinLength(6)]
+        public string Nombre { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Descripción es un campo obligatorio")]
+        [MinLength(6)]
+        public string Descripcion { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Precio es un campo obligatorio")]
+        public decimal Precio { get; set; }
+        [Display(Name = "Disponibilidad")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "La disponibilidad es una opción requerida")]
+        public Nullable<bool> Estado { get; set; }
+
+        public virtual ICollection<RESERVA> RESERVA { get; set; }
     }
 
     internal partial class UsuarioMetadata

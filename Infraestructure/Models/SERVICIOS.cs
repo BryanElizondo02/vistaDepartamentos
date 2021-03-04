@@ -13,6 +13,7 @@ namespace Infraestructure.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    [MetadataType(typeof(ServiciosMetadata))]
     public partial class SERVICIOS
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,16 +23,10 @@ namespace Infraestructure.Models
         }
     
         public int Id { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Nombre es un campo obligatorio")]
-        [MinLength(6)]
         public string Nombre { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Descripción es un campo obligatorio")]
-        [MinLength(6)]
+
         public string Descripcion { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Precio es un campo obligatorio")]
         public decimal Precio { get; set; }
-        [Display(Name = "Disponibilidad")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "La disponibilidad es una opción requerida")]
         public Nullable<bool> Estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
