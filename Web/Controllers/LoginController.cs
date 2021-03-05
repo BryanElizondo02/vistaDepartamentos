@@ -24,8 +24,8 @@ namespace Web.Controllers
             USUARIO oUsuario = null;
             try
             {
-                if (ModelState.IsValid)
-                {
+                /*if (ModelState.IsValid)
+                {*/
                     oUsuario = _ServiceUsuario.GetUsuario(user.Correo, user.Clave);
 
                     if (oUsuario != null)
@@ -40,7 +40,7 @@ namespace Web.Controllers
                         ViewBag.NotificationMessage = Util.SweetAlertHelper.Mensaje("Login", "Error al autenticarse", SweetAlertMessageType.warning);
 
                     }
-                }
+                //}
 
                 return View("Index");
             }

@@ -24,25 +24,17 @@ namespace Infraestructure.Models
         }
     
         public int Id { get; set; }
-        
         public string Nombre { get; set; }
-        
         public string Descripcion { get; set; }
-        
         public int IdUbicacion { get; set; }
-        
         public decimal Tarifa { get; set; }
-        
         public bool Estado { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "La URL de la imagen es un campo obligatorio")]
         public string Imagen { get; set; }
     
-      
         public virtual UBICACION UBICACION { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RESERVA> RESERVA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [Display(Name = "Incluye")]
         public virtual ICollection<EXTRA> EXTRA { get; set; }
     }
 }

@@ -111,11 +111,13 @@ namespace Infraestructure.Models
         public string Sexo { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "La fecha de nacimiento es un campo obligatorio")]
         [Display(Name = "Fecha de Nacimiento")]
+        [DataType(DataType.Date, ErrorMessage = "{0} no tiene formato valido")]
         public System.DateTime FechaNacimiento { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "La clave es un campo obligatorio")]
         [MinLength(6)]
         public string Clave { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "El rol es un campo obligatorio")]
+        [Display(Name = "Rol")]
         public int IdRol { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "El estado es un campo obligatorio")]
         public bool Estado { get; set; }

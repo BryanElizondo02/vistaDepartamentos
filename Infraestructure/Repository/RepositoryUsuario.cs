@@ -80,7 +80,7 @@ namespace Infraestructure.Repository
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
                     usuario = ctx.USUARIO.
-                     Include("ROL").
+                     Include(u => u.ROL).
                     Where(p => p.Id == id).
                     FirstOrDefault<USUARIO>();
                 }

@@ -55,9 +55,9 @@ namespace Web.Controllers
         private SelectList listaRol(int idRol = 0)
         {
             ServiceRol _serviceRol = new ServiceRol();
-            IEnumerable<ROL> listaUbicacion = _serviceRol.GetRol();
+            IEnumerable<ROL> listaRol = _serviceRol.GetRol();
 
-            return new SelectList(listaUbicacion, "Id", "Descripcion", idRol);//List to Dropdown List
+            return new SelectList(listaRol, "Id", "Descripcion", idRol);//List to Dropdown List
         }
 
         // GET: Usuario/Details/5
@@ -129,13 +129,73 @@ namespace Web.Controllers
         // GET: Usuario/Edit/5
         public ActionResult EditHabilitados(int id)
         {
-            return View();
+            ServiceUsuario _serviceUsuario = new ServiceUsuario();
+            USUARIO oUsuario = null;
+            try
+            {
+                // Si va null
+                if (id == null)
+                {
+                    return RedirectToAction("UsuariosHabilitados");
+                }
+
+                oUsuario = _serviceUsuario.GetUsuarioByID(id);
+                if (oUsuario == null)
+                {
+                    TempData["Message"] = "No existe el usuario solicitado";
+                    TempData["Redirect"] = "Usuario";
+                    TempData["Redirect-Action"] = "UsuariosHabilitados";
+
+                    return RedirectToAction("Default", "Error");
+                }
+                ViewBag.IdRol = listaRol(oUsuario.IdRol);
+                return View(oUsuario);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                TempData["Redirect"] = "Usuario";
+                TempData["Redirect-Action"] = "UsuariosHabilitados";
+
+                return RedirectToAction("Default", "Error");
+            }
         }
 
         // GET: Usuario/Edit/5
         public ActionResult EditDeshabilitados(int id)
         {
-            return View();
+            ServiceUsuario _serviceUsuario = new ServiceUsuario();
+            USUARIO oUsuario = null;
+            try
+            {
+                // Si va null
+                if (id == null)
+                {
+                    return RedirectToAction("UsuariosDeshabilitados");
+                }
+
+                oUsuario = _serviceUsuario.GetUsuarioByID(id);
+                if (oUsuario == null)
+                {
+                    TempData["Message"] = "No existe el usuario solicitado";
+                    TempData["Redirect"] = "Usuario";
+                    TempData["Redirect-Action"] = "UsuariosDeshabilitados";
+
+                    return RedirectToAction("Default", "Error");
+                }
+                ViewBag.IdRol = listaRol(oUsuario.IdRol);
+                return View(oUsuario);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                TempData["Redirect"] = "Usuario";
+                TempData["Redirect-Action"] = "UsuariosDeshabilitados";
+
+                return RedirectToAction("Default", "Error");
+            }
         }
 
         // GET: Usuario/Delete/5
