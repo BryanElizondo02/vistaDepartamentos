@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using ApplicationCore.Services;
 using Infraestructure.Models;
+using Web.Enum;
 
 namespace Web.Controllers
 {
@@ -13,7 +14,7 @@ namespace Web.Controllers
     {
 
         // GET: Departamento
-        
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Departamentos()
         {
             IEnumerable<DEPARTAMENTO> lista = null;
@@ -23,7 +24,7 @@ namespace Web.Controllers
                 //lista de opciones de busqueda
                 ViewBag.busquedaUbicacion = _serviceDepartamento.GetDepartamentosUbicaciones();
                 lista = _serviceDepartamento.GetDepartamentos();
-            
+
             }
             catch (Exception ex)
             {
@@ -86,7 +87,7 @@ namespace Web.Controllers
         {
             ServiceUbicacion _serviceUbicacion = new ServiceUbicacion();
             IEnumerable<UBICACION> listaUbicacion = _serviceUbicacion.GetUbicacionesActivas();
-            
+
             return new SelectList(listaUbicacion, "Id", "Nombre", idUbicacion);//List to Dropdown List
         }
 
@@ -104,7 +105,9 @@ namespace Web.Controllers
             return new MultiSelectList(listaExtra, "Id", "Descripcion", listaExtraSelect);
         }
 
+
         //GET: Departamentos/Create
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Create()
         {
             ViewBag.IdUbicacion = listUbicacion();
@@ -129,6 +132,7 @@ namespace Web.Controllers
             }
         }
 
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Edit(int id)
         {
             ServiceDepartamento _serviceDepartamento = new ServiceDepartamento();
@@ -166,6 +170,7 @@ namespace Web.Controllers
             }
         }
 
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         [HttpPost]
         public ActionResult Save(DEPARTAMENTO departamento, string []selectedExtra)
         {
@@ -199,7 +204,8 @@ namespace Web.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
-        
+
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

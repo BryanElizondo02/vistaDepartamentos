@@ -6,12 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using ApplicationCore.Services;
 using Infraestructure.Models;
+using Web.Enum;
 
 namespace Web.Controllers
 {
     public class ServicioController : Controller
     {
         // GET: Servicio
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Servicios()
         {
             IEnumerable<SERVICIOS> lista = null;
@@ -31,6 +33,7 @@ namespace Web.Controllers
         }
 
         // GET: Servicio/Details/5
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Details(int? id)
         {
             ServiceServicio _serviceServicio = new ServiceServicio();
@@ -68,6 +71,7 @@ namespace Web.Controllers
         }
 
         // GET: Servicio/Create
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Create()
         {
             return View();
@@ -75,6 +79,7 @@ namespace Web.Controllers
 
         // POST: Servicio/Create
         [HttpPost]
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Create(FormCollection collection)
         {
             try
@@ -91,6 +96,7 @@ namespace Web.Controllers
         }
 
         // GET: Servicio/Edit/5
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Edit(int id)
         {
             ServiceServicio _serviceServicio = new ServiceServicio();
@@ -127,6 +133,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Save(SERVICIOS serv)
         {
             ServiceServicio _serviceServicio = new ServiceServicio();
@@ -158,6 +165,7 @@ namespace Web.Controllers
         }
 
         // GET: Servicio/Delete/5
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Delete(int id)
         {
             return View();
@@ -165,6 +173,7 @@ namespace Web.Controllers
 
         // POST: Servicio/Delete/5
         [HttpPost]
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try

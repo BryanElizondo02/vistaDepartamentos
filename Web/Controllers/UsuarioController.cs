@@ -6,12 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using ApplicationCore.Services;
 using Infraestructure.Models;
+using Web.Enum;
 
 namespace Web.Controllers
 {
     public class UsuarioController : Controller
     {
         // GET: Usuario
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult UsuariosHabilitados()
         {
             IEnumerable<USUARIO> lista = null;
@@ -32,6 +34,7 @@ namespace Web.Controllers
         }
 
         // GET: Usuario
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult UsuariosDeshabilitados()
         {
             IEnumerable<USUARIO> lista = null;
@@ -61,6 +64,7 @@ namespace Web.Controllers
         }
 
         // GET: Usuario/Details/5
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult DetailsHabilitados(int id)
         {
             return View();
@@ -72,6 +76,7 @@ namespace Web.Controllers
         }
 
         // GET: Usuario/Create
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Create()
         {
             ViewBag.IdRol = listaRol();
@@ -79,6 +84,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Create(FormCollection collection)
         {
             try
@@ -94,8 +100,9 @@ namespace Web.Controllers
             }
         }
 
-        // POST: Usuario/Create
+        // POST: Usuario/Save
         [HttpPost]
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Save(USUARIO user)
         {
             ServiceUsuario _serviceUsuario = new ServiceUsuario();
@@ -127,6 +134,7 @@ namespace Web.Controllers
         }
 
         // GET: Usuario/Edit/5
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult EditHabilitados(int id)
         {
             ServiceUsuario _serviceUsuario = new ServiceUsuario();
@@ -163,6 +171,7 @@ namespace Web.Controllers
         }
 
         // GET: Usuario/Edit/5
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult EditDeshabilitados(int id)
         {
             ServiceUsuario _serviceUsuario = new ServiceUsuario();
@@ -199,6 +208,7 @@ namespace Web.Controllers
         }
 
         // GET: Usuario/Delete/5
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Delete(int id)
         {
             return View();
@@ -206,6 +216,7 @@ namespace Web.Controllers
 
         // POST: Usuario/Delete/5
         [HttpPost]
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try

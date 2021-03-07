@@ -6,12 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using ApplicationCore.Services;
 using Infraestructure.Models;
+using Web.Enum;
 
 namespace Web.Controllers
 {
     public class ExtraController : Controller
     {
         // GET: Extra
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Extras()
         {
             IEnumerable<EXTRA> lista = null;
@@ -31,6 +33,7 @@ namespace Web.Controllers
         }
 
         // GET: Extra/Details/5
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Details(int? id)
         {
             ServiceExtra _serviceExtra = new ServiceExtra();
@@ -68,12 +71,14 @@ namespace Web.Controllers
         }
 
         // GET: Extra/Create
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: Extra/Create
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -91,6 +96,7 @@ namespace Web.Controllers
         }
 
         // GET: Extra/Edit/5
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Edit(int id)
         {
             ServiceExtra _serviceExtra = new ServiceExtra();
@@ -127,6 +133,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Save(EXTRA ext)
         {
             ServiceExtra _serviceExtra = new ServiceExtra();
@@ -158,6 +165,7 @@ namespace Web.Controllers
         }
 
         // GET: Extra/Delete/5
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Delete(int id)
         {
             return View();

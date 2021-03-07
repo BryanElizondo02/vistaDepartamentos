@@ -1,9 +1,14 @@
 ﻿
 .awsomeNav{
-    font-size: xx-large;
+    font-size: large;
+    margin-left: 2px;
 }
 
-table .tablelist td th{
+.navbar-titulo {
+    font-size: small;
+}
+
+table .tablelist td th {
     text-align: center;
 }
 

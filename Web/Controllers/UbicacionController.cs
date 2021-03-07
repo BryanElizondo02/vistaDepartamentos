@@ -6,12 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using ApplicationCore.Services;
 using Infraestructure.Models;
+using Web.Enum;
 
 namespace Web.Controllers
 {
     public class UbicacionController : Controller
     {
         // GET: Ubicacion
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Ubicaciones()
         {
             IEnumerable<UBICACION> lista = null;
@@ -30,6 +32,7 @@ namespace Web.Controllers
             return View(lista);
         }
 
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Details(int? id)
         {
             ServiceUbicacion _serviceUbicacion = new ServiceUbicacion();
@@ -66,11 +69,13 @@ namespace Web.Controllers
             }
         }
 
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Create()
         {
             return View();
         }
 
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -87,6 +92,7 @@ namespace Web.Controllers
             }
         }
 
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Edit(int id)
         {
             ServiceUbicacion _serviceUbic = new ServiceUbicacion();
@@ -123,6 +129,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Save(UBICACION ubic)
         {
             ServiceUbicacion _serviceUbicacion = new ServiceUbicacion();
