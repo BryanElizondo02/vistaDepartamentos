@@ -188,6 +188,7 @@
     <Content Include="img\1192.jpg" />
     <Content Include="img\19333402.jpg" />
     <Content Include="img\696.jpg" />
+    <Content Include="img\fondo.jpg" />
     <Content Include="img\IMG_20190116_153121.jpg" />
     <Content Include="img\loading.gif" />
     <Content Include="img\logo.png" />
@@ -350,6 +351,7 @@
     <Content Include="Views\Usuario\EditHabilitados.cshtml" />
     <Content Include="Views\Usuario\UsuariosDeshabilitados.cshtml" />
     <Content Include="Views\Usuario\EditDeshabilitados.cshtml" />
+    <Content Include="Views\Login\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

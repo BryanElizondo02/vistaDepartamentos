@@ -2,31 +2,74 @@
 
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
+    <meta name="author" content="Bryan Elizondo Mora" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title</title>
+
+    <title>@ViewBag.Title - SR-Departments</title>
+    <link rel="icon" href="~/img/logo.png" />
 
     @Styles.Render("~/Content/css")
-    @RenderSection("styles", required: false)
+    @Styles.Render("~/Content/main.css")
+    <style>
+        .html body {
+            height: 100vh;
+        }
+
+        body {
+            background-image: url('../../img/fondo.jpg'); 
+            /* Centramos el fondo horizontal y verticalmente */
+            background-position: center 13%;
+            /* El fonde no se repite */
+            background-repeat: no-repeat;
+            /* Fijamos la imagen a la ventana para que no supere el alto de la ventana */
+            background-attachment: fixed;
+            /* El fonde se re-escala automáticamente */
+            background-size: cover;
+            /* Color de fondo si la imagen no se encuentra o mientras se está cargando */
+            background-color: #FFF;
+            /* Fuente para el texto */
+            text-align: center;
+            color: #000;
+        }
+
+        #table {
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        .labels{
+            color: #d7eeed;
+        }
+
+        #logoLog {
+            display: inline; 
+            width: 290px;
+            height:240px; 
+            border-radius: 65px; 
+            margin-top:45px;
+        }
+
+
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top navbar-dark text-white">
-        <a class="navbar-brand">RS - DEPARTMENTS</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand p-0 navbar-titulo awsomeNav" href="@Url.Action("Index", "Login", null)" data-toggle="tooltip" data-placement="bottom" title="Entrar">
+                SR-Departments
 
-        <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav mr-auto">
-
-
-                <li class="nav-item">
-                    @Html.ActionLink("Login", "Index", "Login", null, new { @class = "nav-link" })
-
-                </li>
-
-            </ul>
+            </a>
         </div>
+    
     </nav>
     <main>
 
@@ -36,8 +79,8 @@
         </div>
     </main>
     <hr />
-    <footer class="fixed-bottom bg-dark p-1 text-center">
-        <p class="m-0">&copy; @DateTime.Now.Year - RS-Departments</p><br />
+    <footer class="fixed-bottom bg-dark p-1 text-center labels">
+        <p class="m-0">&copy; @DateTime.Now.Year - SR-Departments</p><br />
         <p class="m-0">Diseño por Bryan Elizondo</p>
     </footer>
 

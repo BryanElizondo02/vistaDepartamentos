@@ -1,0 +1,26 @@
+﻿@{ ViewBag.Title = "Recurso no encontrado"; }
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="padding: 40px; text-align: center">
+                <h1>
+                    Ocurrio algo inesperado!
+                </h1><br />
+                <h2 style="color: red">
+                    404 Recurso no encontrado
+                </h2>
+                <div>
+                    Lo sentimos, se ha producido un error, no se ha encontrado el recurso solicitado
+                </div>
+                <div style="margin-top: 15px; margin-bottom: 15px;">
+                    <a href="@Url.Action("Index", "Login", null)" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Ir al Login">
+                        <i class="fas fa-home awsomeNav"></i> Ir al Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

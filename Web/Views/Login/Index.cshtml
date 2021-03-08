@@ -3,41 +3,62 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Login.cshtml";
-}
-<br />
-<br />
-<br />
 
-@using (Html.BeginForm("Login", "Login"))
+}
+
+<br />
+<br />
+<br />
+<img class="img-responsive" src="~/img/logo.png" id="logoLog" />
+<br />
+<br />
+@using (Html.BeginForm("Login", "Login", new { @class = "form-inline" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="container" id="form-container">
 
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Correo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Correo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
-            </div>
+        <div class="container">
+            <table align="center" id="table">
+                <tr class="form-group mb-2">
+                    <td class=" login-form">
+                        @Html.LabelFor(model => model.Correo, htmlAttributes: new { @class = "control-label col-md-1 labels" })
+                    </td>
+                    <td>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Correo, new { htmlAttributes = new { @class = "form-control", placeholder = "Correo" } })
+                            @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
+                        </div>
+                        <br />
+                        <br />
+                    </td>
+
+                </tr>
+                <tr class="form-group mb-2">
+                    <td>
+                        @Html.LabelFor(model => model.Clave, htmlAttributes: new { @class = "control-label col-md-1 labels" })
+                    </td>
+                    <td>
+                        <div class="col-md-10">
+                            @Html.PasswordFor(model => model.Clave, new { @class = "form-control", placeholder = "Clave de Seguridad" })
+                            @Html.ValidationMessageFor(model => model.Clave, "", new { @class = "text-danger" })
+                        </div>
+                    </td>
+
+                </tr>
+                <tr class="form-group mb-2">
+                    <td colspan="2" align="center">
+                        <div class="col-md-offset-2 col-md-10">
+                            <br />
+                            <input type="submit" value="Log in" class="btn btn-primary mb-2" />
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
         </div>
 
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Clave, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.PasswordFor(model => model.Clave, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Clave, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Log in" class="btn btn-success" />
-            </div>
-        </div>
     </div>
 
 
