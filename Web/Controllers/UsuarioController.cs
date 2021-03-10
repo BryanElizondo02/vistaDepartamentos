@@ -120,7 +120,7 @@ namespace Web.Controllers
                     return View("Create", user);
                 }
 
-                return RedirectToAction("UsuariosHabilitados");
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {

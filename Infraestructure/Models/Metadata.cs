@@ -11,10 +11,10 @@ namespace Infraestructure.Models
     {
         public int Id { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Nombre es un campo obligatorio")]
-        [StringLength(10), MinLength(6)]
+        [MinLength(6)]
         public string Nombre { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Descripción es un campo obligatorio")]
-        [StringLength(30), MinLength(15)]
+        [MinLength(15)]
         public string Descripcion { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "La ubicación es un campo obligatorio")]
         [Display(Name = "Ubicación")]

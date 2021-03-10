@@ -1,12 +1,14 @@
 ﻿@model Infraestructure.Models.DEPARTAMENTO
 
 @{
-    ViewBag.@if = "Detalle";
+    ViewBag.title = "Detalle";
     
 }
 
 <div align="center">
     <div class="container boxcontainer">
+        <br />
+        <br />
         <h1>@Html.DisplayFor(model => model.Nombre)</h1>
         <img class="img-responsive" src="@Html.DisplayFor(model => model.Imagen)" width="500px" height="400px" class="m-0" />
         <br /><br />
@@ -48,30 +50,27 @@
                 <td>
                     @if (Model.Estado == true)
                     {
-                        <strong class="text-success">Disponible</strong>
-                    }
+        <strong class="text-success">Disponible</strong> }
                     else
                     {
-                        <strong class="text-danger">No disponible</strong>
-                    }
+        <strong class="text-danger">No disponible</strong>}
                 </td>
                 <td>
                     @Html.DisplayFor(model => model.UBICACION.Nombre)
-                    
+
                 </td>
                 <td>
                     <ul>
                         @foreach (var ext in Model.EXTRA)
                         {
-                        <li class="text-left">@ext.Descripcion</li>
-                        }
+            <li class="text-left">@ext.Descripcion</li>}
                     </ul>
-                    
+
                 </td>
                 <td class="text-danger" id="tarifa">
                     $@Html.DisplayFor(model => model.Tarifa)
                 </td>
-                
+
             </tr>
 
         </table>
