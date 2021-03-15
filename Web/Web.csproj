@@ -150,6 +150,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ServicioController.cs" />
+    <Compile Include="Controllers\TipoPagoController.cs" />
     <Compile Include="Controllers\UbicacionController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Enum\Enum.cs" />
@@ -352,6 +353,10 @@
     <Content Include="Views\Usuario\UsuariosDeshabilitados.cshtml" />
     <Content Include="Views\Usuario\EditDeshabilitados.cshtml" />
     <Content Include="Views\Login\NotFound.cshtml" />
+    <Content Include="Views\TipoPago\TiposPagos.cshtml" />
+    <Content Include="Views\TipoPago\Create.cshtml" />
+    <Content Include="Views\TipoPago\Edit.cshtml" />
+    <Content Include="Views\TipoPago\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

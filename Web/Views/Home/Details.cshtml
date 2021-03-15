@@ -1,84 +1,62 @@
 ﻿@model Infraestructure.Models.DEPARTAMENTO
 
-@{
-    ViewBag.@if = "Detalle";
+@{ ViewBag.title = "Detalle"; }
 
-}
-
-<div align="center">
-    <div class="container boxcontainer">
-        <h1>@Html.DisplayFor(model => model.Nombre)</h1>
-        <img class="img-responsive m-0" src="@Html.DisplayFor(model => model.Imagen)" width="500px" height="400px"/>
-        <br /><br />
-        <table class="table table-bordered text-center" align="center">
-            <tr>
-                <th colspan="6" class="text-center tabletitle">
-                    @Html.DisplayFor(model => model.Nombre)
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Descripcion)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Estado)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UBICACION)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EXTRA)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tarifa)
-                </th>
-
-
-            </tr>
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => model.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.Descripcion)
-                </td>
-                <td>
-                    @if (Model.Estado == true)
-                    {
-            <strong class="text-success">Disponible</strong> }
-                        else
+<br />
+<br />
+<br />
+<br />
+<section class="container">
+    <table align="center">
+        <tr>
+            <th id="containerimg">
+                <h2>@Html.DisplayFor(model => model.Nombre)</h2>
+                <img class="img-responsive" id="img" src="@Html.DisplayFor(model => model.Imagen)" width="500px" height="400px" />
+            </th>
+            <th class="detail">
+                <p class="text-justify m-3">
+                    <center>
+                        @Html.DisplayFor(model => model.Descripcion)
+                        <br />
+                        <strong>Disponibilidad: </strong>
+                        @if (Model.Estado == true)
                         {
-            <strong class="text-danger">No disponible</strong>}
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.UBICACION.Nombre)
+                        <strong class="text-success">Disponible</strong> }
+                         else
+                         {
+                        <strong class="text-danger">No disponible</strong>}
+                        <br />
+                        <strong>Ubicación: </strong>
+                        @Html.DisplayFor(model => model.UBICACION.Nombre)
+                        <br />
+                        <strong>Extras: </strong>
+                        <ul>
+                            @foreach (var ext in Model.EXTRA)
+                            {
+                                <li class="text-left">@ext.Descripcion</li>
+                            }
 
-                </td>
-                <td>
-                    <ul>
-                        @foreach (var ext in Model.EXTRA)
-                        {
-                            <li class="text-left">@ext.Descripcion</li>
-                         }
+                        </ul>
+                        <br />
+                        <strong>Tarifa: </strong>
+                        <p class="text-danger">
+                            $@Html.DisplayFor(model => model.Tarifa)
+                        </p>
+                        <br />
 
-                    </ul>
-                </td>
-                <td class="text-danger" id="tarifa">
-                    $@Html.DisplayFor(model => model.Tarifa)
-                </td>
+                    </p>
+                    </center>
+                    
+            </th>
+        </tr>
+    </table>
+    
+</section>
+<div class="text-center m-0">
+    <br />
+    <br />
+    <a href="Index" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Volver">
+        <i class="fas fa-arrow-left"></i> Volver al Inicio
+    </a>
 
-            </tr>
-
-        </table>
-        <p>
-            
-            <a href="Index" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Volver">
-                <i class="fas fa-arrow-left"></i> Volver al Inicio
-            </a>
-
-        </p>
-    </div>
 </div>

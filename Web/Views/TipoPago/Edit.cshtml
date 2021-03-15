@@ -1,19 +1,20 @@
-﻿@model Infraestructure.Models.UBICACION
+﻿@model Infraestructure.Models.TIPOPAGO
 
 @{
     ViewBag.Title = "Editar Registros";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <br />
 <br />
 <br />
-<h2 class="text-center">Editar Ubicaciones</h2>
+<h2 class="text-center">Editar forma de pago</h2>
 
-@using (Html.BeginForm("Save", "Ubicacion", FormMethod.Post))
+@using (Html.BeginForm("Save", "TipoPago", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal" aling="center">
+    <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -41,14 +42,14 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Guardar cambios" class="btn btn-success" />
-                
+
             </div>
         </div>
     </div>
 }
 
 <div class="text-center">
-    <a href="@Url.Action("Ubicaciones", "Ubicacion")" class="btn btn-primary text-center" data-toggle="tooltip" data-placement="bottom" title="Volver">
+    <a href="@Url.Action("TiposPagos", "TipoPago")" class="btn btn-primary text-center" data-toggle="tooltip" data-placement="bottom" title="Volver">
         <i class="fas fa-arrow-left"></i> Volver al listado
     </a>
 </div>

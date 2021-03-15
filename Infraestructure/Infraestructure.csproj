@@ -103,6 +103,7 @@
     <Compile Include="Repository\IRepositoryDepartamento.cs" />
     <Compile Include="Repository\IRepositoryExtra.cs" />
     <Compile Include="Repository\IRepositoryRol.cs" />
+    <Compile Include="Repository\IRepositoryTipoPago.cs" />
     <Compile Include="Repository\IRepositoryUbicacion.cs" />
     <Compile Include="Repository\IRepositoryServicio.cs" />
     <Compile Include="Repository\IRepositoryUsuario.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Repository\RepositoryExtra.cs" />
     <Compile Include="Repository\RepositoryRol.cs" />
     <Compile Include="Repository\RepositoryServicio.cs" />
+    <Compile Include="Repository\RepositoryTipoPago.cs" />
     <Compile Include="Repository\RepositoryUbicacion.cs" />
     <Compile Include="Repository\RepositoryUsuario.cs" />
     <Compile Include="Utils\Log.cs" />

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Infraestructure.Models.TIPOPAGO>
+
+@{
+    ViewBag.Title = "Formas de Pago";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<br />
+
+<h2>Formas de pago</h2>
+<hr />
+
+<p>
+    <a href="@Url.Action("Create", "TipoPago")" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="Crear Registro">
+        <i class="fas fa-plus-circle awsomeNav"></i>
+        <strong>Nuevo Registro</strong>
+    </a>
+</p>
+<table class="table table-bordered tablelist table-responsive text-center" align="center">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th class="text-center">
+            Acciones
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @if (item.Estado)
+                {
+                    <p class="text-success"><strong>Disponible</strong></p> 
+                  }
+                  else
+                  {
+                    <p class="text-danger"><strong>No Disponible</strong></p>                
+                  }
+            </td>
+            <td align="center">
+                <a href="@Url.Action("Edit", "TipoPago", new { id = item.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                    <i class="fas fa-edit"></i>  Editar
+                </a>
+
+                <a href="@Url.Action("Details", "TipoPago", new { id = item.Id })" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Ver Detalles">
+                    <i class="fas fa-info-circle"></i>  Detalles
+                </a>
+
+            </td>
+        </tr>
+    }
+
+</table>

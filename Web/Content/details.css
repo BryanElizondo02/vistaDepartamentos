@@ -17,3 +17,27 @@
     font-weight: bold;
 }
 
+#side {
+    float: left;
+}
+
+#containerimg {
+    padding: 25px;
+}
+
+.detail{
+    display: block;
+    padding: 30px;
+    margin: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+

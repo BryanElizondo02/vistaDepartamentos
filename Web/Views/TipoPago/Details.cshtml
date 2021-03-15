@@ -1,0 +1,63 @@
+﻿@model Infraestructure.Models.TIPOPAGO
+
+@{
+    ViewBag.Title = "Detalles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div>
+    <h2>Detalle Forma de pago</h2>
+    <hr />
+    <dl class="dl-horizontal" align="justify">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            Estado
+        </dt>
+
+        <dd>
+            @if (Model.Estado == true)
+            {
+                <strong class="text-success">Disponible</strong> 
+            }
+            else
+            {
+                <strong class="text-danger">No disponible</strong>            
+            }
+        </dd>
+        <dd>
+            <br />
+            <br />
+            <p>
+                <a href="@Url.Action("Edit", "TipoPago", new { id = Model.Id })" class="btn btn-warning" data-toggle="tooltip" data-placement="bottom" title="Editar">
+                    <i class="fas fa-edit"></i>  Editar
+                </a>
+                |
+                <a href="TiposPagos" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Volver">
+                    <i class="fas fa-arrow-left"></i> Volver al listado
+                </a>
+
+            </p>
+        </dd>
+
+    </dl>
+</div>

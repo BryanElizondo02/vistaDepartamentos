@@ -28,7 +28,7 @@ namespace Infraestructure.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "La URL de la imagen es requerida")]
         public string Imagen { get; set; }
 
-        [Display(Name = "Ubición")]
+        [Display(Name = "Ubicación")]
         public virtual UBICACION UBICACION { get; set; }
         [Display(Name = "Reserva")]
         public virtual ICollection<RESERVA> RESERVA { get; set; }
