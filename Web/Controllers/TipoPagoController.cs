@@ -6,12 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using ApplicationCore.Services;
 using Infraestructure.Models;
+using Web.Enum;
 
 namespace Web.Controllers
 {
     public class TipoPagoController : Controller
     {
         // GET: TipoPago
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult TiposPagos()
         {
             IEnumerable<TIPOPAGO> lista = null;
@@ -31,6 +33,7 @@ namespace Web.Controllers
         }
 
         // GET: TipoPago/Details/5
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Details(int? id)
         {
             ServiceTipoPago _serviceTipoPago = new ServiceTipoPago();
@@ -68,6 +71,7 @@ namespace Web.Controllers
         }
 
         // GET: TipoPago/Create
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Create()
         {
             return View();
@@ -75,6 +79,7 @@ namespace Web.Controllers
 
         // POST: TipoPago/Create
         [HttpPost]
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Create(FormCollection collection)
         {
             try
@@ -91,6 +96,7 @@ namespace Web.Controllers
         }
 
         // GET: TipoPago/Edit/5
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Edit(int id)
         {
             ServiceTipoPago _serviceTipoPago = new ServiceTipoPago();
@@ -126,6 +132,7 @@ namespace Web.Controllers
             }
         }
 
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Save(TIPOPAGO tp)
         {
             ServiceTipoPago _serviceTipoPago = new ServiceTipoPago();

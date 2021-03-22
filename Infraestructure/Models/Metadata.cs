@@ -26,6 +26,7 @@ namespace Infraestructure.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "La disponibilidad es una opción requerida")]
         public bool Estado { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "La URL de la imagen es requerida")]
+        [DataType(DataType.ImageUrl, ErrorMessage = "{0} no tiene formato valido")]
         public string Imagen { get; set; }
 
         [Display(Name = "Ubicación")]
@@ -125,6 +126,63 @@ namespace Infraestructure.Models
         public virtual ICollection<RESERVA> RESERVA { get; set; }
         [Display(Name = "Rol")]
         public virtual ROL ROL { get; set; }
+    }
+
+    internal partial class TipoPagoMetadata
+    {
+        public int Id { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "El nombre es un campo obligatorio")]
+        public string Nombre { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "El estado es un campo obligatorio")]
+        public bool Estado { get; set; }
+
+        public virtual ICollection<RESERVA> RESERVA { get; set; }
+
+
+    }
+
+    internal partial class ReservaMetadata
+    {
+
+        public int Id { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "El id e usuario es un campo obligatorio")]
+        [Display(Name = "Usuario")]
+        public int IdUsuario { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "El departamento es un campo obligatorio")]
+        [Display(Name = "Departamento")]
+        public int IdDepartamento { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "El día de reservación es un campo obligatorio")]
+        [Display(Name = "Fecha de reserva")]
+        [DataType(DataType.Date, ErrorMessage = "{0} no tiene formato valido")]
+        public System.DateTime FechaReserva { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "El día limite de la reservación es un campo obligatorio")]
+        [Display(Name = "Fecha fin de reserva")]
+        [DataType(DataType.Date, ErrorMessage = "{0} no tiene formato valido")]
+        public System.DateTime FechaFinReserva { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "La forma de pago es un campo obligatorio")]
+        [Display(Name = "Forma de pago")]
+        public int IdTipoPago { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "El N° Tarjeta es un campo obligatorio")]
+        [Display(Name = "N° Tarjeta")]
+        [DataType(DataType.CreditCard, ErrorMessage = "{0} no tiene formato valido")]
+        public string NumeroTarjeta { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "La cantidad de personas es un campo obligatorio")]
+        [Display(Name = "Cantidad de personas")]
+        public int CantPersonas { get; set; }
+        [Display(Name = "SubTotal")]
+        public decimal SubTotal { get; set; }
+        [Display(Name = "Impuesto")]
+        public decimal Impuesto { get; set; }
+        [Display(Name = "Total a pagar")]
+        public decimal Total { get; set; }
+        [Display(Name = "Estado de reserva")]
+        public bool Estado { get; set; }
+
+        public virtual DEPARTAMENTO DEPARTAMENTO { get; set; }
+        public virtual TIPOPAGO TIPOPAGO { get; set; }
+        public virtual USUARIO USUARIO { get; set; }
+
+        public virtual ICollection<SERVICIOS> SERVICIOS { get; set; }
     }
 
 
