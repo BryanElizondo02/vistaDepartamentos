@@ -9,8 +9,9 @@ namespace ApplicationCore.Services
 {
     public interface IServiceReserva
     {
-        IEnumerable<RESERVA> GetReserva();
+        IEnumerable<RESERVA> GetReserva(int usuario);
+        IEnumerable<RESERVA> GetReservaAdmin();
         RESERVA GetReservaByID(int id);
-        RESERVA Save(RESERVA reserv);
+        RESERVA Save(RESERVA reserv, string[] selectedServicios);
     }
 }

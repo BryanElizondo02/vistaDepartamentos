@@ -149,6 +149,7 @@
     <Compile Include="Controllers\ExtraController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ReservaController.cs" />
     <Compile Include="Controllers\ServicioController.cs" />
     <Compile Include="Controllers\TipoPagoController.cs" />
     <Compile Include="Controllers\UbicacionController.cs" />
@@ -162,6 +163,8 @@
     <Compile Include="Security\CustomAuthorizeAttribute.cs" />
     <Compile Include="Util\SweetAlertHelper.cs" />
     <Compile Include="Util\Util.cs" />
+    <Compile Include="Views\ViewModel\Carrito.cs" />
+    <Compile Include="Views\ViewModel\viewModelReservaDetalle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -180,6 +183,7 @@
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.structure.css" />
     <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\Login.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\sweetalert.css" />
     <Content Include="favicon.ico" />
@@ -357,6 +361,9 @@
     <Content Include="Views\TipoPago\Create.cshtml" />
     <Content Include="Views\TipoPago\Edit.cshtml" />
     <Content Include="Views\TipoPago\Details.cshtml" />
+    <Content Include="Views\Reserva\ReservasAdmin.cshtml" />
+    <Content Include="Views\Reserva\Reservas.cshtml" />
+    <Content Include="Views\Login\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

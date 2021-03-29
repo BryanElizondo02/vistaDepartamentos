@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Infraestructure.Models.RESERVA>
+
+@{
+    ViewBag.Title = "Mis reservas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<br />
+<h3>Listado de reservas</h3>
+<br />
+
+<div class="container mt-4">
+
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-md-4 container" align="center">
+                <label>@Html.DisplayFor(modelItem => item.DEPARTAMENTO.Nombre)</label>
+                <br />
+                <img src="@Html.DisplayFor(modelItem => item.DEPARTAMENTO.Imagen)" class="m-0 img-responsive imgCatalogo" data-toggle="tooltip" data-placement="bottom" title="@Html.DisplayFor(modelItem => item.DEPARTAMENTO.UBICACION.Nombre)" />
+            </div>
+            <div class="col-md-4" align="justify">
+                <label>Reservado por: @Html.DisplayFor(modelItem => item.USUARIO.Nombre) @Html.DisplayFor(modelItem => item.USUARIO.Apellido1)</label>
+                <br />
+                <p>
+                    Rango de reservación: <span class="text-primary">@Html.DisplayFor(modelItem => item.FechaReserva)</span> a <span class="text-primary">@Html.DisplayFor(modelItem => item.FechaFinReserva)</span>
+                    <br />
+                    Cantidad de personas: @Html.DisplayFor(modelItem => item.CantPersonas)
+                </p>
+            </div>
+            <div class="col-md-4" align="center">
+                <div class="container-fluid">
+                    <p align="justify">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                Departamento:
+                            </dt>
+
+                            <dd>
+                                $@Html.DisplayFor(modelItem => item.DEPARTAMENTO.Tarifa)
+                            </dd>
+
+                            <dt>
+                                Impuesto:
+                            </dt>
+
+                            <dd>
+                                $@Html.DisplayFor(modelItem => item.Impuesto)
+                            </dd>
+
+                            <dt>
+                                SubTotal:
+                            </dt>
+
+                            <dd>
+                                $@Html.DisplayFor(modelItem => item.SubTotal)
+                            </dd>
+
+                            <dt>
+                                <strong>Total:</strong>
+                            </dt>
+
+                            <dd>
+                                <span class="text-danger"><strong>$@Html.DisplayFor(modelItem => item.Total)</strong></span>
+                            </dd>
+                        </dl>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <hr />
+        <br />
+        <br />
+    }
+
+    <div class="text-center">
+        <a href="@Url.Action("Create", "Reserva")" class="btn btn-primary text-center" data-toggle="tooltip" data-placement="bottom" title="Nueva reservacion">
+            <i class="fas fa-store"></i> Seguir reservando
+        </a>
+    </div>
+
+</div>
+

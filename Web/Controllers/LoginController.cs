@@ -28,7 +28,7 @@ namespace Web.Controllers
                 {*/
                 oUsuario = _ServiceUsuario.GetUsuario(user.Correo, user.Clave);
 
-                if (oUsuario != null)
+                if (oUsuario != null && oUsuario.Estado == true)
                 {
                     Session["User"] = oUsuario;
                     Log.Info($"Accede {oUsuario.Nombre} {oUsuario.Apellido1} con el rol {oUsuario.ROL.Id}-{oUsuario.ROL.Descripcion}");
@@ -36,7 +36,7 @@ namespace Web.Controllers
                 }
                 else
                 {
-                    Log.Warn($"{user.Correo} se intentó conectar  y falló");
+                    Log.Warn($"{user.Correo} Intentó iniciar sesion y falló");
                     ViewBag.NotificationMessage = Util.SweetAlertHelper.Mensaje("Login", "Error al autenticarse", SweetAlertMessageType.warning);
 
                 }
@@ -98,6 +98,53 @@ namespace Web.Controllers
                 TempData["Message"] = ex.Message;
                 TempData["Redirect"] = "Login";
                 TempData["Redirect-Action"] = "Index";
+                return RedirectToAction("Default", "Login");
+            }
+        }
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        public ActionResult CrearCuenta(FormCollection collection)
+        {
+            try
+            {
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                return RedirectToAction("Default", "Login");
+            }
+        }
+
+        public ActionResult Save(USUARIO user)
+        {
+            ServiceUsuario _serviceUsuario = new ServiceUsuario();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    USUARIO oUsuario = _serviceUsuario.CrearCuenta(user);
+
+                }
+                else
+                {
+                    Util.Util.ValidateErrors(this);
+                    return View("CrearCuenta", user);
+                }
+
+                return RedirectToAction("Index", "Login");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, MethodBase.GetCurrentMethod());
+                TempData["Message"] = "Error al procesar los datos" + ex.Message;
+                TempData["Redirect"] = "Login";
+                TempData["Redirect-Action"] = "Index";
+
                 return RedirectToAction("Default", "Login");
             }
         }

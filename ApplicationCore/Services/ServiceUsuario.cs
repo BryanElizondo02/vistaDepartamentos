@@ -11,6 +11,15 @@ namespace ApplicationCore.Services
 {
     public class ServiceUsuario : IServiceUsuario
     {
+        public USUARIO CrearCuenta(USUARIO usuario)
+        {
+            IRepositoryUsuario repository = new RepositoryUsuario();
+            usuario.Clave = Cryptography.EncrypthAES(usuario.Clave);
+            usuario.Estado = false;
+            usuario.IdRol = 2;
+            return repository.CrearCuenta(usuario);
+        }
+
         public USUARIO GetUsuario(string email, string password)
         {
             IRepositoryUsuario repository = new RepositoryUsuario();

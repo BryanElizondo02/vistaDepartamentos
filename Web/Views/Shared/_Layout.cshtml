@@ -11,9 +11,9 @@
 
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/main.css")
-        @Styles.Render("~/Content/departamentoCatalogo.css")
-        @Styles.Render("~/Content/details.css")
-        @Styles.Render("~/Content/contacto.css")
+    @Styles.Render("~/Content/departamentoCatalogo.css")
+    @Styles.Render("~/Content/details.css")
+    @Styles.Render("~/Content/contacto.css")
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
 </head>
@@ -82,19 +82,19 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Crear Reservación">
+                                <a href="@Url.Action("Create", "Reserva", null)" data-toggle="tooltip" data-placement="bottom" title="Crear Reservación">
                                     <i class="fas fa-plus-circle awsomeNav"></i>
                                     Nueva Reserva
                                 </a>
                             </li>
                             <li>
-                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Ver Reservaciones">
+                                <a href="@Url.Action("Reservas", "Reserva", null)" data-toggle="tooltip" data-placement="bottom" title="Ver Reservaciones">
                                     <i class="fas fa-calendar-week awsomeNav"></i>
                                     Mis Reservas
                                 </a>
                             </li>
                             <li>
-                                <a href="@Url.Action("Departamentos", "Departamento", null)" data-toggle="tooltip" data-placement="bottom" title="Ver Listados de Reservaciones">
+                                <a href="@Url.Action("ReservasAdmin", "Reserva", null)" data-toggle="tooltip" data-placement="bottom" title="Ver Listados de Reservaciones">
                                     <i class="fas fa-clipboard-list awsomeNav"></i>
                                     Registros de Reservaciones
                                 </a>

@@ -12,6 +12,7 @@ namespace ApplicationCore.Services
         USUARIO GetUsuarioByID(int id);
         USUARIO Save(USUARIO usuario);
         USUARIO GetUsuario(string email, string password);
+        USUARIO CrearCuenta(USUARIO usuario);
         IEnumerable<USUARIO> GetUsuarioActivo();
         IEnumerable<USUARIO> GetUsuarioInactivo();
     }

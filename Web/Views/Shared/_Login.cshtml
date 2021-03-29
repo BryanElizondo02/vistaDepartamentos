@@ -12,47 +12,8 @@
 
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/main.css")
-    <style>
-        .html body {
-            height: 100vh;
-        }
+    @Styles.Render("~/Content/Login.css")
 
-        body {
-            background-image: url('../../img/fondo.jpg'); 
-            /* Centramos el fondo horizontal y verticalmente */
-            background-position: center 13%;
-            /* El fonde no se repite */
-            background-repeat: no-repeat;
-            /* Fijamos la imagen a la ventana para que no supere el alto de la ventana */
-            background-attachment: fixed;
-            /* El fonde se re-escala automáticamente */
-            background-size: cover;
-            /* Color de fondo si la imagen no se encuentra o mientras se está cargando */
-            background-color: #FFF;
-            /* Fuente para el texto */
-            text-align: center;
-            color: #000;
-        }
-
-        #table {
-            padding: 5px;
-            margin-top: 10px;
-        }
-
-        .labels{
-            color: #d7eeed;
-        }
-
-        #logoLog {
-            display: inline; 
-            width: 290px;
-            height:240px; 
-            border-radius: 65px; 
-            margin-top:45px;
-        }
-
-
-    </style>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 </head>
@@ -74,8 +35,10 @@
     <main>
 
         <div class="container">
-
-            @RenderBody()
+            <center>
+                @RenderBody()
+            </center>
+            
         </div>
     </main>
     <hr />

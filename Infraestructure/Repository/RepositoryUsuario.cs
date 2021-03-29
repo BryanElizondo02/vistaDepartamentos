@@ -11,6 +11,45 @@ namespace Infraestructure.Repository
 {
     public class RepositoryUsuario : IRepositoryUsuario
     {
+        public USUARIO CrearCuenta(USUARIO usuario)
+        {
+            int retorno = 0;
+            USUARIO oUsuario = null;
+            try
+            {
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    oUsuario = GetUsuarioByID(usuario.Id);
+                    if (oUsuario == null)
+                    {
+           
+                        ctx.USUARIO.Add(usuario);
+                    }
+                    else
+                    {
+                        ctx.Entry(usuario).State = EntityState.Modified;
+                    }
+                    retorno = ctx.SaveChanges();
+                }
+                if (retorno >= 0)
+                    oUsuario = GetUsuarioByID(usuario.Id);
+                return oUsuario;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
         public USUARIO GetUsuario(string email, string password)
         {
             USUARIO oUsuario = null;

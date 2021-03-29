@@ -1,7 +1,7 @@
 ﻿@model Infraestructure.Models.USUARIO
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Iniciar Sesion";
     Layout = "~/Views/Shared/_Login.cshtml";
 
 }
@@ -52,6 +52,9 @@
                         <div class="col-md-offset-2 col-md-10">
                             <br />
                             <input type="submit" value="Log in" class="btn btn-primary mb-2" />
+                            <a href="@Url.Action("Create", "Login")" class="btn btn-warning text-center" data-toggle="tooltip" data-placement="bottom" title="Crear Cuenta">
+                                Crear Cuenta
+                            </a>
                         </div>
                     </td>
                 </tr>
