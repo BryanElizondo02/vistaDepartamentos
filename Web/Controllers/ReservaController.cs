@@ -98,7 +98,7 @@ namespace Web.Controllers
         public ActionResult ordenarDepartamento(int? idDepartamento)
         {
             ViewBag.NotiCarrito = Carrito.Instancia.AgregarItem((int)idDepartamento);
-            return RedirectToAction("Create","Reserva", null);
+            return RedirectToAction("Create");
 
         }
 

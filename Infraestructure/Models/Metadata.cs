@@ -144,8 +144,7 @@ namespace Infraestructure.Models
     internal partial class ReservaMetadata
     {
 
-        public int Id { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "El id e usuario es un campo obligatorio")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "El id del usuario es un campo obligatorio")]
         [Display(Name = "Usuario")]
         public int IdUsuario { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "El departamento es un campo obligatorio")]
