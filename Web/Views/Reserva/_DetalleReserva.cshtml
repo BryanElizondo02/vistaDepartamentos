@@ -1,0 +1,67 @@
+﻿@model List<Web.Views.ViewModel.viewModelReservaDetalle>
+
+<div class="table-responsive-sm">
+    @*Accion, nombre de controlador*@
+
+    <table class="table table-striped">
+        <tr>
+            <th>
+                Departamento
+            </th>
+            
+            <th class="right">
+                Precio
+            </th>
+
+            <th class="right">
+                Total Impuestos
+            </th>
+
+            <th class="right">
+                SubTotal
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.HiddenFor(modelItem => item.Departamento.Id)
+                    @Html.DisplayFor(modelItem => item.Departamento.Nombre)
+                </td>
+                
+                <td class="right">
+
+                    @Html.DisplayFor(modelItem => item.Precio)
+                </td>
+                <td class="right">
+                    @Html.DisplayFor(modelItem => item.Impuesto)
+                </td>
+
+                <td class="right">
+                    @Html.DisplayFor(modelItem => item.SubTotal)
+                </td>
+                <td>
+                    @Ajax.ActionLink("Eliminar",//Texto para el usuario
+                        "eliminarListaDepartamento",//Acción a llamar
+                        "Reserva",
+                        new
+                        {
+                            idDepartamento = item.IdDepartamento
+                        },//Parámetros a enviar
+                        new AjaxOptions
+                        {
+                            UpdateTargetId = "resultadoDetalle",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET"
+                        }, new { @class = "btn btn-danger" }
+                        )
+
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+

@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<Infraestructure.Models.DEPARTAMENTO>
 
-@{ ViewBag.Title = "Inicio"; }
+@{ ViewBag.Title = "Inicio";
+    
+    }
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -99,6 +101,8 @@
     <div class="row" id="resultado">
         @foreach (var item in Model)
         {
+            
+           
         <div class="col-sm-4">
             <div class="card" id="carta">
                 <div class="card-header bg-success" id="cardHead">
@@ -114,10 +118,25 @@
                         <a href="@Url.Action("Details", "Home", new { id = item.Id })" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Ver Departamento">
                             <i class="fas fa-info-circle"></i>  Detalles
                         </a>
-                        <a href="@Url.Action("Create", "Reserva", null)" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Reservar">
+                        @*<a href="@Url.Action("Create", "Reserva")" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Reservar">
                             Reservar por <i class="text-danger price">$@Html.DisplayFor(modelItem => item.Tarifa)</i>
                             <i class="fas fa-check-circle"></i>
-                        </a>
+                        </a>*@
+                        @Ajax.ActionLink("Reservar",//Texto para el usuario
+                                       "ordenarDepartamento",//Acción a llamar
+                                       "Reserva",
+                                       new
+                                       {
+                                           idDepartamento = item.Id
+                                       },//Parámetros a enviar
+                                       new AjaxOptions
+                                       {
+                                           UpdateTargetId = "departamentoID",
+                                           InsertionMode = InsertionMode.Replace,
+                                           HttpMethod = "GET",
+                                       }, new { @class = "btn btn-success" }
+                                       )
+
                     </div>
                 </div>
             </div>

@@ -364,6 +364,8 @@
     <Content Include="Views\Reserva\ReservasAdmin.cshtml" />
     <Content Include="Views\Reserva\Reservas.cshtml" />
     <Content Include="Views\Login\Create.cshtml" />
+    <Content Include="Views\Reserva\Create.cshtml" />
+    <Content Include="Views\Reserva\_DetalleReserva.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

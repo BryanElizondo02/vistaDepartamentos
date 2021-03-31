@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using ApplicationCore.Services;
 using Infraestructure.Models;
 using Web.Enum;
+using Web.Views.ViewModel;
 
 namespace Web.Controllers
 {
@@ -21,7 +22,7 @@ namespace Web.Controllers
                 USUARIO oUser = (Infraestructure.Models.USUARIO)Session["User"];
                 ServiceReserva _serviceReserva = new ServiceReserva();
                 lista = _serviceReserva.GetReserva(oUser.Id);
-
+                ViewBag.DetalleReserva = Carrito.Instancia.Items;
             }
             catch (Exception ex)
             {
@@ -87,24 +88,29 @@ namespace Web.Controllers
             }
         }
 
-        // POST: Reserva/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create()
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Reservas");
-            }
-            catch(Exception ex)
-            {
-                TempData["Message"] = "Error al procesar los datos" + ex.Message;
-                return RedirectToAction("Default", "Error");
-            }
+            ViewBag.TipoPago = this.listTipoPago();
+            ViewBag.DetalleReserva = Carrito.Instancia.Items;
+            return View();
         }
 
-        public ActionResult CreateCatalog(int idDepartamento)
+        public ActionResult ordenarDepartamento(int? idDepartamento)
+        {
+            ViewBag.NotiCarrito = Carrito.Instancia.AgregarItem((int)idDepartamento);
+            return RedirectToAction("Create","Reserva", null);
+
+        }
+
+        private SelectList listTipoPago(int idTipoPago = 0)
+        {
+            ServiceTipoPago _serviceTipoPago = new ServiceTipoPago();
+            IEnumerable<TIPOPAGO> listaTipoPago = _serviceTipoPago.GetTipoPagoActivo();
+
+            return new SelectList(listaTipoPago, "Id", "Nombre", idTipoPago);//List to Dropdown List
+        }
+
+        public ActionResult CreateCatalog(int? idDepartamento)
         {
             ServiceDepartamento _serviceDepartamento = new ServiceDepartamento();
             DEPARTAMENTO oDepartamento = null;
@@ -115,8 +121,8 @@ namespace Web.Controllers
                 {
                     return RedirectToAction("Reservas");
                 }
-
-                oDepartamento = _serviceDepartamento.GetDepartamentoActivoByID(idDepartamento);
+                ViewBag.TipoPago = this.listTipoPago();
+                oDepartamento = _serviceDepartamento.GetDepartamentoActivoByID(idDepartamento.Value);
                 if (oDepartamento == null)
                 {
                     TempData["Message"] = "No existe la reserva solicitada";
@@ -206,5 +212,12 @@ namespace Web.Controllers
                 return RedirectToAction("Default", "Error");
             }
         }
+
+        public ActionResult eliminarListaDepartamento(int? idDepartamento)
+        {
+            ViewBag.NotificationMessage = Carrito.Instancia.EliminarItem((int)idDepartamento);
+            return PartialView("_DetalleReserva", Carrito.Instancia.Items);
+        }
+
     }
 }

@@ -1,0 +1,109 @@
+﻿@model Infraestructure.Models.RESERVA
+
+@{
+    ViewBag.Title = "Reservar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<h2>Reservar Departamento</h2>
+<hr />
+
+@using (Html.BeginForm("Save", "Reserva", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+        <!--Linea 1-->
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FechaReserva, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.FechaReserva, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FechaReserva, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FechaFinReserva, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.FechaFinReserva, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FechaFinReserva, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--Linea 2-->
+        <div class="row">
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CantPersonas, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.CantPersonas, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CantPersonas, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>*@
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdTipoPago, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(model => model.IdTipoPago, (SelectList)ViewBag.TipoPago, "Seleccione el tipo de pago", htmlAttributes: new { @class = "form-control col-md-3" })
+                        @Html.ValidationMessageFor(model => model.IdTipoPago, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NumeroTarjeta, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.NumeroTarjeta, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NumeroTarjeta, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <hr />
+        <div id="resultadoDetalle">
+            @if (Web.Views.ViewModel.Carrito.Instancia.Items.Count() > 0)
+            {
+                @Html.Partial("~/Views/Reserva/_DetalleReserva.cshtml", (List<Web.Views.ViewModel.viewModelReservaDetalle>)ViewBag.DetalleReserva)
+            }
+            else
+            {
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    No tiene reservaciones
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+            
+        </div>
+        <hr />
+        <button type="submit" class="btn btn-success float-right" id="btnReservar">
+            Guardar
+        </button>
+
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryajax")
+
+
+}

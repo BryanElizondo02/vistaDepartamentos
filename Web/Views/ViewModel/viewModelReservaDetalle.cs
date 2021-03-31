@@ -29,6 +29,14 @@ namespace Web.Views.ViewModel
             }
         }
 
+        public decimal Impuesto
+        {
+            get
+            {
+                return calculoImpuesto();
+            }
+        }
+
         public decimal Total
         {
             get
