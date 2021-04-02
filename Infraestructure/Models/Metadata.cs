@@ -180,7 +180,7 @@ namespace Infraestructure.Models
         public virtual DEPARTAMENTO DEPARTAMENTO { get; set; }
         public virtual TIPOPAGO TIPOPAGO { get; set; }
         public virtual USUARIO USUARIO { get; set; }
-
+        [Display(Name = "Contratar Servicios de:")]
         public virtual ICollection<SERVICIOS> SERVICIOS { get; set; }
     }
 

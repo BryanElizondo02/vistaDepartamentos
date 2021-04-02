@@ -1,7 +1,6 @@
 ﻿@model List<Web.Views.ViewModel.viewModelReservaDetalle>
 
 <div class="table-responsive-sm">
-    @*Accion, nombre de controlador*@
 
     <table class="table table-striped">
         <tr>
@@ -31,15 +30,15 @@
                     @Html.DisplayFor(modelItem => item.Departamento.Nombre)
                 </td>
                 
-                <td class="right">
+                <td class="left">
 
                     @Html.DisplayFor(modelItem => item.Precio)
                 </td>
-                <td class="right">
+                <td class="left">
                     @Html.DisplayFor(modelItem => item.Impuesto)
                 </td>
 
-                <td class="right">
+                <td class="left">
                     @Html.DisplayFor(modelItem => item.SubTotal)
                 </td>
                 <td>
@@ -63,5 +62,24 @@
         }
 
     </table>
+</div>
+<div class="row">
+    <div class="col-lg-5 col-sm-5"></div>
+    <div class="col-lg-7 col-sm-5 ml-auto">
+        <table class="table table-clear">
+            <tbody class="text-center">
+                <tr>
+                    
+                    <td class="left">
+                        <strong>Total: </strong>
+                    </td>
+                    <td class="right">
+                        <strong>@(((decimal)Web.Views.ViewModel.Carrito.Instancia.GetTotal()).ToString("C2"))</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
 </div>
 

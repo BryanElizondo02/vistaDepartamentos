@@ -92,8 +92,11 @@ namespace Web.Controllers
         {
             ViewBag.TipoPago = this.listTipoPago();
             ViewBag.DetalleReserva = Carrito.Instancia.Items;
+            ViewBag.IdServicios = listaServicios(null);
             return View();
         }
+
+
 
         public ActionResult ordenarDepartamento(int? idDepartamento)
         {
@@ -106,8 +109,23 @@ namespace Web.Controllers
         {
             ServiceTipoPago _serviceTipoPago = new ServiceTipoPago();
             IEnumerable<TIPOPAGO> listaTipoPago = _serviceTipoPago.GetTipoPagoActivo();
+            
 
             return new SelectList(listaTipoPago, "Id", "Nombre", idTipoPago);//List to Dropdown List
+        }
+
+        private MultiSelectList listaServicios(ICollection<SERVICIOS> servicios)
+        {
+            ServiceServicio _serviceServicios = new ServiceServicio();
+            IEnumerable<SERVICIOS> listaServicio = _serviceServicios.GetServicioActivo();
+            int[] listaServicioSelect = null;
+
+            if (servicios != null)
+            {
+                listaServicioSelect = servicios.Select(e => e.Id).ToArray();
+            }
+
+            return new MultiSelectList(listaServicio, "Id", "Nombre", listaServicioSelect);
         }
 
         public ActionResult CreateCatalog(int? idDepartamento)
@@ -168,6 +186,7 @@ namespace Web.Controllers
 
                     return RedirectToAction("Default", "Error");
                 }
+                ViewBag.IdServicios = listaServicios(oReserva.SERVICIOS);
 
                 return View(oReserva);
             }
@@ -183,20 +202,26 @@ namespace Web.Controllers
         }
 
         
-        public ActionResult Save(RESERVA reserv, string[] selectedServicio)
+        public ActionResult Save(RESERVA reserv, string[] selectedServicios)
         {
             ServiceReserva _serviceReserva = new ServiceReserva();
+            USUARIO oUser = null;
             try
             {
+                oUser = (Infraestructure.Models.USUARIO)Session["User"];
+                reserv.Estado = true;
+                reserv.IdUsuario = oUser.Id;
+
                 if (ModelState.IsValid)
                 {
-                    RESERVA oReserva = _serviceReserva.Save(reserv, selectedServicio);
+                     
+                    RESERVA oReserva = _serviceReserva.Save(reserv, selectedServicios);
 
                 }
                 else
                 {
                     Util.Util.ValidateErrors(this);
-
+                    ViewBag.IdServicios = listaServicios(reserv.SERVICIOS);
                     return View("Create", reserv);
                 }
 
