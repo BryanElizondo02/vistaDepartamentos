@@ -12,6 +12,8 @@ namespace Web.Views.ViewModel
         public int IdReserva { get; set; }
         public int IdDepartamento { get; set; }
         public string Imagen { get; set; }
+        public int IdServicio { get; set; }
+        public SERVICIOS Servicios{get; set;}
         public int Cantidad { get; set; }
         public decimal Precio
         {
@@ -59,6 +61,7 @@ namespace Web.Views.ViewModel
             ServiceDepartamento _ServiceDepartamento = new ServiceDepartamento();
             this.IdDepartamento = IdDepartamento;
             this.Departamento = _ServiceDepartamento.GetDepartamentoActivoByID(IdDepartamento);
+            
         }
 
 

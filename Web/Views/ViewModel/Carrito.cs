@@ -55,7 +55,6 @@ namespace Web.Views.ViewModel
             return mensaje;
         }
 
-        
 
         public String EliminarItem(int departamentoId)
         {

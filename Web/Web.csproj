@@ -166,6 +166,7 @@
     <Compile Include="Util\Util.cs" />
     <Compile Include="Views\ViewModel\Carrito.cs" />
     <Compile Include="Views\ViewModel\viewModelReservaDetalle.cs" />
+    <Compile Include="Views\ViewModel\viewModelResrvaServicio.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

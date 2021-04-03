@@ -97,13 +97,13 @@ namespace Web.Controllers
         }
 
 
-
         public ActionResult ordenarDepartamento(int? idDepartamento)
         {
             ViewBag.NotiCarrito = Carrito.Instancia.AgregarItem((int)idDepartamento);
             return RedirectToAction("Create");
 
         }
+
 
         private SelectList listTipoPago(int idTipoPago = 0)
         {
@@ -201,11 +201,13 @@ namespace Web.Controllers
             }
         }
 
-        
+
         public ActionResult Save(RESERVA reserv, string[] selectedServicios)
         {
             ServiceReserva _serviceReserva = new ServiceReserva();
             USUARIO oUser = null;
+            
+
             try
             {
                     oUser = (Infraestructure.Models.USUARIO)Session["User"];

@@ -7,9 +7,17 @@
             <th>
                 Departamento
             </th>
-            
+
+            <th class="right">
+                Servicios
+            </th>
+
             <th class="right">
                 Precio
+            </th>
+
+            <th class="right">
+                Total por servicios
             </th>
 
             <th class="right">
@@ -24,41 +32,52 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.HiddenFor(modelItem => item.Departamento.Id)
-                    @Html.DisplayFor(modelItem => item.Departamento.Nombre)
-                </td>
-                
-                <td class="left">
+    <tr>
+        <td>
+            @Html.HiddenFor(modelItem => item.Departamento.Id)
+            @Html.DisplayFor(modelItem => item.Departamento.Nombre)
+        </td>
 
-                    @Html.DisplayFor(modelItem => item.Precio)
-                </td>
-                <td class="left">
-                    @Html.DisplayFor(modelItem => item.Impuesto)
-                </td>
+        <td class="left">
 
-                <td class="left">
-                    @Html.DisplayFor(modelItem => item.SubTotal)
-                </td>
-                <td>
-                    @Ajax.ActionLink("Eliminar",//Texto para el usuario
-                        "eliminarListaDepartamento",//Acción a llamar
-                        "Reserva",
-                        new
-                        {
-                            idDepartamento = item.IdDepartamento
-                        },//Parámetros a enviar
-                        new AjaxOptions
-                        {
-                            UpdateTargetId = "resultadoDetalle",
-                            InsertionMode = InsertionMode.Replace,
-                            HttpMethod = "GET"
-                        }, new { @class = "btn btn-danger" }
-                        )
+            @*@Html.DisplayFor(modelItem => item.Servicios)*@
+        </td>
 
-                </td>
-            </tr>
+        <td class="left">
+
+            @Html.DisplayFor(modelItem => item.Precio)
+        </td>
+
+        <td class="left">
+
+            @*@Html.DisplayFor(modelItem => item.PrecioServicios)*@
+        </td>
+
+        <td class="left">
+            @Html.DisplayFor(modelItem => item.Impuesto)
+        </td>
+
+        <td class="left">
+            @Html.DisplayFor(modelItem => item.SubTotal)
+        </td>
+        <td>
+            @Ajax.ActionLink("Eliminar",//Texto para el usuario
+                "eliminarListaDepartamento",//Acción a llamar
+                "Reserva",
+                new
+                {
+                    idDepartamento = item.IdDepartamento
+                },//Parámetros a enviar
+                new AjaxOptions
+                {
+                    UpdateTargetId = "resultadoDetalle",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "GET"
+                }, new { @class = "btn btn-danger" }
+                )
+
+        </td>
+    </tr>
         }
 
     </table>
