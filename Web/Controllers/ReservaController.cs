@@ -208,24 +208,24 @@ namespace Web.Controllers
             USUARIO oUser = null;
             try
             {
-                oUser = (Infraestructure.Models.USUARIO)Session["User"];
-                reserv.Estado = true;
-                reserv.IdUsuario = oUser.Id;
+                    oUser = (Infraestructure.Models.USUARIO)Session["User"];
+                    reserv.Estado = true;
+                    reserv.IdUsuario = oUser.Id;
 
-                if (ModelState.IsValid)
-                {
-                     
-                    RESERVA oReserva = _serviceReserva.Save(reserv, selectedServicios);
+                    if (ModelState.IsValid)
+                    {
+                        RESERVA oReserva = _serviceReserva.Save(reserv, selectedServicios);
 
-                }
-                else
-                {
-                    Util.Util.ValidateErrors(this);
-                    ViewBag.IdServicios = listaServicios(reserv.SERVICIOS);
-                    return View("Create", reserv);
-                }
+                    }
+                    else
+                    {
+                        Util.Util.ValidateErrors(this);
+                        ViewBag.IdServicios = listaServicios(reserv.SERVICIOS);
+                        return View("Create", reserv);
+                    }
 
-                return RedirectToAction("Reservas");
+                    return RedirectToAction("Reservas");
+                
             }
             catch (Exception ex)
             {

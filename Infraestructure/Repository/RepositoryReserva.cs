@@ -22,6 +22,7 @@ namespace Infraestructure.Repository
                     lista = ctx.RESERVA
                         .Include(u => u.USUARIO)
                         .Include(d => d.DEPARTAMENTO)
+                        .Include(d => d.SERVICIOS)
                         .Include(p => p.TIPOPAGO)
                         .Where(x => x.IdUsuario == usuario)
                         .ToList();
@@ -55,6 +56,7 @@ namespace Infraestructure.Repository
                     lista = ctx.RESERVA
                         .Include(u => u.USUARIO)
                         .Include(d => d.DEPARTAMENTO)
+                        .Include(d => d.SERVICIOS)
                         .Include(p => p.TIPOPAGO)
                         .OrderByDescending(o => o.FechaReserva)
                         .ToList();
@@ -90,6 +92,42 @@ namespace Infraestructure.Repository
                     oReserva = ctx.RESERVA.Where(d => d.Id == id)
                         .Include(u => u.USUARIO)
                         .Include(d => d.DEPARTAMENTO)
+                        .Include(d => d.SERVICIOS)
+                        .Include(p => p.TIPOPAGO)
+                        .FirstOrDefault();
+                }
+
+                return oReserva;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
+        public RESERVA GetReservaByRangoFechas(DateTime date1, DateTime date2, int idDepartamento)
+        {
+            RESERVA oReserva = null;
+            try
+            {
+
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+
+                    oReserva = ctx.RESERVA.Where(d => d.FechaReserva >= date1 
+                    && d.FechaFinReserva <= date2 && d.DEPARTAMENTO.Id == idDepartamento)
+                        .Include(u => u.USUARIO)
+                        .Include(d => d.DEPARTAMENTO)
+                        .Include(d => d.SERVICIOS)
                         .Include(p => p.TIPOPAGO)
                         .FirstOrDefault();
                 }

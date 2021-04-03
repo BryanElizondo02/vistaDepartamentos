@@ -28,6 +28,12 @@ namespace ApplicationCore.Services
             return repository.GetReservaByID(id);
         }
 
+        public RESERVA GetReservaByRangoFechas(DateTime date1, DateTime date2, int idDepartamento)
+        {
+            IRepositoryReserva repository = new RepositoryReserva();
+            return repository.GetReservaByRangoFechas(date1, date2, idDepartamento);
+        }
+
         public RESERVA Save(RESERVA reserv, string[] selectedServicios)
         {
             IRepositoryReserva repository = new RepositoryReserva();

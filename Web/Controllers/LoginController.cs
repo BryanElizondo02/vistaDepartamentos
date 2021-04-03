@@ -32,6 +32,7 @@ namespace Web.Controllers
                 {
                     Session["User"] = oUsuario;
                     Log.Info($"Accede {oUsuario.Nombre} {oUsuario.Apellido1} con el rol {oUsuario.ROL.Id}-{oUsuario.ROL.Descripcion}");
+                    TempData["mensaje"] = Util.SweetAlertHelper.Mensaje("Login", "Usuario autenticado satisfactoriamente", SweetAlertMessageType.success);
                     return RedirectToAction("Index", "Home");
                 }
                 else

@@ -12,6 +12,7 @@ namespace Infraestructure.Repository
         IEnumerable<RESERVA> GetReserva(int usuario);
         IEnumerable<RESERVA> GetReservaAdmin();
         RESERVA GetReservaByID(int id);
+        RESERVA GetReservaByRangoFechas(DateTime date1, DateTime date2, int idDepartamento);
         RESERVA Save(RESERVA reserv, string[] selectedServicios);
     }
 }

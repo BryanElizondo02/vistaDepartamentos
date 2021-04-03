@@ -11,6 +11,7 @@ namespace ApplicationCore.Services
     {
         IEnumerable<RESERVA> GetReserva(int usuario);
         IEnumerable<RESERVA> GetReservaAdmin();
+        RESERVA GetReservaByRangoFechas(DateTime date1, DateTime date2, int idDepartamento);
         RESERVA GetReservaByID(int id);
         RESERVA Save(RESERVA reserv, string[] selectedServicios);
     }
