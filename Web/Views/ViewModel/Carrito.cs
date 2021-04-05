@@ -8,7 +8,9 @@ namespace Web.Views.ViewModel
 {
     public class Carrito
     {
+        int departamento;
         public List<viewModelReservaDetalle> Items { get; private set; }
+        public List<viewModelReservaServicio> ItemsServicio { get; private set; }
 
         public static readonly Carrito Instancia;
 
@@ -18,6 +20,7 @@ namespace Web.Views.ViewModel
             {
                 Instancia = new Carrito();
                 Instancia.Items = new List<viewModelReservaDetalle>();
+                //Instancia.ItemsServicio = new List<viewModelReservaServicio>();
                 HttpContext.Current.Session["carrito"] = Instancia;
             }
             else
@@ -30,6 +33,7 @@ namespace Web.Views.ViewModel
 
         public String AgregarItem(int departamentoId)
         {
+            departamento = departamentoId;
             String mensaje = "";
             // Crear un nuevo artículo para agregar al carrito
             viewModelReservaDetalle nuevoItem = new viewModelReservaDetalle(departamentoId);
@@ -55,9 +59,23 @@ namespace Web.Views.ViewModel
             return mensaje;
         }
 
+        public void AgregarItemServicio(int servicioId)
+        {
+            // Crear un nuevo artículo para agregar al carrito
+            viewModelReservaDetalle nuevoItem = new viewModelReservaDetalle(departamento);
+
+            if (nuevoItem != null)
+            {
+                nuevoItem.asignarServicio(servicioId);
+
+            }
+           
+        }
 
         public String EliminarItem(int departamentoId)
         {
+            
+
             String mensaje = "El departamento solicitado no existe";
             if (Items.Exists(x => x.IdDepartamento == departamentoId))
             {
@@ -80,12 +98,11 @@ namespace Web.Views.ViewModel
         public decimal GetTotal()
         {
             decimal total = 0;
-            total = Items.Sum(x => x.SubTotal);
+            total = Items.Sum(x => x.Total);
 
             return total;
         }
 
-        
         public int GetCountItems()
         {
             int total = 0;
@@ -99,6 +116,7 @@ namespace Web.Views.ViewModel
             Items.Clear();
 
         }
+
 
     }
 }

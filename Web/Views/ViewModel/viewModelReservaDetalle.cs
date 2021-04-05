@@ -22,7 +22,7 @@ namespace Web.Views.ViewModel
         }
 
         public virtual DEPARTAMENTO Departamento { get; set; }
-
+        public List<SERVICIOS> lista { get; set; }
         public decimal SubTotal
         {
             get
@@ -43,7 +43,7 @@ namespace Web.Views.ViewModel
         {
             get
             {
-                return calculoSubtotal() + calculoImpuesto();
+                return calculoSubtotal() + Impuesto;
             }
         }
         private decimal calculoSubtotal()
@@ -54,6 +54,14 @@ namespace Web.Views.ViewModel
         public decimal calculoImpuesto()
         {
             return this.Precio * ((decimal)0.13);
+        }
+
+        public void asignarServicio(int IdServicio)
+        {
+            ServiceServicio _serviceServicio = new ServiceServicio();
+            this.IdServicio = IdServicio;
+            Servicios = _serviceServicio.GetServicioByID(IdServicio);
+            lista.Add(Servicios);
         }
 
         public viewModelReservaDetalle(int IdDepartamento)

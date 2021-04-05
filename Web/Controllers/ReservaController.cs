@@ -51,7 +51,7 @@ namespace Web.Controllers
             }
             return View(lista);
         }
-        
+
         public ActionResult Details(int? id)
         {
             ServiceReserva _serviceReserva = new ServiceReserva();
@@ -92,18 +92,51 @@ namespace Web.Controllers
         {
             ViewBag.TipoPago = this.listTipoPago();
             ViewBag.DetalleReserva = Carrito.Instancia.Items;
-            ViewBag.IdServicios = listaServicios(null);
+            ViewBag.IdServicios = listServicio();
             return View();
         }
 
+        private SelectList listServicio(int idServicio = 0)
+        {
+    
+            ServiceServicio _serviceServicio = new ServiceServicio();
+            IEnumerable<SERVICIOS> listaServicio= _serviceServicio.GetServicioActivo();
+       
+            if (idServicio != 0)
+            {
+                ViewBag.contratarServ = idServicio;
+            }
+            else
+            {
+                ViewBag.contratarServ = 0;
+            }
+
+            return new SelectList(listaServicio, "Id", "Nombre", idServicio);//List to Dropdown List
+            
+        }
 
         public ActionResult ordenarDepartamento(int? idDepartamento)
         {
-            ViewBag.NotiCarrito = Carrito.Instancia.AgregarItem((int)idDepartamento);
+            if (ViewBag.NotiCarrito = Carrito.Instancia.Items.Count == 0)
+            {
+                ViewBag.NotiCarrito = Carrito.Instancia.AgregarItem((int)idDepartamento);
+            }
+             
             return RedirectToAction("Create");
 
         }
 
+        public ActionResult ordenarServicios(int id = 0)
+        {
+            if (ViewBag.NotiCarrito = Carrito.Instancia.Items.Count > 0)
+            {
+                ViewBag.IdServicioContratar = id;
+                Carrito.Instancia.AgregarItemServicio((int)id);
+            }
+            
+            return RedirectToAction("Create");
+
+        }
 
         private SelectList listTipoPago(int idTipoPago = 0)
         {
@@ -123,45 +156,14 @@ namespace Web.Controllers
             if (servicios != null)
             {
                 listaServicioSelect = servicios.Select(e => e.Id).ToArray();
+                ViewBag.listaseleccionados = listaServicioSelect;
+                
             }
 
             return new MultiSelectList(listaServicio, "Id", "Nombre", listaServicioSelect);
         }
 
-        public ActionResult CreateCatalog(int? idDepartamento)
-        {
-            ServiceDepartamento _serviceDepartamento = new ServiceDepartamento();
-            DEPARTAMENTO oDepartamento = null;
-            try
-            {
-                // Si va null
-                if (idDepartamento == null)
-                {
-                    return RedirectToAction("Reservas");
-                }
-                ViewBag.TipoPago = this.listTipoPago();
-                oDepartamento = _serviceDepartamento.GetDepartamentoActivoByID(idDepartamento.Value);
-                if (oDepartamento == null)
-                {
-                    TempData["Message"] = "No existe la reserva solicitada";
-                    TempData["Redirect"] = "Reserva";
-                    TempData["Redirect-Action"] = "Reservas";
-
-                    return RedirectToAction("Default", "Error");
-                }
-
-                return View(oDepartamento);
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, MethodBase.GetCurrentMethod());
-                TempData["Message"] = "Error al procesar los datos" + ex.Message;
-                TempData["Redirect"] = "Reserva";
-                TempData["Redirect-Action"] = "Reservas";
-
-                return RedirectToAction("Default", "Error");
-            }
-        }
+        
 
         [HttpPost]
         [Web.Security.CustomAuthorize((int)Roles.Administrador)]

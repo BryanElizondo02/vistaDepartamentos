@@ -8,16 +8,12 @@
                 Departamento
             </th>
 
-            <th class="right">
+            <th>
                 Servicios
             </th>
 
             <th class="right">
                 Precio
-            </th>
-
-            <th class="right">
-                Total por servicios
             </th>
 
             <th class="right">
@@ -39,8 +35,7 @@
         </td>
 
         <td class="left">
-
-            @*@Html.DisplayFor(modelItem => item.Servicios)*@
+            @Html.DisplayFor(modelItem => item.Servicios.Nombre)
         </td>
 
         <td class="left">
@@ -48,10 +43,6 @@
             @Html.DisplayFor(modelItem => item.Precio)
         </td>
 
-        <td class="left">
-
-            @*@Html.DisplayFor(modelItem => item.PrecioServicios)*@
-        </td>
 
         <td class="left">
             @Html.DisplayFor(modelItem => item.Impuesto)
