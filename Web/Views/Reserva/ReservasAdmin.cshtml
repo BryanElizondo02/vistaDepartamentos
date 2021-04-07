@@ -41,6 +41,21 @@
                             <dd>
                                 $@Html.DisplayFor(modelItem => item.DEPARTAMENTO.Tarifa)
                             </dd>
+                            <br />
+                            <br />
+
+                            <dt>
+                                Servicios
+                            </dt>
+
+                            <dd>
+                                <ul>
+                                    @foreach (var ser in item.SERVICIOS)
+                                    {
+                                        <li class="text-left">@ser.Nombre</li>
+                                    }
+                                </ul>
+                            </dd>
 
                             <dt>
                                 Impuesto:

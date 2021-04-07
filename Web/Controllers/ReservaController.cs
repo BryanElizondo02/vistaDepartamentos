@@ -219,6 +219,7 @@ namespace Web.Controllers
 
                     foreach (var item in encabezado)
                     {
+                        
                         reserv.Impuesto = item.Impuesto;
                         reserv.SubTotal = item.SubTotal;
                         reserv.Total = item.Total;
