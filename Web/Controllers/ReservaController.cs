@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using ApplicationCore.Services;
 using Infraestructure.Models;
 using Web.Enum;
+using Web.Util;
 using Web.Views.ViewModel;
 
 namespace Web.Controllers
@@ -208,26 +209,40 @@ namespace Web.Controllers
         {
             ServiceReserva _serviceReserva = new ServiceReserva();
             USUARIO oUser = null;
-            
 
             try
             {
+                if (ViewBag.NotiCarrito = Carrito.Instancia.Items.Count > 0)
+                {
                     oUser = (Infraestructure.Models.USUARIO)Session["User"];
+                    var encabezado = Carrito.Instancia.Items;
+
+                    foreach (var item in encabezado)
+                    {
+                        reserv.Impuesto = item.Impuesto;
+                        reserv.SubTotal = item.SubTotal;
+                        reserv.Total = item.Total;
+                        reserv.IdDepartamento = item.IdDepartamento;
+                        reserv.Estado = true;
+                    }
+
                     reserv.Estado = true;
                     reserv.IdUsuario = oUser.Id;
 
-                    if (ModelState.IsValid)
+                    if (reserv.IdTipoPago == 1)
                     {
-                        RESERVA oReserva = _serviceReserva.Save(reserv, selectedServicios);
-
-                    }
-                    else
-                    {
-                        Util.Util.ValidateErrors(this);
-                        ViewBag.IdServicios = listaServicios(reserv.SERVICIOS);
-                        return View("Create", reserv);
+                        reserv.NumeroTarjeta = "##########";
                     }
 
+                    RESERVA oReserva = _serviceReserva.Save(reserv, selectedServicios); 
+                    
+                }
+                else
+                {
+                    TempData["NotificationMessage"] = Util.SweetAlertHelper.Mensaje("Reserva", "Seleccione un departamento para reservar", SweetAlertMessageType.warning);
+                    return RedirectToAction("Reservas");
+                }
+                    
                     return RedirectToAction("Reservas");
                 
             }
