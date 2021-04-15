@@ -127,18 +127,7 @@ namespace Web.Controllers
 
         }
 
-        public ActionResult ordenarServicios(int id = 0)
-        {
-            if (ViewBag.NotiCarrito = Carrito.Instancia.Items.Count > 0)
-            {
-                ViewBag.IdServicioContratar = id;
-                Carrito.Instancia.AgregarItemServicio((int)id);
-            }
-            
-            return RedirectToAction("Create");
-
-        }
-
+        
         private SelectList listTipoPago(int idTipoPago = 0)
         {
             ServiceTipoPago _serviceTipoPago = new ServiceTipoPago();
@@ -262,6 +251,27 @@ namespace Web.Controllers
         {
             ViewBag.NotificationMessage = Carrito.Instancia.EliminarItem((int)idDepartamento);
             return PartialView("_DetalleReserva", Carrito.Instancia.Items);
+        }
+
+        public ActionResult graficoReserva()
+        {
+            //Documentación chartjs https://www.chartjs.org/docs/latest/
+            IServiceReserva _ServiceReserva = new ServiceReserva();
+            ViewModelGrafico grafico = new ViewModelGrafico();
+            string etiquetas = "";
+            string valores = "";
+            DateTime fecha = DateTime.Now;
+            _ServiceReserva.GetReservaCountDate(out etiquetas, out valores, fecha);
+            grafico.Etiquetas = etiquetas;
+            grafico.Valores = valores;
+            int cantidadValores = valores.Split(',').Length;
+            grafico.Colores = string.Join(",", grafico.GenerateColors(cantidadValores));
+            grafico.titulo = "Reservas por fecha";
+            grafico.tituloEtiquetas = "Cantidad de reservas";
+
+            grafico.tipo = "polarArea";
+            ViewBag.grafico = grafico;
+            return View();
         }
 
     }

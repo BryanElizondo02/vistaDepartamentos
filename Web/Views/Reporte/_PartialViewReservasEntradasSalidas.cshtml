@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Infraestructure.Models.RESERVA>
+
+<div class="row">
+    <table class="table table-bordered tablelist table-responsive" align="center">
+        
+        <tbody id="resultado">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <p>
+                            @Html.DisplayFor(modelItem => item.USUARIO.Nombre) @Html.DisplayFor(modelItem => item.USUARIO.Apellido1)
+                        </p>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DEPARTAMENTO.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaReserva)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaFinReserva)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TIPOPAGO.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroTarjeta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CantPersonas)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.SubTotal)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.Impuesto)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.Total)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>

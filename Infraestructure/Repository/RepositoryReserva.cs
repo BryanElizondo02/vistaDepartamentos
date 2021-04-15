@@ -77,7 +77,49 @@ namespace Infraestructure.Repository
                 throw new Exception(mensaje);
             }
         }
-    
+
+        public void GetReservaCountDate(out string etiquetas, out string valores, DateTime fecha)
+        {
+            String varEtiquetas = "";
+            String varValores = "";
+            try
+            {
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    var resultado = ctx.RESERVA.Where(r => r.FechaReserva == fecha || r.FechaFinReserva == fecha).
+                        GroupBy(x => x.FechaReserva).
+                               Select(o => new {
+                                   Count = o.Count(),
+                                   FechaOrden = o.Key
+                               });
+                    foreach (var item in resultado)
+                    {
+                        varEtiquetas += String.Format("{0:dd/MM/yyyy}", item.FechaOrden) + ",";
+                        varValores += item.Count + ",";
+                    }
+                }
+                //Ultima coma
+                varEtiquetas = varEtiquetas.Substring(0, varEtiquetas.Length - 1); // ultima coma
+                varValores = varValores.Substring(0, varValores.Length - 1);
+                //Asignar valores de salida
+                etiquetas = varEtiquetas;
+                valores = varValores;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+        }
+
 
         public RESERVA GetReservaByID(int id)
         {
@@ -133,6 +175,42 @@ namespace Infraestructure.Repository
                 }
 
                 return oReserva;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception ex)
+            {
+                string mensaje = "";
+                Log.Error(ex, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
+        public IEnumerable<RESERVA> GetReservaEntradasSalidas(DateTime date1)
+        {
+            string fecha = date1.ToString();
+            List<RESERVA> lista = null;
+            try
+            {
+
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+
+                    lista = ctx.RESERVA
+                        .Include(u => u.USUARIO)
+                        .Include(d => d.DEPARTAMENTO)
+                        .Include(d => d.SERVICIOS)
+                        .Include(p => p.TIPOPAGO)
+                    .ToList().FindAll(l => l.FechaReserva == date1 || l.FechaFinReserva == date1);
+
+                }
+
+                return lista;
             }
             catch (DbUpdateException dbEx)
             {

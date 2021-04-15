@@ -1,0 +1,151 @@
+﻿@model IEnumerable<Infraestructure.Models.RESERVA>
+
+@{
+    ViewBag.Title = "Entradas y Salidas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<h2>Entradas y Salidas</h2>
+
+<div class="container" id="tablaReporte">
+
+    <div class="row text-center">
+        <table align="center">
+            <tr>
+                <th style="padding: 20px">
+                    <p>
+                        <a href="@Url.Action("CreatePdfLibroCatalogo", "Reporte")" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="PDF">
+                            <i class="fas fa-file-download awsomeNav"></i>  Generar Reporte en PDF
+                        </a>
+                    </p>
+                </th>
+                <th style="padding: 20px">
+
+                    @using (Ajax.BeginForm("buscarReserva", "Reporte",
+                        new AjaxOptions
+                        {
+                            UpdateTargetId = "resultado",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET",
+                            LoadingElementId = "ajaxLoader"
+
+                        }))
+                    {
+                        <div class="row card-body text-center" align="center">
+                            <div class="container col-md-8">
+                                <input name="filtro" class="form-control text-right" type="text" id="datepicker" />
+                                <button type="submit" class="btn btn-info" style="margin: 5px">
+                                    Buscar
+                                </button>
+
+                            </div>
+                        </div>
+                    }
+                </th>
+
+            </tr>
+        </table>
+        <div id="ajaxLoader" class="center-block" alt="Cargando..." style="width: 100px; height:100px; display: none">
+            <img src="~/img/loading.gif" />
+        </div>
+
+    </div>
+
+    <table class="table table-bordered tablelist table-responsive" align="center">
+        <thead>
+            <tr>
+                <th>
+                    Cliente
+                </th>
+                <th>
+                    Departamento
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaReserva)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaFinReserva)
+                </th>
+                <th>
+                    Medio de pago
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumeroTarjeta)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CantPersonas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SubTotal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Impuesto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Total)
+                </th>
+
+            </tr>
+        </thead>
+        <tbody id="resultado">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <p>
+                            @Html.DisplayFor(modelItem => item.USUARIO.Nombre) @Html.DisplayFor(modelItem => item.USUARIO.Apellido1)
+                        </p>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DEPARTAMENTO.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaReserva)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaFinReserva)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TIPOPAGO.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroTarjeta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CantPersonas)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.SubTotal)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.Impuesto)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.Total)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryajax")
+    <script type="text/javascript">
+        $(function () {
+            $("#datepicker").datepicker({
+                dateFormat: 'dd-mm-yy'
+            });
+            
+        });
+
+
+    </script>
+
+}
+

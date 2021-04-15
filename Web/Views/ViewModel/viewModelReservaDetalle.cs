@@ -51,7 +51,8 @@ namespace Web.Views.ViewModel
             return this.Precio;
         }
 
-       
+        
+
         public decimal calculoImpuesto()
         {
             return this.Precio * ((decimal)0.13);

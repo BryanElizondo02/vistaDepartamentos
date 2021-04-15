@@ -10,7 +10,7 @@ namespace Web.Views.ViewModel
     {
         int departamento;
         public List<viewModelReservaDetalle> Items { get; private set; }
-        public List<viewModelReservaServicio> ItemsServicio { get; private set; }
+
 
         public static readonly Carrito Instancia;
 
@@ -59,18 +59,7 @@ namespace Web.Views.ViewModel
             return mensaje;
         }
 
-        public void AgregarItemServicio(int servicioId)
-        {
-            // Crear un nuevo artículo para agregar al carrito
-            viewModelReservaDetalle nuevoItem = new viewModelReservaDetalle(departamento);
 
-            if (nuevoItem != null)
-            {
-                nuevoItem.asignarServicio(servicioId);
-
-            }
-           
-        }
 
         public String EliminarItem(int departamentoId)
         {
@@ -86,6 +75,8 @@ namespace Web.Views.ViewModel
             return mensaje;
 
         }
+
+        
 
         public decimal GetSubTotal()
         {

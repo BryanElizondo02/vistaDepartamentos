@@ -22,6 +22,14 @@ namespace ApplicationCore.Services
             return repository.GetReservaAdmin();
         }
 
+        public void GetReservaCountDate(out string etiquetas1, out string valores1, DateTime fecha)
+        {
+            IRepositoryReserva repository = new RepositoryReserva();
+            repository.GetReservaCountDate(out string etiquetas, out string valores, fecha); ;
+            etiquetas1 = etiquetas;
+            valores1 = valores;
+        }
+
         public RESERVA GetReservaByID(int id)
         {
             IRepositoryReserva repository = new RepositoryReserva();
@@ -38,6 +46,12 @@ namespace ApplicationCore.Services
         {
             IRepositoryReserva repository = new RepositoryReserva();
             return repository.Save(reserv, selectedServicios);
+        }
+
+        public IEnumerable<RESERVA> GetReservaEntradasSalidas(DateTime date1)
+        {
+            IRepositoryReserva repository = new RepositoryReserva();
+            return repository.GetReservaEntradasSalidas(date1);
         }
     }
 }
