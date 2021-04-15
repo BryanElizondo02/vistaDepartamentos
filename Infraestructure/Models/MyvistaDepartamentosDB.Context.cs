@@ -12,11 +12,13 @@ namespace Infraestructure.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
-    public partial class vistaDepartamentosDBEntities : DbContext
+    public partial class vistaDepartamentosDB : DbContext
     {
-        public vistaDepartamentosDBEntities()
-            : base("name=vistaDepartamentosDBEntities")
+        public vistaDepartamentosDB()
+            : base("name=vistaDepartamentosDB")
         {
         }
     
@@ -33,5 +35,14 @@ namespace Infraestructure.Models
         public virtual DbSet<TIPOPAGO> TIPOPAGO { get; set; }
         public virtual DbSet<UBICACION> UBICACION { get; set; }
         public virtual DbSet<USUARIO> USUARIO { get; set; }
+    
+        public virtual ObjectResult<usp_SELECT_fechaReserva_Result> usp_SELECT_fechaReserva(Nullable<int> dia)
+        {
+            var diaParameter = dia.HasValue ?
+                new ObjectParameter("Dia", dia) :
+                new ObjectParameter("Dia", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_SELECT_fechaReserva_Result>("usp_SELECT_fechaReserva", diaParameter);
+        }
     }
 }

@@ -102,7 +102,7 @@ namespace Web.Controllers
                 listaExtraSelect = extras.Select(e => e.Id).ToArray();
             }
 
-            return new MultiSelectList(listaExtra, "Id", "Nombre", listaExtraSelect);
+            return new MultiSelectList(listaExtra, "Id", "Descripcion", listaExtraSelect);
         }
 
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infraestructure.Models
 {
-    public class MyContext: vistaDepartamentosDBEntities
+    public class MyContext: vistaDepartamentosDB
     {
         public MyContext()
         {

@@ -16,7 +16,7 @@
             <tr>
                 <th style="padding: 20px">
                     <p>
-                        <a href="@Url.Action("CreatePdfLibroCatalogo", "Reporte")" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="PDF">
+                        <a href="@Url.Action("CreatePdfReporte", "Reporte")" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="PDF">
                             <i class="fas fa-file-download awsomeNav"></i>  Generar Reporte en PDF
                         </a>
                     </p>
@@ -30,12 +30,14 @@
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",
                             LoadingElementId = "ajaxLoader"
+                            
 
                         }))
                     {
                         <div class="row card-body text-center" align="center">
                             <div class="container col-md-8">
                                 <input name="filtro" class="form-control text-right" type="text" id="datepicker" />
+                                <input name="pdf" class="form-control text-right" type="hidden" id="getfecha" />
                                 <button type="submit" class="btn btn-info" style="margin: 5px">
                                     Buscar
                                 </button>
@@ -139,8 +141,14 @@
     <script type="text/javascript">
         $(function () {
             $("#datepicker").datepicker({
-                dateFormat: 'dd-mm-yy'
+                dateFormat: 'yy-mm-dd'
             });
+
+            $("#getfecha").datepicker({
+                dateFormat: 'yy-mm-dd'
+            });
+
+            $("#getfecha").val($("#datepicker").val());
             
         });
 

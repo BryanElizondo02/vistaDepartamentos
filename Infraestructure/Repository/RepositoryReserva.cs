@@ -191,8 +191,8 @@ namespace Infraestructure.Repository
         }
 
         public IEnumerable<RESERVA> GetReservaEntradasSalidas(DateTime date1)
-        {
-            string fecha = date1.ToString();
+        { 
+            
             List<RESERVA> lista = null;
             try
             {

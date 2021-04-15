@@ -215,6 +215,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="usp_SELECT_fechaReserva" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Dia" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="vistaDepartamentosDBModelStoreContainer">
           <EntitySet Name="DEPARTAMENTO" EntityType="Self.DEPARTAMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DEPARTAMENTODETALLE" EntityType="Self.DEPARTAMENTODETALLE" Schema="dbo" store:Type="Tables" />
@@ -436,7 +439,7 @@
           <End Role="RESERVA" Type="Self.RESERVA" Multiplicity="*" />
           <End Role="SERVICIOS" Type="Self.SERVICIOS" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="vistaDepartamentosDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="vistaDepartamentosDB" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DEPARTAMENTO" EntityType="Self.DEPARTAMENTO" />
           <EntitySet Name="EXTRA" EntityType="Self.EXTRA" />
           <EntitySet Name="RESERVA" EntityType="Self.RESERVA" />
@@ -473,13 +476,30 @@
             <End Role="RESERVA" EntitySet="RESERVA" />
             <End Role="SERVICIOS" EntitySet="SERVICIOS" />
           </AssociationSet>
+          <FunctionImport Name="usp_SELECT_fechaReserva" ReturnType="Collection(vistaDepartamentosDBModel.usp_SELECT_fechaReserva_Result)">
+            <Parameter Name="Dia" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="usp_SELECT_fechaReserva_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
+          <Property Type="DateTime" Name="FechaReserva" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="FechaFinReserva" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="IdTipoPago" Nullable="false" />
+          <Property Type="String" Name="NumeroTarjeta" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="CantPersonas" Nullable="false" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Impuesto" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Total" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Boolean" Name="Estado" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="vistaDepartamentosDBModelStoreContainer" CdmEntityContainer="vistaDepartamentosDBEntities">
+        <EntityContainerMapping StorageEntityContainer="vistaDepartamentosDBModelStoreContainer" CdmEntityContainer="vistaDepartamentosDB">
           <EntitySetMapping Name="DEPARTAMENTO">
             <EntityTypeMapping TypeName="vistaDepartamentosDBModel.DEPARTAMENTO">
               <MappingFragment StoreEntitySet="DEPARTAMENTO">
@@ -590,6 +610,24 @@
               <ScalarProperty Name="Id" ColumnName="IdServicio" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="usp_SELECT_fechaReserva" FunctionName="vistaDepartamentosDBModel.Store.usp_SELECT_fechaReserva">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="vistaDepartamentosDBModel.usp_SELECT_fechaReserva_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="FechaReserva" ColumnName="FechaReserva" />
+                <ScalarProperty Name="FechaFinReserva" ColumnName="FechaFinReserva" />
+                <ScalarProperty Name="IdTipoPago" ColumnName="IdTipoPago" />
+                <ScalarProperty Name="NumeroTarjeta" ColumnName="NumeroTarjeta" />
+                <ScalarProperty Name="CantPersonas" ColumnName="CantPersonas" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
