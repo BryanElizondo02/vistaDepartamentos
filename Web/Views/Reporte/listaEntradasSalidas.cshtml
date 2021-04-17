@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Entradas y Salidas";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 <br />
 <br />
@@ -16,9 +17,31 @@
             <tr>
                 <th style="padding: 20px">
                     <p>
-                        <a href="@Url.Action("CreatePdfReporte", "Reporte")" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="PDF">
+                        @*<a href="@Url.Action("CreatePdfReporte", "Reporte")" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="PDF">
                             <i class="fas fa-file-download awsomeNav"></i>  Generar Reporte en PDF
-                        </a>
+                        </a>*@
+   
+                        @using (Ajax.BeginForm("CreatePdfReporte", "Reporte",
+                        new AjaxOptions
+                        {
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET",
+                            LoadingElementId = "ajaxLoader"
+                        
+
+                        }))
+                        {
+                        <div class="row card-body text-center" align="center">
+                            <div class="container col-md-8">
+                                <input name="fecha" class="form-control text-right" type="hidden" id="datepickerPDF" />
+                                <button type="submit" class="btn btn-danger" style="margin: 5px">
+                                    Generar Reporte en PDF
+                                </button>
+
+                            </div>
+                        </div>
+                    }
+
                     </p>
                 </th>
                 <th style="padding: 20px">
@@ -29,15 +52,14 @@
                             UpdateTargetId = "resultado",
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",
-                            LoadingElementId = "ajaxLoader"
-                            
+                            LoadingElementId = "ajaxLoader",
+                            OnSuccess = "gatdate()"
 
                         }))
                     {
                         <div class="row card-body text-center" align="center">
                             <div class="container col-md-8">
                                 <input name="filtro" class="form-control text-right" type="text" id="datepicker" />
-                                <input name="pdf" class="form-control text-right" type="hidden" id="getfecha" />
                                 <button type="submit" class="btn btn-info" style="margin: 5px">
                                     Buscar
                                 </button>
@@ -144,14 +166,16 @@
                 dateFormat: 'yy-mm-dd'
             });
 
-            $("#getfecha").datepicker({
+            $("#datepickerPDF").datepicker({
                 dateFormat: 'yy-mm-dd'
             });
 
-            $("#getfecha").val($("#datepicker").val());
-            
         });
 
+        function gatdate() {
+            var fecha = $("#datepickerPDF");
+            fecha.val($("#datepicker").val());
+        }
 
     </script>
 

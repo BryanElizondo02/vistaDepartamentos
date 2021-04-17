@@ -35,7 +35,7 @@ namespace Web.Controllers
             {
                 ServiceReserva _serviceReserva = new ServiceReserva();
                 lista = _serviceReserva.GetReservaAdmin();
-
+                ViewBag.fecha = lista;
             }
             catch (Exception ex)
             {
@@ -60,15 +60,34 @@ namespace Web.Controllers
             else
             {
                 listaReserva = _serviceReserva.GetReservaEntradasSalidas(filtro);
-
+                ViewBag.fechaReserva = filtro;
             }
 
             return PartialView("_PartialViewReservasEntradasSalidas", listaReserva);
         }
 
+        public IEnumerable<RESERVA> buscarReservaPDF(DateTime filtro)
+        {
+
+            IEnumerable<RESERVA> listaReserva = null;
+            ServiceReserva _serviceReserva = new ServiceReserva();
+
+            if (filtro == null)
+            {
+                listaReserva = _serviceReserva.GetReservaAdmin();
+            }
+            else
+            {
+                listaReserva = _serviceReserva.GetReservaEntradasSalidas(filtro);
+
+            }
+
+            return listaReserva;
+        }
+
         // GET: Reporte/CreatePdfReporte
         [CustomAuthorize((int)Enum.Roles.Administrador, (int)Enum.Roles.Reportes)]
-        public ActionResult CreatePdfReporte(DateTime pdf)
+        public ActionResult CreatePdfReporte(DateTime fecha)
         {
             //Ejemplos IText7 https://kb.itextpdf.com/home/it7kb/examples
             IEnumerable<RESERVA> lista = null;
@@ -76,7 +95,7 @@ namespace Web.Controllers
             {
                 // Extraer informacion
                 ServiceReserva _serviceReserva = new ServiceReserva();
-                lista = _serviceReserva.GetReservaEntradasSalidas(pdf);
+                lista = _serviceReserva.GetReservaEntradasSalidas(fecha);
 
                 // Crear stream para almacenar en memoria el reporte 
                 MemoryStream ms = new MemoryStream();
@@ -95,7 +114,7 @@ namespace Web.Controllers
 
 
                 // Crear tabla con 5 columnas 
-                Table table = new Table(5, true);
+                Table table = new Table(10, true);
 
 
                 // los Encabezados
@@ -145,7 +164,7 @@ namespace Web.Controllers
                 //Close document
                 doc.Close();
                 // Retorna un File
-                return File(ms.ToArray(), "application/pdf", "reporteReserva" + DateTime.Now.ToString() + ".pdf");
+                return File(ms.ToArray(), "application/pdf", "reporte.pdf");
 
             }
             catch (Exception ex)
