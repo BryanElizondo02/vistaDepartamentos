@@ -12,6 +12,7 @@ namespace ApplicationCore.Services
         IEnumerable<SERVICIOS> GetServicio();
         IEnumerable<SERVICIOS> GetServicioActivo();
         SERVICIOS GetServicioByID(int id);
+        IEnumerable<SERVICIOS> listaServiciosEscogidos(int[] selectedServicios);
         SERVICIOS Save(SERVICIOS servicio);
         void DeleteServicio(int id);
     }

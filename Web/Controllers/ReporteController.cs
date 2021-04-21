@@ -28,6 +28,7 @@ namespace Web.Controllers
             return View();
         }
 
+        [Web.Security.CustomAuthorize((int)Enum.Roles.Administrador)]
         public ActionResult listaEntradasSalidas()
         {
             IEnumerable<RESERVA> lista = null;

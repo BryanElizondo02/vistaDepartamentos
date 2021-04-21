@@ -62,29 +62,49 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.SERVICIOS, htmlAttributes: new { @class = "control-label col-md-3" })
                     <div class="col-md-5">
-                        @using (Ajax.BeginForm("seleccionServicios", "Reserva",
-                    new AjaxOptions
-                    {
-                        UpdateTargetId = "resultado",
-                        InsertionMode = InsertionMode.Replace,
-                        HttpMethod = "GET",
-                        LoadingElementId = "ajaxLoader"
+                        @*@using (Ajax.BeginForm("listaServ", "Reserva",
+                            new
+                            {
+                                selectedServicios = Model.SERVICIOS
+                            },
+                            new AjaxOptions
+                            {
+                                UpdateTargetId = "resultadoDetalle",
+                                InsertionMode = InsertionMode.Replace,
+                                HttpMethod = "GET",
+                                LoadingElementId = "ajaxLoader"
 
-                    }))
+                            }))
                         {
                             @Html.DropDownList("selectedServicios", (MultiSelectList)ViewBag.IdServicios, new { htmlAttributes = new { @class = "form-control" }, multiple = "multiple" })
                             @Html.ValidationMessageFor(model => model.SERVICIOS, "", new { @class = "text-danger" })
-                        }
 
+                        }*@
 
+                        @Html.DropDownList("selectedServicios", (MultiSelectList)ViewBag.IdServicios, new { htmlAttributes = new { @class = "form-control" }, multiple = "multiple" })
+                        @Html.ValidationMessageFor(model => model.SERVICIOS, "", new { @class = "text-danger" })
+
+                        @Ajax.ActionLink("Agregar servicios",//Texto para el usuario
+                                                     "listaServ",//Acción a llamar
+                                                     "Reserva",
+                                                     new
+                                                     {
+                                                         selectedServicios = ViewBag.IdServicios
+                                                     },//Parámetros a enviar
+                                                     new AjaxOptions
+                                                     {
+                                                         
+                                                         InsertionMode = InsertionMode.Replace,
+                                                         HttpMethod = "GET",
+                                                     }, new { @class = "btn btn-info" }
+                                                     )
                     </div>
 
                 </div>
             </div>
+            
         </div>
-        <p>
-
-        </p>
+        
 
         <!--Linea 3-->
         <div class="row">

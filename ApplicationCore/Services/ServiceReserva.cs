@@ -22,10 +22,10 @@ namespace ApplicationCore.Services
             return repository.GetReservaAdmin();
         }
 
-        public void GetReservaCountDate(out string etiquetas1, out string valores1, DateTime fecha)
+        public void GetReservaCountDate(out string etiquetas1, out string valores1)
         {
             IRepositoryReserva repository = new RepositoryReserva();
-            repository.GetReservaCountDate(out string etiquetas, out string valores, fecha); ;
+            repository.GetReservaCountDate(out string etiquetas, out string valores); ;
             etiquetas1 = etiquetas;
             valores1 = valores;
         }

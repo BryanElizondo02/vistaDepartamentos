@@ -59,6 +59,12 @@ namespace Web.Views.ViewModel
             return mensaje;
         }
 
+        public void agregarServicio(int[] selectedServicios)
+        {
+            viewModelReservaDetalle nuevoItem = new viewModelReservaDetalle(departamento);
+            nuevoItem.asignarServicios(selectedServicios);
+
+        }
 
 
         public String EliminarItem(int departamentoId)

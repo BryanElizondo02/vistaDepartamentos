@@ -21,8 +21,24 @@ namespace Web.Views.ViewModel
 
         }
 
+        public decimal PrecioServicios
+        {
+            get
+            {
+                return calculoServicios();
+            }
+        }
+
         public virtual DEPARTAMENTO Departamento { get; set; }
-        public List<SERVICIOS> lista { get; set; }
+        public IEnumerable<SERVICIOS> lista { get; set; }
+
+        public void asignarServicios(int[] selectedServicios)
+        {
+            ServiceServicio _ServiceServicio = new ServiceServicio();
+            this.lista = _ServiceServicio.listaServiciosEscogidos(selectedServicios);
+
+        }
+        
         public decimal SubTotal
         {
             get
@@ -48,22 +64,25 @@ namespace Web.Views.ViewModel
         }
         private decimal calculoSubtotal()
         {
-            return this.Precio;
+            return this.Precio + calculoServicios();
         }
 
-        
+        private decimal calculoServicios()
+        {
+            decimal total = 0;
+            if (lista != null)
+            {
+                foreach (var item in lista)
+                {
+                    total += item.Precio;
+                }
+            }
+            return total;
+        }
 
         public decimal calculoImpuesto()
         {
             return this.Precio * ((decimal)0.13);
-        }
-
-        public void asignarServicio(int IdServicio)
-        {
-            ServiceServicio _serviceServicio = new ServiceServicio();
-            this.IdServicio = IdServicio;
-            Servicios = _serviceServicio.GetServicioByID(IdServicio);
-            lista.Add(Servicios);
         }
 
         public viewModelReservaDetalle(int IdDepartamento)

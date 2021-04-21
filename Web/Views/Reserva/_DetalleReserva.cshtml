@@ -28,47 +28,47 @@
 
         @foreach (var item in Model)
         {
-    <tr>
-        <td>
-            @Html.HiddenFor(modelItem => item.Departamento.Id)
-            @Html.DisplayFor(modelItem => item.Departamento.Nombre)
-        </td>
+            <tr>
+                <td>
+                    @Html.HiddenFor(modelItem => item.Departamento.Id)
+                    @Html.DisplayFor(modelItem => item.Departamento.Nombre)
+                </td>
 
-        <td class="left">
-            @Html.DisplayFor(modelItem => item.Servicios.Nombre)
-        </td>
+                <td class="left">
+                    @Html.DisplayFor(modelItem => item.PrecioServicios)@*calculo servicios*@
+                </td>
 
-        <td class="left">
+                <td class="left">
 
-            @Html.DisplayFor(modelItem => item.Precio)
-        </td>
+                    @Html.DisplayFor(modelItem => item.Precio)
+                </td>
 
 
-        <td class="left">
-            @Html.DisplayFor(modelItem => item.Impuesto)
-        </td>
+                <td class="left">
+                    @Html.DisplayFor(modelItem => item.Impuesto)
+                </td>
 
-        <td class="left">
-            @Html.DisplayFor(modelItem => item.SubTotal)
-        </td>
-        <td>
-            @Ajax.ActionLink("Eliminar",//Texto para el usuario
-                "eliminarListaDepartamento",//Acción a llamar
-                "Reserva",
-                new
-                {
-                    idDepartamento = item.IdDepartamento
-                },//Parámetros a enviar
-                new AjaxOptions
-                {
-                    UpdateTargetId = "resultadoDetalle",
-                    InsertionMode = InsertionMode.Replace,
-                    HttpMethod = "GET"
-                }, new { @class = "btn btn-danger" }
-                )
+                <td class="left">
+                    @Html.DisplayFor(modelItem => item.SubTotal)
+                </td>
+                <td>
+                    @Ajax.ActionLink("Eliminar",//Texto para el usuario
+                        "eliminarListaDepartamento",//Acción a llamar
+                        "Reserva",
+                        new
+                        {
+                            idDepartamento = item.IdDepartamento
+                        },//Parámetros a enviar
+                        new AjaxOptions
+                        {
+                            UpdateTargetId = "resultadoDetalle",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET"
+                        }, new { @class = "btn btn-danger" }
+                        )
 
-        </td>
-    </tr>
+                </td>
+            </tr>
         }
 
     </table>
@@ -79,7 +79,7 @@
         <table class="table table-clear">
             <tbody class="text-center">
                 <tr>
-                    
+
                     <td class="left">
                         <strong>Total: </strong>
                     </td>
@@ -92,4 +92,3 @@
 
     </div>
 </div>
-

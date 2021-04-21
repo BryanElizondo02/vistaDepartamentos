@@ -94,6 +94,7 @@ namespace Web.Controllers
             ViewBag.TipoPago = this.listTipoPago();
             ViewBag.DetalleReserva = Carrito.Instancia.Items;
             ViewBag.IdServicios = listServicio();
+
             return View();
         }
 
@@ -103,14 +104,7 @@ namespace Web.Controllers
             ServiceServicio _serviceServicio = new ServiceServicio();
             IEnumerable<SERVICIOS> listaServicio= _serviceServicio.GetServicioActivo();
        
-            if (idServicio != 0)
-            {
-                ViewBag.contratarServ = idServicio;
-            }
-            else
-            {
-                ViewBag.contratarServ = 0;
-            }
+            
 
             return new SelectList(listaServicio, "Id", "Nombre", idServicio);//List to Dropdown List
             
@@ -127,7 +121,16 @@ namespace Web.Controllers
 
         }
 
-        
+        public ActionResult calculoServicios(int[] selectedServicios)
+        {
+            if (Carrito.Instancia.Items.Count != 0)
+            {
+                Carrito.Instancia.agregarServicio(selectedServicios);
+            }
+            return RedirectToAction("Create");
+
+        }
+
         private SelectList listTipoPago(int idTipoPago = 0)
         {
             ServiceTipoPago _serviceTipoPago = new ServiceTipoPago();
@@ -146,6 +149,7 @@ namespace Web.Controllers
             if (servicios != null)
             {
                 listaServicioSelect = servicios.Select(e => e.Id).ToArray();
+                
                 ViewBag.listaseleccionados = listaServicioSelect;
                 
             }
@@ -153,8 +157,24 @@ namespace Web.Controllers
             return new MultiSelectList(listaServicio, "Id", "Nombre", listaServicioSelect);
         }
 
-        
+        private ActionResult listaServ(ICollection<SERVICIOS> servicios)
+        {
+            ServiceServicio _serviceServicios = new ServiceServicio();
+            IEnumerable<SERVICIOS> listaServicio = _serviceServicios.GetServicioActivo();
+            int[] listaServicioSelect = null;
 
+            if (servicios != null)
+            {
+                listaServicioSelect = servicios.Select(e => e.Id).ToArray();
+                Carrito.Instancia.agregarServicio(listaServicioSelect);
+
+            }
+
+
+            return RedirectToAction("Create");
+        }
+
+       
         [HttpPost]
         [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult Edit(int id)
@@ -253,6 +273,7 @@ namespace Web.Controllers
             return PartialView("_DetalleReserva", Carrito.Instancia.Items);
         }
 
+        [Web.Security.CustomAuthorize((int)Roles.Administrador)]
         public ActionResult graficoReserva()
         {
             //Documentación chartjs https://www.chartjs.org/docs/latest/
@@ -260,8 +281,7 @@ namespace Web.Controllers
             ViewModelGrafico grafico = new ViewModelGrafico();
             string etiquetas = "";
             string valores = "";
-            DateTime fecha = DateTime.Now;
-            _ServiceReserva.GetReservaCountDate(out etiquetas, out valores, fecha);
+            _ServiceReserva.GetReservaCountDate(out etiquetas, out valores);
             grafico.Etiquetas = etiquetas;
             grafico.Valores = valores;
             int cantidadValores = valores.Split(',').Length;

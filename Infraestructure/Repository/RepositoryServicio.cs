@@ -96,6 +96,42 @@ namespace Infraestructure.Repository
             }
         }
 
+        public IEnumerable<SERVICIOS> listaServiciosEscogidos(int[] selectedServicios)
+        {
+
+            try
+            {
+                IEnumerable<SERVICIOS> lista = null;
+                using (MyContext ctx = new MyContext())
+                {
+                    ctx.Configuration.LazyLoadingEnabled = false;
+                    if (selectedServicios != null)
+                    {
+                        lista = new List<SERVICIOS>();
+                        foreach (var serv in selectedServicios)
+                        {
+                            SERVICIOS servAdd = this.GetServicioByID(serv);
+                            lista.Append(servAdd);
+                        }
+                    }
+                        
+                }
+                return lista;
+            }
+            catch (DbUpdateException dbEx)
+            {
+                string mensaje = "";
+                Log.Error(dbEx, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw new Exception(mensaje);
+            }
+            catch (Exception EX)
+            {
+                string mensaje = "";
+                Log.Error(EX, System.Reflection.MethodBase.GetCurrentMethod(), ref mensaje);
+                throw;
+            }
+        }
+
         public SERVICIOS Save(SERVICIOS servicio)
         {
             int retorno = 0;

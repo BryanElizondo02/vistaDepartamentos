@@ -118,11 +118,7 @@
                             <a href="@Url.Action("Details", "Home", new { id = item.Id })" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Ver Departamento">
                                 <i class="fas fa-info-circle"></i>  Detalles
                             </a>
-                            @*<a href="@Url.Action("Create", "Reserva")" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Reservar">
-                                Reservar por <i class="text-danger price">$@Html.DisplayFor(modelItem => item.Tarifa)</i>
-                                <i class="fas fa-check-circle"></i>
-
-                            </a>*@
+                            
 
                             @Ajax.ActionLink("Agregar a Intereses",//Texto para el usuario
                                                      "ordenarDepartamento",//Acción a llamar

@@ -78,7 +78,7 @@ namespace Infraestructure.Repository
             }
         }
 
-        public void GetReservaCountDate(out string etiquetas, out string valores, DateTime fecha)
+        public void GetReservaCountDate(out string etiquetas, out string valores)
         {
             String varEtiquetas = "";
             String varValores = "";
@@ -87,7 +87,7 @@ namespace Infraestructure.Repository
                 using (MyContext ctx = new MyContext())
                 {
                     ctx.Configuration.LazyLoadingEnabled = false;
-                    var resultado = ctx.RESERVA.Where(r => r.FechaReserva == fecha || r.FechaFinReserva == fecha).
+                    var resultado = ctx.RESERVA.
                         GroupBy(x => x.FechaReserva).
                                Select(o => new {
                                    Count = o.Count(),
@@ -225,6 +225,8 @@ namespace Infraestructure.Repository
                 throw;
             }
         }
+
+         
 
         public RESERVA Save(RESERVA reserv, string [] selectedServicios)
         {

@@ -11,7 +11,7 @@ namespace Infraestructure.Repository
     {
         IEnumerable<RESERVA> GetReserva(int usuario);
         IEnumerable<RESERVA> GetReservaAdmin();
-        void GetReservaCountDate(out string etiquetas, out string valores, DateTime fecha);
+        void GetReservaCountDate(out string etiquetas, out string valores);
         RESERVA GetReservaByID(int id);
         IEnumerable<RESERVA> GetReservaEntradasSalidas(DateTime date1);
         RESERVA GetReservaByRangoFechas(DateTime date1, DateTime date2, int idDepartamento);

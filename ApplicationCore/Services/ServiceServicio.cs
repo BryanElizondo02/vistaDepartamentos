@@ -33,6 +33,11 @@ namespace ApplicationCore.Services
             return repository.GetServicioByID(id);
         }
 
+        public IEnumerable<SERVICIOS> listaServiciosEscogidos(int[] selectedServicios)
+        {
+            IRepositoryServicio repository = new RepositoryServicio();
+            return repository.listaServiciosEscogidos(selectedServicios);
+        }
         public SERVICIOS Save(SERVICIOS servicio)
         {
             IRepositoryServicio repository = new RepositoryServicio();
